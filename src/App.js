@@ -1,10 +1,13 @@
 import React from 'react'
 import './App.css'
+import { connect } from 'react-redux'
+import { initialTest } from './actions/shared'
 import { getTest } from './utils/DataAPI'
 
 class App extends React.Component {
   componentDidMount() {
-    getTest()
+    // getTest()
+    this.props.dispatch(initialTest())
   }
   render() {
     return (
@@ -17,4 +20,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default connect()(App)
