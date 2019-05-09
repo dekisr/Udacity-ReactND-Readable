@@ -1,4 +1,4 @@
-import { errorMessage } from './helpers'
+import { logError, toObject } from './helpers'
 
 const api = 'http://localhost:3001'
 
@@ -33,13 +33,31 @@ const initPOST = {
 }
 
 export const getTest = () => {
+  return Promise.all([
+    getAllPosts(), //
+    getAllCategories()
+  ]).then(([posts, categories]) => ({
+    posts,
+    categories
+  }))
+}
+
+export const getAllPosts = () => {
   return fetch(`${api}/posts`, initGET)
     .then((resp) => resp.json())
-    .then((posts) => posts)
-    .catch((err) => {
-      console.group('WHAT?')
-      const { msg, style } = errorMessage(err)
-      console.log(msg, style)
-      console.groupEnd()
+    .then((posts) => {
+      const formatted = toObject(posts, 'id')
+      return formatted
     })
+    .catch(logError())
+}
+
+export const getAllCategories = () => {
+  return fetch(`${api}/categories`, initGET)
+    .then((resp) => resp.json())
+    .then((categories) => {
+      const formatted = toObject(categories['categories'], 'name')
+      return formatted
+    })
+    .catch(logError())
 }
