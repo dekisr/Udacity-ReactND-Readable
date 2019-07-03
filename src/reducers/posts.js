@@ -4,7 +4,7 @@ export default function posts(state = {}, action) {
   switch (action.type) {
     case RECEIVE_POSTS:
       return {
-        ...state, //
+        ...state,
         ...action.posts
       }
     default:

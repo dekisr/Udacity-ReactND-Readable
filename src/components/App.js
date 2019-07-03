@@ -9,7 +9,6 @@ class App extends Component {
     this.props.dispatch(initialTest())
   }
   render() {
-    console.log(this.props)
     return (
       <div className="App">
         <header className="App-header">READABLE</header>

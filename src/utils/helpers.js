@@ -2,7 +2,7 @@ export const logError = () => {
   return (err) => {
     console.group('WHAT?')
     const { msg, style } = errorMessage(err)
-    console.log(msg, style)
+    console.error(msg, style)
     console.groupEnd()
   }
 }

@@ -12,7 +12,6 @@ const headers = {
 }
 const initGET = {
   method: 'GET',
-  mode: 'cors',
   headers
 }
 const initPUT = {
@@ -34,7 +33,7 @@ const initPOST = {
 
 export const getTest = () => {
   return Promise.all([
-    getAllPosts(), //
+    getAllPosts(),
     getAllCategories()
   ]).then(([posts, categories]) => ({
     posts,
