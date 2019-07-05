@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './App.css'
 import { connect } from 'react-redux'
 import { initialTest } from '../actions/shared'
 import Dashboard from './Dashboard'
+import './App.css'
 
 class App extends Component {
   componentDidMount() {

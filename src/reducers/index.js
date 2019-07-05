@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 import posts from './posts'
 import categories from './categories'
 
-export default combineReducers({
+const reducer = combineReducers({
   posts,
   categories
 })
+
+export default reducer

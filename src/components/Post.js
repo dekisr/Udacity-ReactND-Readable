@@ -6,9 +6,17 @@ class Post extends Component {
     const { post } = this.props
     return (
       <Fragment>
-        <h3>{post.title}</h3>
-        <h5>{post.author}</h5>
-        <p>{post.body}</p>
+        <h3>Title: {post.title}</h3>
+        <p>
+          Author: {post.author} <br/>
+          Timestamp: {post.timestamp} <br/>
+          Category: {post.category} <br/>
+          Body: {post.body} <br/>
+          Comment Count: {post.commentCount} <br/>
+          Deleted: {post.deleted} <br/>
+          Id: {post.id} <br/>
+          Vote Score: {post.voteScore} <br/>
+        </p>
       </Fragment>
     )
   }
