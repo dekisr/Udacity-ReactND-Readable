@@ -66,15 +66,10 @@ export const getAllCategories = () => {
 export const getAllComments = async () => {
   let allComments
   const postIds = await getAllPosts().then((posts) => Object.keys(posts))
-  const comments = postIds.map((id) => {
-    const commentsByPost = getCommentsByPost(id).then((resp) => {
-      return resp
-    })
-    return commentsByPost
-  })
+  const comments = postIds.map((id) =>  getCommentsByPost(id))
   return Promise.all(comments).then((resp) => {
-    resp.map((item) => {
-      return (allComments = { ...allComments, ...item })
+    resp.map((comment) => {
+      return (allComments = { ...allComments, ...comment })
     })
     return allComments
   })
