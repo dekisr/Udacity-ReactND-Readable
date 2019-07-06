@@ -8,7 +8,7 @@ class Category extends Component {
   }
 }
 
-function mapStateToProps({ categories }, { name }) {
+const mapStateToProps = ({ categories }, { name }) => {
   const category = categories[name]
   return {
     category

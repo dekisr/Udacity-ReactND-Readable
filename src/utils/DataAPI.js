@@ -31,7 +31,7 @@ const initPOST = {
   }
 }
 
-export const getTest = () => {
+export const getInitialData = () => {
   return Promise.all([
     getAllPosts(),
     getAllCategories(),

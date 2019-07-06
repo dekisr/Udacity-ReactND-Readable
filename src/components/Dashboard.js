@@ -25,7 +25,7 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ posts, categories, comments }) {
+const mapStateToProps = ({ posts, categories, comments }) => {
   return {
     postIds: Object.keys(posts).sort(
       (a, b) => posts[b].timestamp - posts[a].timestamp
