@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Categories extends Component {
+class Category extends Component {
   render() {
     const { category } = this.props
     return <span>[{category.name}]</span>
@@ -15,4 +15,4 @@ function mapStateToProps({ categories }, { name }) {
   }
 }
 
-export default connect(mapStateToProps)(Categories)
+export default connect(mapStateToProps)(Category)

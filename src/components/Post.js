@@ -8,24 +8,24 @@ class Post extends Component {
       <Fragment>
         <h3>Title: {post.title}</h3>
         <p>
-          Author: {post.author} <br/>
-          Timestamp: {post.timestamp} <br/>
-          Category: {post.category} <br/>
-          Body: {post.body} <br/>
-          Comment Count: {post.commentCount} <br/>
-          Deleted: {post.deleted} <br/>
-          Id: {post.id} <br/>
-          Vote Score: {post.voteScore} <br/>
+          Author: {post.author} <br />
+          Timestamp: {post.timestamp} <br />
+          Category: {post.category} <br />
+          Body: {post.body} <br />
+          Comment Count: {post.commentCount} <br />
+          Deleted: {post.deleted.toString()} <br />
+          Id: {post.id} <br />
+          Vote Score: {post.voteScore} <br />
         </p>
       </Fragment>
     )
   }
 }
 
-function mapStateToProps({ posts }, { id }) {
-  const post =  posts[id]
+const mapStateToProps = ({ posts }, { id }) => {
+  const post = posts[id]
   return {
-    post: post
+    post
   }
 }
 

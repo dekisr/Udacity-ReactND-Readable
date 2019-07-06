@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import Categories from './Categories'
+import Category from './Category'
+import Comment from './Comment'
 
 class Dashboard extends Component {
   render() {
@@ -13,14 +14,18 @@ class Dashboard extends Component {
         ))}
         <h1>Categories</h1>
         {this.props.categoriesNames.map((name) => (
-          <Categories key={name} name={name} />
+          <Category key={name} name={name} />
+        ))}
+        <h1>Comments</h1>
+        {this.props.commentsIds.map((id) => (
+          <Comment key={id} id={id} />
         ))}
       </div>
     )
   }
 }
 
-function mapStateToProps({ posts, categories }) {
+function mapStateToProps({ posts, categories, comments }) {
   return {
     postIds: Object.keys(posts).sort(
       (a, b) => posts[b].timestamp - posts[a].timestamp
@@ -31,7 +36,8 @@ function mapStateToProps({ posts, categories }) {
       if (nameA < nameB) return -1
       if (nameA > nameB) return 1
       return 0
-    })
+    }),
+    commentsIds: Object.keys(comments)
   }
 }
 

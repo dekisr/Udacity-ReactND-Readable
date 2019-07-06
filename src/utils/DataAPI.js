@@ -34,10 +34,12 @@ const initPOST = {
 export const getTest = () => {
   return Promise.all([
     getAllPosts(),
-    getAllCategories()
-  ]).then(([posts, categories]) => ({
+    getAllCategories(),
+    getAllComments()
+  ]).then(([posts, categories, comments]) => ({
     posts,
-    categories
+    categories,
+    comments
   }))
 }
 
@@ -56,6 +58,34 @@ export const getAllCategories = () => {
     .then((resp) => resp.json())
     .then((categories) => {
       const formatted = toObject(categories['categories'], 'name')
+      return formatted
+    })
+    .catch(logError())
+}
+
+export const getAllComments = async () => {
+  let allComments
+  const postIds = await getAllPosts().then((posts) => Object.keys(posts))
+  const comments = postIds.map((id) => {
+    const commentsByPost = getCommentsByPost(id).then((resp) => {
+      return resp
+    })
+    return commentsByPost
+  })
+  return Promise.all(comments).then((resp) => {
+    resp.map((item) => {
+      return (allComments = { ...allComments, ...item })
+    })
+    return allComments
+  })
+  .catch(logError())
+}
+
+export const getCommentsByPost = (id) => {
+  return fetch(`${api}/posts/${id}/comments`, initGET)
+    .then((resp) => resp.json())
+    .then((comments) => {
+      const formatted = toObject(comments, 'id')
       return formatted
     })
     .catch(logError())
