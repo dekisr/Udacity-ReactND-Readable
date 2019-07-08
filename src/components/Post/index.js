@@ -1,12 +1,13 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import StyledPost from './styles'
 
 class Post extends Component {
   render() {
     const { post } = this.props
     return (
-      <Fragment>
-        <h3>Title: {post.title}</h3>
+      <StyledPost>
+        <StyledPost.Title>Title: {post.title}</StyledPost.Title>
         <p>
           Author: {post.author} <br />
           Timestamp: {post.timestamp} <br />
@@ -17,7 +18,7 @@ class Post extends Component {
           Id: {post.id} <br />
           Vote Score: {post.voteScore} <br />
         </p>
-      </Fragment>
+      </StyledPost>
     )
   }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Post from './Post'
-import Category from './Category'
-import Comment from './Comment'
+import Post from '../Post'
+import Category from '../Category'
+import Comment from '../Comment'
 
 class Dashboard extends Component {
   render() {
