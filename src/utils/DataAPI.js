@@ -2,13 +2,13 @@ import { logError, toObject } from './helpers'
 
 const api = 'http://localhost:3001'
 
-let token = Math.random()
-  .toString(36)
-  .substr(-8)
+// let token = Math.random()
+//   .toString(36)
+//   .substr(-8)
 
 const headers = {
   Accept: 'application/json',
-  Authorization: token
+  Authorization: 'Bulbasaur'
 }
 const initGET = {
   method: 'GET',
@@ -24,7 +24,6 @@ const initPUT = {
 }
 const initPOST = {
   method: 'POST',
-  mode: 'cors',
   headers: {
     ...headers,
     'Content-Type': 'application/json'
@@ -43,6 +42,8 @@ export const getInitialData = () => {
   }))
 }
 
+// POSTS
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 export const getAllPosts = () => {
   return fetch(`${api}/posts`, initGET)
     .then((resp) => resp.json())
@@ -52,7 +53,16 @@ export const getAllPosts = () => {
     })
     .catch(logError())
 }
+export const updatePostScore = ({ id, option }) => {
+  return fetch(`${api}/posts/${id}`, {
+    ...initPOST,
+    body: JSON.stringify({ option })
+  })
+    .then((resp) => resp.json())
+    .then((post) => ({ id: post.id, voteScore: post.voteScore }))
+}
 
+// CATEGORIES
 export const getAllCategories = () => {
   return fetch(`${api}/categories`, initGET)
     .then((resp) => resp.json())
@@ -62,18 +72,19 @@ export const getAllCategories = () => {
     })
     .catch(logError())
 }
-
+// COMMENTS
 export const getAllComments = async () => {
   let allComments
   const postIds = await getAllPosts().then((posts) => Object.keys(posts))
-  const comments = postIds.map((id) =>  getCommentsByPost(id))
-  return Promise.all(comments).then((resp) => {
-    resp.map((comment) => {
-      return (allComments = { ...allComments, ...comment })
+  const comments = postIds.map((id) => getCommentsByPost(id))
+  return Promise.all(comments)
+    .then((resp) => {
+      resp.map((comment) => {
+        return (allComments = { ...allComments, ...comment })
+      })
+      return allComments
     })
-    return allComments
-  })
-  .catch(logError())
+    .catch(logError())
 }
 
 export const getCommentsByPost = (id) => {

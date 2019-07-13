@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleVotePost } from '../../actions/posts'
 import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
 
+
 class Post extends Component {
+  postScoreModifier = (id, option) => {
+    const { dispatch } = this.props
+    return dispatch(handleVotePost({id,option}))
+  }
   render() {
     const { post } = this.props
     return (
@@ -15,9 +21,9 @@ class Post extends Component {
           <StyledPost.Info.Date>{formatToTime(post.timestamp)}</StyledPost.Info.Date>
           <StyledPost.Info.CommentCount>{post.commentCount}</StyledPost.Info.CommentCount>
           <StyledPost.Info.VoteScore>
-            <button>VOTE UP</button>
+            <button onClick={() => this.postScoreModifier(post.id, 'upVote')}>VOTE UP</button>
             {post.voteScore}
-            <button>VOTE DOWN</button>
+            <button onClick={() => this.postScoreModifier(post.id, 'downVote')}>VOTE DOWN</button>
           </StyledPost.Info.VoteScore>
         </StyledPost.Info>
         <StyledPost.Title>Title: {post.title}</StyledPost.Title>
