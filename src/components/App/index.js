@@ -4,6 +4,8 @@ import { handleInitialData } from '../../actions/shared'
 import Dashboard from '../Dashboard'
 import './App.css'
 
+import uuid from 'uuid'
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
@@ -11,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">READABLE</header>
+        <header className="App-header">READABLE / {uuid.v1()}</header>
         <Dashboard />
       </div>
     )

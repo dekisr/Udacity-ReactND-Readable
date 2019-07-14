@@ -42,6 +42,7 @@ export const getInitialData = () => {
   }))
 }
 
+
 // POSTS
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 export const getAllPosts = () => {
@@ -60,7 +61,9 @@ export const updatePostScore = ({ id, option }) => {
   })
     .then((resp) => resp.json())
     .then((post) => ({ id: post.id, voteScore: post.voteScore }))
+    .catch(logError())
 }
+
 
 // CATEGORIES
 export const getAllCategories = () => {
@@ -72,6 +75,8 @@ export const getAllCategories = () => {
     })
     .catch(logError())
 }
+
+
 // COMMENTS
 export const getAllComments = async () => {
   let allComments

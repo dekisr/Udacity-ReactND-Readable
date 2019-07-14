@@ -1,3 +1,5 @@
+import users from './users'
+
 export const logError = () => {
   return (err) => {
     console.group('WHAT?')
@@ -40,4 +42,11 @@ export const formatToTime = (timestamp) => {
     second: '2-digit',
     timeZoneName: 'short'
   }).format(timestamp)
+}
+
+// USERS
+export const getRandomUser = () => {
+  const name = users[Math.floor(Math.random()*users.length)]
+  localStorage.setItem('name', name)
+  return name
 }

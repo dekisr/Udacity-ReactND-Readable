@@ -5,11 +5,16 @@ const StyledPost = styled.article`
   grid-gap: 5px;
   grid-template-columns: 150px 1fr;
   grid-template-rows: auto 1fr;
-  width: 50%;
+  width: 80%;
   padding: 0.5rem;
-  margin: 1rem auto;
-  border: 1px solid #333;
+  margin: 2rem auto;
+  /* border: 1px solid #333; */
+  /* border-radius: 0.1rem; */
   background: snow;
+  box-shadow:
+    /* 0 0 0.5rem 0.5rem hsla(200, 100%, 60%, 0.3), */
+    0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+    0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8);
 `
 const Info = styled.ul`
   grid-row: 1 / span 2;
@@ -25,12 +30,12 @@ const InfoItem = styled.li`
   }
 `
 const Category = styled(InfoItem)`
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
 `
 const Author = styled(InfoItem)`
   ::before {
-    content: 'by: '
+    content: 'by: ';
   }
   font-size: 0.8rem;
   font-weight: normal;
@@ -41,29 +46,29 @@ const Date = styled(InfoItem)`
 `
 const CommentCount = styled(InfoItem)`
   ::before {
-    content: 'comments: '
+    content: 'comments: ';
   }
   font-weight: bold;
 `
 const VoteScore = styled(InfoItem)`
   display: grid;
   justify-items: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   button {
     display: block;
   }
 `
 const Title = styled.div`
-  background-color: palevioletred;
+  /* background-color: honeydew; */
   font-size: 1.5rem;
   text-align: center;
-  color: wheat;
+  color: gray;
 `
 const Body = styled.div`
   align-self: strech;
-  background-color: crimson;
-  color: aliceblue;
+  /* background-color: navajowhite; */
+  color: grey;
 `
 
 StyledPost.Title = Title
