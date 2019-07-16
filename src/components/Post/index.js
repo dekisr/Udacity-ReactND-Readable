@@ -13,7 +13,7 @@ class Post extends Component {
   render() {
     const { post } = this.props
     return (
-      <StyledPost>
+      <StyledPost category={post.category}>
         <StyledPost.Info>
           <StyledPost.Info.Category>{post.category}</StyledPost.Info.Category>
           <StyledPost.Info.Author><span>{post.author}</span></StyledPost.Info.Author>

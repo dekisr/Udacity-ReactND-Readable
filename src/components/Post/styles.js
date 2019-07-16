@@ -11,10 +11,25 @@ const StyledPost = styled.article`
   /* border: 1px solid #333; */
   /* border-radius: 0.1rem; */
   background: snow;
-  box-shadow:
-    /* 0 0 0.5rem 0.5rem hsla(200, 100%, 60%, 0.3), */
+  box-shadow: ${({category}) =>
+    category === 'red' ?
+    `
+      0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+      0 0.1rem 0 0.5rem hsla(10, 100%, 50%, 0.8)
+    ` :
+    category === 'blue' ?
+    `
+      0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+      0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8)
+    ` :
+    `
+      0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+      0 0.1rem 0 0.5rem hsla(40, 100%, 50%, 0.8)
+    `
+  };
+  /* box-shadow:
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-    0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8);
+    0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8); */
 `
 const Info = styled.ul`
   grid-row: 1 / span 2;
