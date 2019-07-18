@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../../actions/shared'
+import Header from '../Header'
 import Dashboard from '../Dashboard'
-import './App.css'
-
-import uuid from 'uuid'
 
 class App extends Component {
   componentDidMount() {
@@ -12,10 +10,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">READABLE / {uuid.v1()}</header>
+      <Fragment>
+        <Header />
         <Dashboard />
-      </div>
+      </Fragment>
     )
   }
 }

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 html {
@@ -21,4 +22,22 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.paletteTest {
+  color: hsl(5, 65%, 25%);
+  color: hsl(5, 55%, 40%);
+  color: hsl(5, 55%, 55%);
+  color: hsl(5, 70%, 70%);
+  color: hsl(5, 100%, 80%);
+  color: hsl(200, 65%, 25%);
+  color: hsl(200, 55%, 40%);
+  color: hsl(200, 55%, 55%);
+  color: hsl(200, 70%, 70%);
+  color: hsl(200, 100%, 80%);
+  color: hsl(50, 100%, 15%);
+  color: hsl(50, 100%, 35%);
+  color: hsl(50, 85%, 55%);
+  color: hsl(50, 100%, 80%);
+  color: hsl(50, 80%, 90%);
 }

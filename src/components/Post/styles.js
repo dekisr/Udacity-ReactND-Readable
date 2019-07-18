@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { colors } from '../../utils/globalStyles'
 
 const StyledPost = styled.article`
   display: grid;
@@ -8,23 +9,21 @@ const StyledPost = styled.article`
   width: 80%;
   padding: 0.5rem;
   margin: 2rem auto;
-  /* border: 1px solid #333; */
-  /* border-radius: 0.1rem; */
   background: snow;
   box-shadow: ${({category}) =>
     category === 'red' ?
     `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem hsla(10, 100%, 50%, 0.8)
+      0 0.1rem 0 0.5rem ${colors.red.three}
     ` :
     category === 'blue' ?
     `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8)
+      0 0.1rem 0 0.5rem ${colors.blue.three}
     ` :
     `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem hsla(40, 100%, 50%, 0.8)
+      0 0.1rem 0 0.5rem ${colors.yellow.three}
     `
   };
   /* box-shadow:
