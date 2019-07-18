@@ -45,7 +45,6 @@ const Info = styled.ul`
   font-size: 0.7rem;
 `
 const InfoItem = styled.li`
-  padding: 0.3rem;
   span {
     font-weight: bold;
   }
@@ -85,7 +84,8 @@ const VoteScore = styled(InfoItem)`
   font-weight: bold;
   button {
     display: block;
-    background-color: gray;
+    background: none;
+    border: none;
   }
 `
 const Title = styled.div`
