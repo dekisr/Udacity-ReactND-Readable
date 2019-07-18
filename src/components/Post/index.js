@@ -14,8 +14,9 @@ class Post extends Component {
     const { post } = this.props
     return (
       <StyledPost category={post.category}>
-        <StyledPost.Info>
+        <StyledPost.Info category={post.category}>
           <StyledPost.Info.Category>{post.category}</StyledPost.Info.Category>
+          <StyledPost.Avatar author={post.author} />
           <StyledPost.Info.Author><span>{post.author}</span></StyledPost.Info.Author>
           <StyledPost.Info.Date>{formatToDate(post.timestamp)}</StyledPost.Info.Date>
           <StyledPost.Info.Date>{formatToTime(post.timestamp)}</StyledPost.Info.Date>

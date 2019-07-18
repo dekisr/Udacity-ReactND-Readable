@@ -3,11 +3,11 @@ import { colors } from '../../utils/globalStyles'
 
 const StyledPost = styled.article`
   display: grid;
-  grid-gap: 5px;
+  grid-gap: 1rem;
   grid-template-columns: 150px 1fr;
   grid-template-rows: auto 1fr;
-  width: 80%;
-  padding: 0.5rem;
+  width: 70%;
+  padding: 1rem;
   margin: 2rem auto;
   background: snow;
   box-shadow: ${({category}) =>
@@ -33,9 +33,16 @@ const StyledPost = styled.article`
 const Info = styled.ul`
   grid-row: 1 / span 2;
   align-self: stretch;
+  padding: 0.5rem;
   list-style: none;
-  background-color: aliceblue;
-  font-size: 0.8rem;
+  background-color: ${({category}) =>
+    category === 'red' ?
+    `${colors.red.fivea}` :
+    category === 'blue' ?
+    `${colors.blue.fivea}` :
+    `${colors.yellow.fivea}`
+  };
+  font-size: 0.7rem;
 `
 const InfoItem = styled.li`
   padding: 0.3rem;
@@ -44,8 +51,16 @@ const InfoItem = styled.li`
   }
 `
 const Category = styled(InfoItem)`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
+`
+const Avatar = styled(InfoItem)`
+  width: 100%;
+  height: 1rem;
+  margin: auto;
+  background-color: ${({author}) => author};
+  border: 1px solid gray;
+  border-radius: 0;
 `
 const Author = styled(InfoItem)`
   ::before {
@@ -56,7 +71,6 @@ const Author = styled(InfoItem)`
 `
 const Date = styled(InfoItem)`
   padding: 0.1rem;
-  font-size: 0.8rem;
 `
 const CommentCount = styled(InfoItem)`
   ::before {
@@ -71,22 +85,23 @@ const VoteScore = styled(InfoItem)`
   font-weight: bold;
   button {
     display: block;
+    background-color: gray;
   }
 `
 const Title = styled.div`
-  /* background-color: honeydew; */
   font-size: 1.5rem;
   text-align: center;
   color: gray;
 `
 const Body = styled.div`
   align-self: strech;
-  /* background-color: navajowhite; */
+  text-align: left;
   color: grey;
 `
 
 StyledPost.Title = Title
 StyledPost.Info = Info
+StyledPost.Avatar = Avatar
 StyledPost.Info.Category = Category
 StyledPost.Info.Author = Author
 StyledPost.Info.Date = Date
