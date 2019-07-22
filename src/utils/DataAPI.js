@@ -8,7 +8,7 @@ const api = 'http://localhost:3001'
 
 const headers = {
   Accept: 'application/json',
-  Authorization: 'Bulbasaur'
+  Authorization: 'Charizard'
 }
 const initGET = {
   method: 'GET',
@@ -63,7 +63,18 @@ export const updatePostScore = ({ id, option }) => {
     .then((post) => ({ id: post.id, voteScore: post.voteScore }))
     .catch(logError())
 }
-
+export const addNewPost = (post) => {
+  return fetch(`${api}/posts`, {
+    ...initPOST,
+    body: JSON.stringify({...post})
+  })
+  .then((resp) => resp.json())
+  .then((what) => {
+    console.log('WHAT', what)
+    return what
+  })
+  .catch(err => console.log('bah', err))
+}
 
 // CATEGORIES
 export const getAllCategories = () => {

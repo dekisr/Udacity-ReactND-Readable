@@ -10,22 +10,21 @@ const StyledPost = styled.article`
   padding: 1rem;
   margin: 2rem auto;
   background: snow;
-  box-shadow: ${({category}) =>
-    category === 'red' ?
-    `
+  box-shadow: ${({ category }) =>
+    category === 'red'
+      ? `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem ${colors.red.three}
-    ` :
-    category === 'blue' ?
+      0 0 0 0.5rem ${colors.red.three}
     `
+      : category === 'blue'
+      ? `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem ${colors.blue.three}
-    ` :
+      0 0 0 0.5rem ${colors.blue.three}
     `
+      : `
       0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0.1rem 0 0.5rem ${colors.yellow.three}
-    `
-  };
+      0 0 0 0.5rem ${colors.yellow.three}
+    `};
   /* box-shadow:
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
     0 0.1rem 0 0.5rem hsla(190, 100%, 50%, 0.8); */
@@ -35,18 +34,21 @@ const Info = styled.ul`
   align-self: stretch;
   padding: 0.5rem;
   list-style: none;
-  background-color: ${({category}) =>
-    category === 'red' ?
-    `${colors.red.fivea}` :
-    category === 'blue' ?
-    `${colors.blue.fivea}` :
-    `${colors.yellow.fivea}`
-  };
+  background-color: ${({ category }) =>
+    category === 'red'
+      ? `${colors.red.fivea}`
+      : category === 'blue'
+      ? `${colors.blue.fivea}`
+      : `${colors.yellow.fivea}`};
   font-size: 0.7rem;
 `
 const InfoItem = styled.li`
+  margin-bottom: 0.5rem;
   span {
     font-weight: bold;
+  }
+  &:last-of-type {
+    margin-bottom: 0;
   }
 `
 const Category = styled(InfoItem)`
@@ -56,8 +58,9 @@ const Category = styled(InfoItem)`
 const Avatar = styled(InfoItem)`
   width: 100%;
   height: 1rem;
-  margin: auto;
-  background-color: ${({author}) => author};
+  margin-left: auto;
+  margin-right: auto;
+  background-color: ${({ author }) => author};
   border: 1px solid gray;
   border-radius: 0;
 `
@@ -86,6 +89,7 @@ const VoteScore = styled(InfoItem)`
     display: block;
     background: none;
     border: none;
+    color: red;
   }
 `
 const Title = styled.div`

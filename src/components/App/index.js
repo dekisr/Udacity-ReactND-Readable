@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../../actions/shared'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
+import NewPost from '../NewPost'
 
 class App extends Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
+        <NewPost />
         <Dashboard />
       </Fragment>
     )

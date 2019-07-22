@@ -1,8 +1,8 @@
-import { getInitialData } from '../utils/DataAPI'
-import { setCurrentUser } from './currentUser'
 import { receivePosts } from './posts'
 import { receiveCategories } from './categories'
 import { receiveComments } from './comments'
+import { getInitialData } from '../utils/DataAPI'
+import { setCurrentUser } from './currentUser'
 import { getRandomUser } from '../utils/helpers'
 
 const name = localStorage.getItem('name') || getRandomUser()

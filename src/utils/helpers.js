@@ -23,6 +23,16 @@ export const toObject = (array, key) => {
   return obj
 }
 
+export const sortCategories = (object) => {
+  return Object.keys(object).sort((a, b) => {
+    const nameA = object[a].name.toUpperCase()
+    const nameB = object[b].name.toUpperCase()
+    if (nameA < nameB) return -1
+    if (nameA > nameB) return 1
+    return 0
+  })
+}
+
 export const formatToDate = (timestamp) => {
   return new Intl.DateTimeFormat('en-US', {
     // era: 'long',

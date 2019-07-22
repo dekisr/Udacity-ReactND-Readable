@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Post from '../Post'
 import Category from '../Category'
 import Comment from '../Comment'
+import { sortCategories } from '../../utils/helpers'
 
 class Dashboard extends Component {
   render() {
@@ -30,13 +31,7 @@ const mapStateToProps = ({ posts, categories, comments }) => {
     postIds: Object.keys(posts).sort(
       (a, b) => posts[b].timestamp - posts[a].timestamp
     ),
-    categoriesNames: Object.keys(categories).sort((a, b) => {
-      const nameA = categories[a].name.toUpperCase()
-      const nameB = categories[b].name.toUpperCase()
-      if (nameA < nameB) return -1
-      if (nameA > nameB) return 1
-      return 0
-    }),
+    categoriesNames: sortCategories(categories),
     commentsIds: Object.keys(comments)
   }
 }
