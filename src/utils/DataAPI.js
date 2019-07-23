@@ -8,7 +8,7 @@ const api = 'http://localhost:3001'
 
 const headers = {
   Accept: 'application/json',
-  Authorization: 'Charizard'
+  Authorization: 'Squirtle'
 }
 const initGET = {
   method: 'GET',
@@ -69,11 +69,8 @@ export const addNewPost = (post) => {
     body: JSON.stringify({...post})
   })
   .then((resp) => resp.json())
-  .then((what) => {
-    console.log('WHAT', what)
-    return what
-  })
-  .catch(err => console.log('bah', err))
+  .then((post) => post)
+  .catch(logError())
 }
 
 // CATEGORIES
