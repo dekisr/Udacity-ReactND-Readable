@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
+import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   display: grid;
@@ -23,12 +24,16 @@ const Menu = styled.nav`
   align-content: center;
   color: palegreen;
 `
-const MenuItem = styled.div`
+const MenuItem = styled(Link)`
   color: royalblue;
+`
+const MenuButton = styled.button`
+  border: none;
 `
 
 StyledHeader.Logo = Logo
 StyledHeader.Menu = Menu
 StyledHeader.MenuItem = MenuItem
+StyledHeader.MenuButton = MenuButton
 
 export default StyledHeader

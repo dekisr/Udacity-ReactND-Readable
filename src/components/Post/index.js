@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { handleVotePost } from '../../actions/posts'
 import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
-import Oction, { ChevronUp, ChevronDown, ArrowUp, TriangleUp } from '@primer/octicons-react'
+import Oction, {
+  ChevronUp,
+  ChevronDown,
+  ArrowUp,
+  TriangleUp
+} from '@primer/octicons-react'
 
 class Post extends Component {
   postScoreModifier = (id, option) => {
@@ -12,7 +17,9 @@ class Post extends Component {
   }
   render() {
     const { post } = this.props
-    return (
+    return !post ? (
+      <h1>NOOOOO</h1>
+    ) : (
       <StyledPost category={post.category}>
         <StyledPost.Info category={post.category}>
           <StyledPost.Info.Category>{post.category}</StyledPost.Info.Category>
@@ -57,7 +64,7 @@ class Post extends Component {
 }
 
 const mapStateToProps = ({ posts }, { id }) => {
-  const post = posts[id]
+  const post = posts[id] || null
   return {
     post
   }

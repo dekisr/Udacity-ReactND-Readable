@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { handleNewPost } from '../../actions/posts'
 import { sortCategories } from '../../utils/helpers'
 import uuid from 'uuid'
@@ -16,16 +17,27 @@ const initialState = {
 }
 
 class NewPost extends Component {
-  state = { ...initialState }
+  state = {
+    ...initialState,
+    toHome: false
+  }
 
   validateForm = () => {
     const {
-      category, title, body,
-      categoryError, titleError, bodyError
+      category,
+      title,
+      body,
+      categoryError,
+      titleError,
+      bodyError
     } = this.state
 
-    category !== 'none' && title && body &&
-    !categoryError && !titleError && !bodyError
+    category !== 'none' &&
+    title &&
+    body &&
+    !categoryError &&
+    !titleError &&
+    !bodyError
       ? this.setState({ valid: true })
       : this.setState({ valid: false })
   }
@@ -67,11 +79,16 @@ class NewPost extends Component {
       category: this.state.category
     }
     this.props.dispatch(handleNewPost(post))
-    this.setState({...initialState})
+    this.setState({
+      ...initialState,
+      toHome: true
+    })
   }
   render() {
-    const { categoryError, titleError, bodyError, valid } = this.state
-    return (
+    const { categoryError, titleError, bodyError, valid, toHome } = this.state
+    return toHome ? (
+      <Redirect to="/" />
+    ) : (
       <StyledNewPost>
         <h1>New Post</h1>
         <StyledNewPost.Form noValidate onSubmit={this.handleSubmit}>
@@ -85,7 +102,9 @@ class NewPost extends Component {
               Select a category
             </option>
             {this.props.categories.map((category) => (
-              <option value={category}>{category}</option>
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </select>
           {categoryError && <div>{categoryError}</div>}

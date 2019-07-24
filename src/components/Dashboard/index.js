@@ -7,20 +7,21 @@ import { sortCategories } from '../../utils/helpers'
 
 class Dashboard extends Component {
   render() {
+    const { postIds } = this.props
     return (
       <div>
         <h1>Posts</h1>
-        {this.props.postIds.map((id) => (
+        {postIds.map((id) => (
           <Post key={id} id={id} />
         ))}
-        <h1>Categories</h1>
+        {/* <h1>Categories</h1>
         {this.props.categoriesNames.map((name) => (
           <Category key={name} name={name} />
         ))}
         <h1>Comments</h1>
         {this.props.commentsIds.map((id) => (
           <Comment key={id} id={id} />
-        ))}
+        ))} */}
       </div>
     )
   }

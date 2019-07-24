@@ -56,7 +56,7 @@ export const formatToTime = (timestamp) => {
 
 // USERS
 export const getRandomUser = () => {
-  const name = users[Math.floor(Math.random()*users.length)]
-  localStorage.setItem('name', name)
-  return name
+  const userName = users[Math.floor(Math.random()*users.length)]
+  localStorage.setItem('userName', userName)
+  return userName
 }

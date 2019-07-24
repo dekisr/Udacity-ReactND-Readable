@@ -1,21 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import uuid from 'uuid'
+import { setCurrentUser } from '../../actions/currentUser'
+import { getRandomUser } from '../../utils/helpers'
 import StyledHeader from './styles'
 
-const Header = ({ currentUser }) => {
-  return (
-    <StyledHeader>
-      <StyledHeader.Logo>READABLE</StyledHeader.Logo>
-      <StyledHeader.Menu>
-        {/* <StyledHeader.MenuItem>{uuid.v1()}</StyledHeader.MenuItem> */}
-        <StyledHeader.MenuItem>Home</StyledHeader.MenuItem>
-        <StyledHeader.MenuItem>Change User</StyledHeader.MenuItem>
-        <StyledHeader.MenuItem>New post</StyledHeader.MenuItem>
-      </StyledHeader.Menu>
-      <div>{currentUser}</div>
-    </StyledHeader>
-  )
+class Header extends Component {
+  handleUser = () => {
+    const { dispatch, currentUser } = this.props
+    let userName = getRandomUser()
+    currentUser === userName
+      ? (userName = getRandomUser())
+      : dispatch(setCurrentUser(userName))
+  }
+
+  render() {
+    const { currentUser } = this.props
+    return (
+      <StyledHeader>
+        <StyledHeader.Logo>READABLE</StyledHeader.Logo>
+        <StyledHeader.Menu>
+          {/* <StyledHeader.MenuItem>{uuid.v1()}</StyledHeader.MenuItem> */}
+          <StyledHeader.MenuItem to="/">Home</StyledHeader.MenuItem>
+          <StyledHeader.MenuButton onClick={this.handleUser}>
+            Change User
+          </StyledHeader.MenuButton>
+          <StyledHeader.MenuItem to="/post/new">New post</StyledHeader.MenuItem>
+        </StyledHeader.Menu>
+        <div>{currentUser}</div>
+      </StyledHeader>
+    )
+  }
 }
 
 const mapStateToProps = ({ currentUser }) => {
