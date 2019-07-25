@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { handleVotePost } from '../../actions/posts'
 import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
@@ -21,43 +22,44 @@ class Post extends Component {
       <h1>NOOOOO</h1>
     ) : (
       <StyledPost category={post.category}>
+        <StyledPost.VoteScore>
+          <button onClick={() => this.postScoreModifier(post.id, 'upVote')}>
+            <Oction
+              icon={ChevronUp}
+              size="medium"
+              verticalAlign="middle"
+              ariaLabel="Vote Up"
+            />
+          </button>
+          {post.voteScore}
+          <button onClick={() => this.postScoreModifier(post.id, 'downVote')}>
+            <Oction
+              icon={ChevronDown}
+              size="medium"
+              verticalAlign="middle"
+              ariaLabel="Vote Down"
+            />
+          </button>
+        </StyledPost.VoteScore>
+        <StyledPost.Title>{post.title}</StyledPost.Title>
+        <StyledPost.Body>
+          {post.body}
+          <StyledPost.Join category={post.category}>... join the conversation</StyledPost.Join>
+        </StyledPost.Body>
         <StyledPost.Info category={post.category}>
-          <StyledPost.Info.Category>{post.category}</StyledPost.Info.Category>
-          <StyledPost.Avatar author={post.author} />
           <StyledPost.Info.Author>
+            <StyledPost.Info.Author.Avatar author={post.author} />
             <span>{post.author}</span>
           </StyledPost.Info.Author>
           <StyledPost.Info.Date>
-            {formatToDate(post.timestamp)}
-          </StyledPost.Info.Date>
-          <StyledPost.Info.Date>
-            {formatToTime(post.timestamp)}
+            <p>
+              {formatToDate(post.timestamp)} - {formatToTime(post.timestamp)}
+            </p>
           </StyledPost.Info.Date>
           <StyledPost.Info.CommentCount>
             {post.commentCount}
           </StyledPost.Info.CommentCount>
-          <StyledPost.Info.VoteScore>
-            <button onClick={() => this.postScoreModifier(post.id, 'upVote')}>
-              <Oction
-                icon={ChevronUp}
-                size="medium"
-                verticalAlign="middle"
-                ariaLabel="Vote Up"
-              />
-            </button>
-            {post.voteScore}
-            <button onClick={() => this.postScoreModifier(post.id, 'downVote')}>
-              <Oction
-                icon={ChevronDown}
-                size="medium"
-                verticalAlign="middle"
-                ariaLabel="Vote Down"
-              />
-            </button>
-          </StyledPost.Info.VoteScore>
         </StyledPost.Info>
-        <StyledPost.Title>Title: {post.title}</StyledPost.Title>
-        <StyledPost.Body>Body: {post.body}</StyledPost.Body>
       </StyledPost>
     )
   }
