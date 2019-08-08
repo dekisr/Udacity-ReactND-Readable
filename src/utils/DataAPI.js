@@ -42,7 +42,6 @@ export const getInitialData = () => {
   }))
 }
 
-
 // POSTS
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 export const getAllPosts = () => {
@@ -54,6 +53,15 @@ export const getAllPosts = () => {
     })
     .catch(logError())
 }
+export const addNewPost = (post) => {
+  return fetch(`${api}/posts`, {
+    ...initPOST,
+    body: JSON.stringify(post)
+  })
+    .then((resp) => resp.json())
+    .then((post) => post)
+    .catch(logError())
+}
 export const updatePostScore = ({ id, option }) => {
   return fetch(`${api}/posts/${id}`, {
     ...initPOST,
@@ -62,15 +70,6 @@ export const updatePostScore = ({ id, option }) => {
     .then((resp) => resp.json())
     .then((post) => ({ id: post.id, voteScore: post.voteScore }))
     .catch(logError())
-}
-export const addNewPost = (post) => {
-  return fetch(`${api}/posts`, {
-    ...initPOST,
-    body: JSON.stringify({...post})
-  })
-  .then((resp) => resp.json())
-  .then((post) => post)
-  .catch(logError())
 }
 
 // CATEGORIES
@@ -83,7 +82,6 @@ export const getAllCategories = () => {
     })
     .catch(logError())
 }
-
 
 // COMMENTS
 export const getAllComments = async () => {
@@ -99,7 +97,6 @@ export const getAllComments = async () => {
     })
     .catch(logError())
 }
-
 export const getCommentsByPost = (id) => {
   return fetch(`${api}/posts/${id}/comments`, initGET)
     .then((resp) => resp.json())
@@ -107,5 +104,23 @@ export const getCommentsByPost = (id) => {
       const formatted = toObject(comments, 'id')
       return formatted
     })
+    .catch(logError())
+}
+export const addNewComment = (comment) => {
+  return fetch(`${api}/comments`, {
+    ...initPOST,
+    body: JSON.stringify(comment)
+  })
+    .then((resp) => resp.json())
+    .then((comment) => comment)
+    .catch(logError())
+}
+export const updateCommentScore = ({ id, option }) => {
+  return fetch(`${api}/comments/${id}`, {
+    ...initPOST,
+    body: JSON.stringify({ option })
+  })
+    .then((resp) => resp.json())
+    .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch(logError())
 }

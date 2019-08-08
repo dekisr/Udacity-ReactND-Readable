@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { sortPostsComments } from '../../utils/helpers'
 import Post from '../Post'
 import Comment from '../Comment'
+import CommentForm from '../CommentForm'
 import StyledPostPage from './styles'
 
 class PostPage extends Component {
@@ -19,10 +20,7 @@ class PostPage extends Component {
           <StyledPostPage.H2 author={currentUser}>
             Hey <span>{currentUser}</span>, how about adding a comment?
           </StyledPostPage.H2>
-          <StyledPostPage.Form author={currentUser}>
-            <StyledPostPage.TextArea />
-            <button type="submit">Add new comment</button>
-          </StyledPostPage.Form>
+          <CommentForm parentId={postId} />
           {commentsIds.length > 0 && (
             <StyledPostPage.H2>
               Comments ({commentsIds.length})

@@ -82,8 +82,8 @@ const Info = styled.ul`
   align-content: center;
   align-items: center;
   padding: 1rem;
-  font-size: 0.75rem;
   list-style: none;
+  font-size: 0.75rem;
   background-color: ${({ category }) =>
     category === 'blue'
       ? colors.blue.fivea
@@ -97,9 +97,6 @@ const Info = styled.ul`
   }
 `
 const InfoItem = styled.li`
-  /* &:last-of-type {
-      margin-bottom: 0;
-    } */
   color: ${colors.grey.two};
   span {
     font-weight: bold;
@@ -142,7 +139,6 @@ const Join = styled.button`
   margin: 0;
   padding: 0.5rem;
   border: none;
-  font-family: sans-serif;
   font-size: 1rem;
   text-align: center;
   text-decoration: none;

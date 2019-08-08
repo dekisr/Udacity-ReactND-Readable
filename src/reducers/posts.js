@@ -7,6 +7,11 @@ const posts = (state = {}, action) => {
         ...state,
         ...action.posts
       }
+    case ADD_POST:
+      return {
+        ...state,
+        [action.post.id]: action.post
+      }
     case VOTE_POST:
       return {
         ...state,
@@ -15,11 +20,6 @@ const posts = (state = {}, action) => {
           voteScore: action.voteScore
         }
       }
-      case ADD_POST:
-        return {
-          ...state,
-          [action.post.id]: action.post
-        }
     default:
       return state
   }

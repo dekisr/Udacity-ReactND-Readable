@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { handleNewPost } from '../../actions/posts'
+import { handleAddPost } from '../../actions/posts'
 import { sortCategories } from '../../utils/helpers'
 import uuid from 'uuid'
 import StyledNewPost from './styles'
@@ -78,7 +78,7 @@ class NewPost extends Component {
       author: this.props.currentUser,
       category: this.state.category
     }
-    this.props.dispatch(handleNewPost(post))
+    this.props.dispatch(handleAddPost(post))
     this.setState({
       ...initialState,
       toHome: true

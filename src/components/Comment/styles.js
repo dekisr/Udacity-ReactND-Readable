@@ -5,6 +5,7 @@ const StyledComment = styled.article`
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
+  grid-gap: 1rem;
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
   margin-right: auto;
@@ -39,6 +40,7 @@ const VoteScore = styled.div`
   align-content: center;
   justify-items: center;
   align-items: center;
+  width: 2rem;
   padding: 0 0.5rem;
   font-size: 1.375rem;
   font-weight: bold;
@@ -63,8 +65,52 @@ const Body = styled.p`
     font-size: 1.125rem;
   }
 `
+const Info = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  justify-items: end;
+  align-items: center;
+  list-style: none;
+  font-size: 0.75rem;
+  @media (min-width: 601px) {
+    font-size: 0.875rem;
+  }
+`
+const InfoItem = styled.li`
+  color: ${colors.grey.three};
+`
+const Author = styled(InfoItem)`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-content: center;
+  align-items: center;
+  grid-gap: 0.2rem;
+  color: ${({ author }) => author};
+  & span {
+    display: block;
+  }
+`
+const Avatar = styled.div`
+  width: 1rem;
+  height: 1rem;
+  background-color: ${({ author }) => author};
+`
+const Date = styled(InfoItem)`
+  justify-self: end;
+  p {
+    text-align: right;
+  }
+`
 
 StyledComment.VoteScore = VoteScore
 StyledComment.Body = Body
+StyledComment.Info = Info
+StyledComment.Info.Avatar = Avatar
+StyledComment.Info.Author = Author
+StyledComment.Info.Date = Date
 
 export default StyledComment
