@@ -1,22 +1,54 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import Post from  '../Post'
+import { sortPostsComments } from '../../utils/helpers'
+import Post from '../Post'
+import Comment from '../Comment'
+import StyledPostPage from './styles'
 
 class PostPage extends Component {
+  state = {
+    sortBy: 'timestamp'
+  }
   render() {
+    const { postId, commentsIds, comments, currentUser } = this.props
+    const { sortBy } = this.state
     return (
-      <div>
-        <Post id={this.props.id} />
-      </div>
+      <Fragment>
+        <Post id={postId} />
+        <StyledPostPage>
+          <StyledPostPage.H2 author={currentUser}>
+            Hey <span>{currentUser}</span>, how about adding a comment?
+          </StyledPostPage.H2>
+          <StyledPostPage.Form author={currentUser}>
+            <StyledPostPage.TextArea />
+            <button type="submit">Add new comment</button>
+          </StyledPostPage.Form>
+          {commentsIds.length > 0 && (
+            <StyledPostPage.H2>
+              Comments ({commentsIds.length})
+            </StyledPostPage.H2>
+          )}
+          {sortPostsComments(commentsIds, comments, sortBy).map((commentId) => (
+            <Comment key={commentId} id={commentId} />
+          ))}
+        </StyledPostPage>
+      </Fragment>
     )
   }
 }
 
-const mapStateToProps = ({ posts }, { match: { params } }) => {
-  const id = params.id
+const mapStateToProps = (
+  { posts, comments, currentUser },
+  { match: { params } }
+) => {
+  const postId = params.id
   return {
-    post: posts[id],
-    id
+    postId,
+    commentsIds: Object.keys(comments).filter(
+      (commentId) => comments[commentId].parentId === postId
+    ),
+    comments,
+    currentUser
   }
 }
 

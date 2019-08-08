@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { sortCategories, sortPostsComments } from '../../utils/helpers'
 import Post from '../Post'
 import Category from '../Category'
 import Comment from '../Comment'
-import { sortCategories } from '../../utils/helpers'
 
 class Dashboard extends Component {
+  state = {
+    sortBy: 'voteScore'
+  }
   render() {
-    const { postIds } = this.props
+    const { postIds, posts } = this.props
+    const { sortBy } = this.state
     return (
-      <div>
-        <h1>Posts</h1>
-        {postIds.map((id) => (
-          <Post key={id} id={id} />
+      <Fragment>
+        {sortPostsComments(postIds, posts, sortBy).map((id) => (
+          <Post key={id} id={id} dashboard={true} />
         ))}
         {/* <h1>Categories</h1>
         {this.props.categoriesNames.map((name) => (
@@ -22,16 +25,15 @@ class Dashboard extends Component {
         {this.props.commentsIds.map((id) => (
           <Comment key={id} id={id} />
         ))} */}
-      </div>
+      </Fragment>
     )
   }
 }
 
 const mapStateToProps = ({ posts, categories, comments }) => {
   return {
-    postIds: Object.keys(posts).sort(
-      (a, b) => posts[b].timestamp - posts[a].timestamp
-    ),
+    postIds: Object.keys(posts),
+    posts,
     categoriesNames: sortCategories(categories),
     commentsIds: Object.keys(comments)
   }

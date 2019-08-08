@@ -1,22 +1,41 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { formatToTime, formatToDate } from '../../utils/helpers'
+import StyledComment from './styles'
+import Oction, {
+  ChevronUp,
+  ChevronDown,
+  ArrowUp,
+  TriangleUp
+} from '@primer/octicons-react'
 
 class Comment extends Component {
   render() {
     const { comment } = this.props
     return (
-      <Fragment>
-        <p>
-          Parent Id: {comment.parentId} <br />
-          Parent Deleted: {comment.parentDeleted.toString()} <br />
-          Id: {comment.id} <br />
-          Deleted: {comment.deleted.toString()} <br />
-          Timestamp: {comment.timestamp} <br />
-          Author: {comment.author} <br />
-          Body: {comment.body} <br />
-          Vote Score: {comment.voteScore} <br />
-        </p>
-      </Fragment>
+      <StyledComment>
+        <StyledComment.VoteScore>
+          <button aria-label="Vote Post Up">
+            <Oction
+              icon={ChevronUp}
+              size="medium"
+              verticalAlign="middle"
+              ariaLabel="Vote Up"
+            />
+          </button>
+          {comment.voteScore}
+          <button aria-label="Vote Post Down">
+            <Oction
+              icon={ChevronDown}
+              size="medium"
+              verticalAlign="middle"
+              ariaLabel="Vote Down"
+            />
+          </button>
+        </StyledComment.VoteScore>
+        <StyledComment.Body>{comment.body}</StyledComment.Body>
+        <p>{comment.author}</p>
+      </StyledComment>
     )
   }
 }

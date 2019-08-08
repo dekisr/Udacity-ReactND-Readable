@@ -33,6 +33,14 @@ export const sortCategories = (object) => {
   })
 }
 
+export const sortPostsComments = (array, object, param) => {
+  return array.sort(
+    (a, b) =>
+      object[b][param] - object[a][param] ||
+      object[b].timestamp - object[a].timestamp
+  )
+}
+
 export const formatToDate = (timestamp) => {
   return new Intl.DateTimeFormat('en-US', {
     // era: 'long',
@@ -49,14 +57,14 @@ export const formatToTime = (timestamp) => {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',
-    second: '2-digit',
-    timeZoneName: 'short'
+    second: '2-digit'
+    // timeZoneName: 'short'
   }).format(timestamp)
 }
 
 // USERS
 export const getRandomUser = () => {
-  const userName = users[Math.floor(Math.random()*users.length)]
+  const userName = users[Math.floor(Math.random() * users.length)]
   localStorage.setItem('userName', userName)
   return userName
 }

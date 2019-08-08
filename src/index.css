@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-wrap: break-word;
   text-align: center;
 }
 
@@ -19,6 +20,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+  font-size: 1.625rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.375rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+h5 {
+  font-size: 1.125rem;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -30,14 +47,24 @@ code {
   color: hsl(5, 55%, 55%);
   color: hsl(5, 70%, 70%);
   color: hsl(5, 100%, 80%);
+
   color: hsl(200, 65%, 25%);
   color: hsl(200, 55%, 40%);
   color: hsl(200, 55%, 55%);
   color: hsl(200, 70%, 70%);
   color: hsl(200, 100%, 80%);
+
   color: hsl(50, 100%, 15%);
   color: hsl(50, 100%, 35%);
   color: hsl(50, 85%, 55%);
   color: hsl(50, 100%, 80%);
   color: hsl(50, 80%, 90%);
+
+  color: hsl(0, 0%, 15%);
+  color: hsl(0, 0%, 25%);
+  color: hsl(0, 0%, 35%);
+  color: hsl(0, 0%, 45%);
+  color: hsl(0, 0%, 55%);
+
+  /* color: #DEADFACE; */
 }

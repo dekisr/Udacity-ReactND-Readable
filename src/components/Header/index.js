@@ -8,9 +8,10 @@ class Header extends Component {
   handleUser = () => {
     const { dispatch, currentUser } = this.props
     let userName = getRandomUser()
-    currentUser === userName
-      ? (userName = getRandomUser())
-      : dispatch(setCurrentUser(userName))
+    while (currentUser === userName) {
+      userName = getRandomUser()
+    }
+    return dispatch(setCurrentUser(userName))
   }
 
   render() {

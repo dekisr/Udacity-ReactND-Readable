@@ -4,11 +4,13 @@ import { colors } from '../../utils/globalStyles'
 const StyledPost = styled.article`
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 7rem auto;
+  grid-template-rows: auto 1fr auto;
   grid-gap: 1rem;
-  width: 60%;
-  min-width: 400px;
-  margin: 1.5rem auto;
+  width: calc(100% - 1rem);
+  min-width: calc(320px - 1rem);
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 1rem;
   padding: 1rem;
   box-shadow: ${({ category }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
@@ -20,43 +22,67 @@ const StyledPost = styled.article`
         : colors.yellow.three
     }`};
   background: snow;
+  &:first-of-type {
+    margin-top: 0.5rem;
+  }
+  &:last-of-type {
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: 601px) {
+    width: calc(100% - 2rem);
+    margin-bottom: 1.5rem;
+    &:first-of-type {
+      margin-top: 1rem;
+    }
+    &:last-of-type {
+      margin-bottom: 1rem;
+    }
+  }
 `
 const VoteScore = styled.div`
   grid-row: 1 / span 3;
   display: grid;
-  align-content: center;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   justify-items: center;
+  align-items: center;
+  width: 2rem;
   padding: 0 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: bold;
+  color: ${colors.grey.two};
   button {
     display: block;
     border: none;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: red;
+    color: ${colors.grey.two};
     background: none;
   }
 `
 const Title = styled.h2`
-  color: gray;
+  color: ${colors.grey.two};
 `
 const Body = styled.p`
   position: relative;
+  min-height: 8rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
   text-align: left;
-  color: grey;
+  color: ${colors.grey.three};
+  @media (min-width: 601px) {
+    font-size: 1.125rem;
+  }
 `
 const Info = styled.ul`
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
   align-content: center;
   align-items: center;
-  padding: 0.5rem;
-  font-size: 0.7rem;
+  padding: 1rem;
+  font-size: 0.75rem;
   list-style: none;
   background-color: ${({ category }) =>
     category === 'blue'
@@ -64,33 +90,41 @@ const Info = styled.ul`
       : category === 'red'
       ? colors.red.fivea
       : colors.yellow.fivea};
+  @media (min-width: 601px) {
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 1rem;
+    font-size: 0.875rem;
+  }
 `
 const InfoItem = styled.li`
+  /* &:last-of-type {
+      margin-bottom: 0;
+    } */
+  color: ${colors.grey.two};
   span {
     font-weight: bold;
   }
-  /* &:last-of-type {
-    margin-bottom: 0;
-  } */
 `
 const Author = styled(InfoItem)`
   ::before {
     content: 'by: ';
   }
-  font-size: 0.8rem;
   font-weight: normal;
+  line-height: 1.8;
   text-align: left;
 `
 const Avatar = styled.div`
   width: 100%;
   height: 1rem;
-  margin: 0.3rem 0;
   background-color: ${({ author }) => author};
-  border: 1px solid gray;
+  border: 1px solid ${colors.grey.two};
   border-radius: 0;
 `
 const Date = styled(InfoItem)`
   justify-self: end;
+  p {
+    text-align: left;
+  }
 `
 const CommentCount = styled(InfoItem)`
   ::before {
@@ -114,15 +148,16 @@ const Join = styled.button`
   text-decoration: none;
   cursor: pointer;
   transition: background 250ms ease-in-out, transform 150ms ease;
-  color: #ffffff;
+  color: ${colors.grey.one};
   background-color: ${({ category }) =>
     category === 'blue'
-      ? colors.blue.four
+      ? colors.blue.five
       : category === 'red'
-      ? colors.red.four
-      : colors.yellow.four};
+      ? colors.red.five
+      : colors.yellow.five};
   &:hover,
   &:focus {
+    color: snow;
     background-color: ${({ category }) =>
       category === 'blue'
         ? colors.blue.two
@@ -131,7 +166,7 @@ const Join = styled.button`
         : colors.yellow.two};
   }
   &:focus {
-    outline: 1px solid #fff;
+    outline: 1px solid snow;
     outline-offset: -4px;
   }
   &:active {

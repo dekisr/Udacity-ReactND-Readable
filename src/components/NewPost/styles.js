@@ -12,10 +12,12 @@ const Form = styled.form`
   max-width: 800px;
   margin: 1rem;
   background-color: snow;
-  box-shadow:
-      0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
-      0 0 0 0.5rem palevioletred;
-  input, select, option, textarea {
+  box-shadow: 0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5), 0 0 0 0.5rem palevioletred;
+  & input,
+  select,
+  option,
+  textarea {
+    display: block;
     appearance: none;
     width: calc(100% - 1rem);
     margin-top: 0.5rem;
@@ -24,7 +26,7 @@ const Form = styled.form`
     border-radius: 0;
     font-size: 1rem;
   }
-  button {
+  & button {
     font-size: 1.5rem;
     background-color: greenyellow;
     width: 100%;

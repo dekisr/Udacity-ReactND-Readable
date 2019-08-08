@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const StyledHeader = styled.header`
   display: grid;

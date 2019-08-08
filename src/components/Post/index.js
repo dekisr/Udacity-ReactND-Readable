@@ -23,28 +23,30 @@ class Post extends Component {
     ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
-          <button onClick={() => this.postScoreModifier(post.id, 'upVote')}>
-            <Oction
-              icon={ChevronUp}
-              size="medium"
-              verticalAlign="middle"
-              ariaLabel="Vote Up"
-            />
+          <button
+            onClick={() => this.postScoreModifier(post.id, 'upVote')}
+            aria-label="Vote Post Up"
+          >
+            <Oction icon={ChevronUp} size="medium" verticalAlign="middle" />
           </button>
           {post.voteScore}
-          <button onClick={() => this.postScoreModifier(post.id, 'downVote')}>
-            <Oction
-              icon={ChevronDown}
-              size="medium"
-              verticalAlign="middle"
-              ariaLabel="Vote Down"
-            />
+          <button
+            onClick={() => this.postScoreModifier(post.id, 'downVote')}
+            aria-label="Vote Post Down"
+          >
+            <Oction icon={ChevronDown} size="medium" verticalAlign="middle" />
           </button>
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
         <StyledPost.Body>
           {post.body}
-          <StyledPost.Join category={post.category}>... join the conversation</StyledPost.Join>
+          {this.props.dashboard && (
+            <Link to={`/post/id/${post.id}`}>
+              <StyledPost.Join category={post.category}>
+                ... join the conversation
+              </StyledPost.Join>
+            </Link>
+          )}
         </StyledPost.Body>
         <StyledPost.Info category={post.category}>
           <StyledPost.Info.Author>
