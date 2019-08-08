@@ -8,10 +8,12 @@ const StyledComment = styled.article`
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
   margin-right: auto;
+  margin-bottom: 1rem;
   margin-left: auto;
   padding: 1rem;
-  /* box-shadow: ${({ category }) => `
-    0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5)`}; */
+  box-shadow: ${({ author }) => `
+    0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+    0 0 0 0.5rem ${author}`};
   background: snow;
   &:first-of-type {
     margin-top: 0.5rem;
@@ -20,7 +22,7 @@ const StyledComment = styled.article`
     margin-bottom: 0.5rem;
   }
   @media (min-width: 601px) {
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     margin-bottom: 1.5rem;
     &:first-of-type {
       margin-top: 1rem;

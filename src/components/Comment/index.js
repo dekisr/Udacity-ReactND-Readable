@@ -13,7 +13,7 @@ class Comment extends Component {
   render() {
     const { comment } = this.props
     return (
-      <StyledComment>
+      <StyledComment author={comment.author}>
         <StyledComment.VoteScore>
           <button aria-label="Vote Post Up">
             <Oction

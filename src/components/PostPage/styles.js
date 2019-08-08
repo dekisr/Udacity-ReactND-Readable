@@ -8,7 +8,7 @@ const StyledPostPage = styled.section`
   border-top: 0.5rem solid snow;
   /* background-color: red; */
   @media (min-width: 601px) {
-    width: 90%;
+    width: 100%;
   }
 `
 const H2 = styled.h2`
@@ -29,6 +29,7 @@ const Form = styled.form`
   box-shadow: ${({ author }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
     0 0 0 0.5rem ${author}`};
+  background-color: snow;
   button {
     width: 100%;
     padding: 0.5rem;
@@ -37,7 +38,9 @@ const Form = styled.form`
     color: snow;
     background-color: ${colors.grey.one};
   }
-  background-color: snow;
+  @media (min-width: 601px) {
+    width: calc(100% - 2rem);
+  }
 `
 const TextArea = styled.textarea`
   display: block;
