@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { sortPostsComments } from '../../utils/helpers'
+import PropTypes from 'prop-types'
 import Post from '../Post'
 import Comment from '../Comment'
 import CommentForm from '../CommentForm'
+import Error from '../Error'
+import { sortPostsComments } from '../../utils/helpers'
 import StyledPostPage from './styles'
 
 class PostPage extends Component {
@@ -11,9 +13,12 @@ class PostPage extends Component {
     sortBy: 'timestamp'
   }
   render() {
-    const { postId, commentsIds, comments, currentUser } = this.props
+    console.log(this.props)
+    const { post, postId, postComments, commentsIds, currentUser } = this.props
     const { sortBy } = this.state
-    return (
+    return !post ? (
+      <Error message="This post does not exist." />
+    ) : (
       <Fragment>
         <Post id={postId} />
         <StyledPostPage>
@@ -26,13 +31,23 @@ class PostPage extends Component {
               Comments ({commentsIds.length})
             </StyledPostPage.H2>
           )}
-          {sortPostsComments(commentsIds, comments, sortBy).map((commentId) => (
-            <Comment key={commentId} id={commentId} />
-          ))}
+          {Object.keys(postComments).length === 0
+            ? null
+            : sortPostsComments(commentsIds, postComments, sortBy).map(
+                (commentId) => <Comment key={commentId} id={commentId} />
+              )}
         </StyledPostPage>
       </Fragment>
     )
   }
+}
+
+PostPage.propTypes = {
+  post: PropTypes.object,
+  postId: PropTypes.string.isRequired,
+  postComments: PropTypes.object.isRequired,
+  commentsIds: PropTypes.array.isRequired,
+  currentUser: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (
@@ -40,12 +55,19 @@ const mapStateToProps = (
   { match: { params } }
 ) => {
   const postId = params.id
+  const post = posts[postId] || null
+  const commentsIds = Object.keys(comments).filter(
+    (commentId) => comments[commentId].parentId === postId
+  )
+  const postComments = commentsIds.reduce((acc, id) => {
+    acc[id] = { ...comments[id] }
+    return acc
+  }, {})
   return {
+    post,
     postId,
-    commentsIds: Object.keys(comments).filter(
-      (commentId) => comments[commentId].parentId === postId
-    ),
-    comments,
+    postComments,
+    commentsIds,
     currentUser
   }
 }

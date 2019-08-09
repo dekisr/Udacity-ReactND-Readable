@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { handleVoteComment } from '../../actions/comments'
 import { formatToTime, formatToDate } from '../../utils/helpers'
 import StyledComment from './styles'
@@ -17,7 +18,7 @@ class Comment extends Component {
   }
   render() {
     const { comment } = this.props
-    return (
+    return !comment ? null : (
       <StyledComment author={comment.author}>
         <StyledComment.VoteScore>
           <button
@@ -60,8 +61,13 @@ class Comment extends Component {
   }
 }
 
+Comment.propTypes = {
+  id: PropTypes.string.isRequired,
+  comment: PropTypes.object
+}
+
 const mapStateToProps = ({ comments }, { id }) => {
-  const comment = comments[id]
+  const comment = comments[id] || null
   return {
     comment
   }

@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { sortCategories, sortPostsComments } from '../../utils/helpers'
+import PropTypes from 'prop-types'
 import Post from '../Post'
 import Category from '../Category'
 import Comment from '../Comment'
+import { sortCategories, sortPostsComments } from '../../utils/helpers'
 
 class Dashboard extends Component {
   state = {
@@ -12,11 +13,16 @@ class Dashboard extends Component {
   render() {
     const { postIds, posts } = this.props
     const { sortBy } = this.state
+
     return (
       <Fragment>
-        {sortPostsComments(postIds, posts, sortBy).map((id) => (
-          <Post key={id} id={id} dashboard={true} />
-        ))}
+        {Object.keys(posts).length === 0 ? (
+          <h2>there are no posts yet...</h2>
+        ) : (
+          sortPostsComments(postIds, posts, sortBy).map((id) => (
+            <Post key={id} id={id} dashboard={true} />
+          ))
+        )}
         {/* <h1>Categories</h1>
         {this.props.categoriesNames.map((name) => (
           <Category key={name} name={name} />
@@ -30,12 +36,15 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, categories, comments }) => {
+Dashboard.propTypes = {
+  posts: PropTypes.object.isRequired,
+  postIds: PropTypes.array.isRequired
+}
+
+const mapStateToProps = ({ posts }) => {
   return {
-    postIds: Object.keys(posts),
     posts,
-    categoriesNames: sortCategories(categories),
-    commentsIds: Object.keys(comments)
+    postIds: Object.keys(posts)
   }
 }
 

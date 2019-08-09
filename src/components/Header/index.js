@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { setCurrentUser } from '../../actions/currentUser'
 import { getRandomUser } from '../../utils/helpers'
 import StyledHeader from './styles'
@@ -31,6 +32,10 @@ class Header extends Component {
       </StyledHeader>
     )
   }
+}
+
+Header.propTypes = {
+  currentUser: PropTypes.string.isRequired
 }
 
 const mapStateToProps = ({ currentUser }) => {

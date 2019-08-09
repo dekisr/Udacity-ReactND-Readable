@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { handleVotePost } from '../../actions/posts'
 import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
@@ -19,7 +20,7 @@ class Post extends Component {
   render() {
     const { post, commentCount } = this.props
     return !post ? (
-      <h1>NOOOOO</h1>
+      null
     ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
@@ -67,13 +68,20 @@ class Post extends Component {
   }
 }
 
+Post.propTypes = {
+  id: PropTypes.string.isRequired,
+  post: PropTypes.object,
+  commentCount: PropTypes.number.isRequired
+}
+
 const mapStateToProps = ({ posts, comments }, { id }) => {
   const post = posts[id] || null
+  const commentCount = Object.keys(comments).filter(
+    (commentId) => comments[commentId].parentId === post.id
+  ).length || 0
   return {
     post,
-    commentCount: Object.keys(comments).filter(
-      (commentId) => comments[commentId].parentId === post.id
-    ).length
+    commentCount
   }
 }
 

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import uuid from 'uuid'
 import { handleAddPost } from '../../actions/posts'
 import { sortCategories } from '../../utils/helpers'
-import uuid from 'uuid'
-import StyledNewPost from './styles'
+import StyledPostForm from './styles'
 
 const initialState = {
   category: 'none',
@@ -16,7 +17,7 @@ const initialState = {
   valid: false
 }
 
-class NewPost extends Component {
+class PostForm extends Component {
   state = {
     ...initialState,
     toHome: false
@@ -89,9 +90,9 @@ class NewPost extends Component {
     return toHome ? (
       <Redirect to="/" />
     ) : (
-      <StyledNewPost>
+      <StyledPostForm>
         <h1>New Post</h1>
-        <StyledNewPost.Form noValidate onSubmit={this.handleSubmit}>
+        <StyledPostForm.Form noValidate onSubmit={this.handleSubmit}>
           <select
             name="category"
             value={this.state.category}
@@ -117,7 +118,7 @@ class NewPost extends Component {
             onBlur={this.handleBlur}
           />
           {titleError && <div>{titleError}</div>}
-          <StyledNewPost.TextArea
+          <textarea
             name="body"
             placeholder="Body"
             maxLength="600"
@@ -129,17 +130,22 @@ class NewPost extends Component {
           <button type="submit" disabled={!valid}>
             Create a new post!
           </button>
-        </StyledNewPost.Form>
-      </StyledNewPost>
+        </StyledPostForm.Form>
+      </StyledPostForm>
     )
   }
 }
 
-const mapStateToProps = ({ currentUser, categories }) => {
+PostForm.propTypes = {
+  categories: PropTypes.array.isRequired,
+  currentUser: PropTypes.string.isRequired
+}
+
+const mapStateToProps = ({ categories, currentUser }) => {
   return {
-    currentUser,
-    categories: sortCategories(categories)
+    categories: sortCategories(categories),
+    currentUser: currentUser
   }
 }
 
-export default connect(mapStateToProps)(NewPost)
+export default connect(mapStateToProps)(PostForm)

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleAddComment } from '../../actions/comments'
+import PropTypes from 'prop-types'
 import uuid from 'uuid'
+import { handleAddComment } from '../../actions/comments'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
@@ -27,9 +28,13 @@ class CommentForm extends Component {
   }
 }
 
+CommentForm.propTypes = {
+  parentId: PropTypes.string.isRequired,
+  currentUser: PropTypes.string.isRequired
+}
+
 const mapStateToProps = ({ currentUser }, { parentId }) => ({
-  currentUser,
-  parentId
+  currentUser
 })
 
 export default connect(mapStateToProps)(CommentForm)
