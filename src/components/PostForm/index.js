@@ -75,7 +75,7 @@ class PostForm extends Component {
       id: uuid(),
       timestamp: Date.now(),
       title: this.state.title,
-      body: this.state.body,
+      body: this.state.body.trim().replace(/\s+/g, ' '),
       author: this.props.currentUser,
       category: this.state.category
     }

@@ -49,7 +49,7 @@ const VoteScore = styled.div`
   width: 2rem;
   padding: 0 0.5rem;
   font-size: 1.375rem;
-  font-weight: bold;
+  font-weight: 700;
   color: ${colors.grey.two};
   button {
     display: block;
@@ -62,6 +62,7 @@ const VoteScore = styled.div`
   }
 `
 const Title = styled.h2`
+  text-align: left;
   color: ${colors.grey.two};
 `
 const Body = styled.p`
@@ -99,14 +100,13 @@ const Info = styled.ul`
 const InfoItem = styled.li`
   color: ${colors.grey.two};
   span {
-    font-weight: bold;
+    font-weight: 700;
   }
 `
 const Author = styled(InfoItem)`
   ::before {
     content: 'by: ';
   }
-  font-weight: normal;
   line-height: 1.8;
   text-align: left;
 `
@@ -128,7 +128,7 @@ const CommentCount = styled(InfoItem)`
     content: 'comments: ';
   }
   justify-self: end;
-  font-weight: bold;
+  font-weight: 700;
 `
 const Join = styled.button`
   /* https://css-tricks.com/overriding-default-button-styles/ */
@@ -144,7 +144,7 @@ const Join = styled.button`
   text-decoration: none;
   cursor: pointer;
   transition: background 250ms ease-in-out, transform 150ms ease;
-  color: ${colors.grey.one};
+  color: ${colors.grey.two};
   background-color: ${({ category }) =>
     category === 'blue'
       ? colors.blue.five

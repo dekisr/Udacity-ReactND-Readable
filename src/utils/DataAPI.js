@@ -8,7 +8,7 @@ const api = 'http://localhost:3001'
 
 const headers = {
   Accept: 'application/json',
-  Authorization: 'Squirtle'
+  Authorization: 'Charmander'
 }
 const initGET = {
   method: 'GET',

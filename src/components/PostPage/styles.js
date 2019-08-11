@@ -11,9 +11,10 @@ const StyledPostPage = styled.section`
   }
 `
 const H2 = styled.h2`
-  margin: 0.5rem 0;
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
   padding: 1rem 0;
   line-height: 1;
+  text-align: center;
   color: snow;
   span {
     text-decoration: underline;

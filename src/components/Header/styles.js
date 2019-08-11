@@ -15,7 +15,7 @@ const Logo = styled.div`
   align-self: center;
   color: wheat;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 700;
 `
 const Menu = styled.nav`
   display: grid;

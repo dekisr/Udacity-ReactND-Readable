@@ -43,7 +43,7 @@ const VoteScore = styled.div`
   width: 2rem;
   padding: 0 0.5rem;
   font-size: 1.375rem;
-  font-weight: bold;
+  font-weight: 700;
   color: ${colors.grey.two};
   button {
     display: block;
