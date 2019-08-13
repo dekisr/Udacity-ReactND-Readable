@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
-import { handleAddComment } from '../../actions/comments'
+import { handleAddComment, handleEditComment } from '../../actions/comments'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
@@ -11,11 +11,22 @@ class CommentForm extends Component {
     bodyError: '',
     valid: false
   }
+  componentDidUpdate(prevProps) {
+    const { comment } = this.props
+    if (comment !== prevProps.comment) {
+      this.setState({ body: comment.body })
+    }
+  }
   validateComment = (value) => {
     let error = ''
-    value.length > 20
-    ? (error = '')
-    : (error = '🧟 Your comment must be longer than 20 characters.')
+    const { comment } = this.props
+    value.length > 20 && value.length < 301
+      ? (error = '')
+      : (error =
+          '🧟 Your comment must be longer than 20 and up to 300 characters long.')
+    if (comment && comment.body === value) {
+      error = '🧟 It was supposed to change this comment.'
+    }
     this.setState({ bodyError: error })
     error ? this.setState({ valid: false }) : this.setState({ valid: true })
   }
@@ -26,23 +37,46 @@ class CommentForm extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    const comment = {
-      id: uuid(),
-      timestamp: Date.now(),
-      body: this.state.body.trim().replace(/\s+/g, ' '),
-      author: this.props.currentUser,
-      parentId: this.props.parentId
+    const { comment, parentId, currentUser, dispatch } = this.props
+    let commentData
+    if (comment) {
+      commentData = {
+        id: comment.id,
+        timestamp: comment.timestamp,
+        body: this.state.body.trim().replace(/\s+/g, ' ')
+      }
+      commentData.body.length > 20 &&
+      commentData.body.length < 301 &&
+      this.state.body !== comment.body
+        ? dispatch(handleEditComment(commentData)).then(() => {
+            this.setState({ body: '' })
+          })
+        : this.setState({
+            bodyError: '🧟‍ What?'
+          })
+    } else {
+      commentData = {
+        id: uuid(),
+        timestamp: Date.now(),
+        body: this.state.body.trim().replace(/\s+/g, ' '),
+        author: currentUser,
+        parentId: parentId
+      }
+      commentData.body.length > 20 && commentData.body.length < 301
+        ? dispatch(handleAddComment(commentData)).then(() => {
+            this.setState({ body: '' })
+          })
+        : this.setState({
+            bodyError: '🧟‍ What?'
+          })
     }
-    comment.body.length > 20 && comment.body.length < 301
-      ? this.props.dispatch(handleAddComment(comment))
-      : this.setState({
-          bodyError: '🧟‍ What?'
-        })
   }
   render() {
-    const { currentUser } = this.props
+    const { comment, parentId, currentUser } = this.props
     const { body, bodyError, valid } = this.state
-    return (
+    return !comment && !parentId ? (
+      <h1>This comment does not exist.</h1>
+    ) : (
       <StyledCommentForm
         noValidade
         onSubmit={this.handleSubmit}
@@ -52,11 +86,15 @@ class CommentForm extends Component {
           name="body"
           placeholder="Type your message"
           maxLength="300"
-          value={this.state.body}
+          value={body}
           onChange={this.handleChange}
           // onBlur={this.handleBlur}
         />
-        {body.length > 0 && <span><b>{body.trim().replace(/\s+/g, ' ').length} / 300</b></span>}
+        {body.length > 0 && (
+          <span>
+            <b>{body.trim().replace(/\s+/g, ' ').length} / 300</b>
+          </span>
+        )}
         {bodyError && <span>{bodyError}</span>}
         <button type="submit" disabled={!valid}>
           Add new comment
@@ -67,12 +105,17 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
-  parentId: PropTypes.string.isRequired,
+  parentId: PropTypes.string,
   currentUser: PropTypes.string.isRequired
 }
 
-const mapStateToProps = ({ currentUser }, { parentId }) => ({
-  currentUser
-})
+const mapStateToProps = ({ comments, currentUser }, ownProps) => {
+  const commentId = ownProps.match ? ownProps.match.params.id : null
+  const comment = comments[commentId] || null
+  return {
+    comment,
+    currentUser: currentUser || null
+  }
+}
 
 export default connect(mapStateToProps)(CommentForm)

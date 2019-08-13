@@ -8,6 +8,7 @@ import PostPage from '../PostPage'
 import PostForm from '../PostForm'
 import Error from '../Error'
 import StyledApp from './styles'
+import CommentForm from '../CommentForm';
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +23,8 @@ class App extends Component {
             <Route path="/" exact component={Dashboard} />
             <Route path="/post/id/:id" component={PostPage} />
             <Route path="/post/new" exact component={PostForm} />
-            <Route render={() => <Error message="what?" />} />
+            <Route path="/comment/edit/id/:id" component={CommentForm} />
+            <Route render={() => <Error message="what? error" />} />
           </Switch>
         </StyledApp>
       </BrowserRouter>

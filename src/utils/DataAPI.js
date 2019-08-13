@@ -8,7 +8,7 @@ const api = 'http://localhost:3001'
 
 const headers = {
   Accept: 'application/json',
-  Authorization: 'Charmander'
+  Authorization: 'Charizard'
 }
 const initGET = {
   method: 'GET',
@@ -16,7 +16,6 @@ const initGET = {
 }
 const initPUT = {
   method: 'PUT',
-  mode: 'cors',
   headers: {
     ...headers,
     'Content-Type': 'application/json'
@@ -123,4 +122,16 @@ export const updateCommentScore = ({ id, option }) => {
     .then((resp) => resp.json())
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch(logError())
+}
+export const editExistingComment = ({ id, timestamp, body }) => {
+  return fetch(`${api}/comments/${id}`, {
+    ...initPUT,
+    body: JSON.stringify({ timestamp, body })
+  })
+    .then((resp) => resp.json())
+    .then((comment) => ({
+      id: comment.id,
+      timestamp: comment.timestamp,
+      body: comment.body
+    }))
 }

@@ -32,7 +32,10 @@ const StyledCommentForm = styled.form`
     border: none;
     font-size: 0.75rem;
     text-align: center;
+    text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
+    transition: background 400ms ease;
     color: snow;
     background-color: ${colors.grey.two};
     @media (min-width: 601px) {
@@ -43,9 +46,13 @@ const StyledCommentForm = styled.form`
   button[disabled] {
     background-color: ${colors.grey.five};
   }
-  & button:active {
+  & button:hover {
     outline: 1px solid snow;
+    outline-offset: -2px;
+  }
+  & button:active {
     outline-offset: -4px;
+    background-color: ${colors.grey.one};
   }
   @media (min-width: 601px) {
     width: calc(100% - 2rem);

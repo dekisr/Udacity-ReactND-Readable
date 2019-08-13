@@ -21,7 +21,34 @@ const H2 = styled.h2`
     color: ${({ author }) => author};
   }
 `
+const Sort = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  justify-content: center;
+  align-content: center;
+  justify-items: end;
+  align-items: center;
+  width: calc(100% - 1rem);
+  grid-gap: 0.5rem;
+  margin: 0 auto;
+  & button {
+    width: 100%;
+    border: none;
+    font-size: 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: background 400ms ease;
+    color: snow;
+    background: none;
+    @media (min-width: 601px) {
+      font-size: 1rem;
+    }
+  }
+`
 
 StyledPostPage.H2 = H2
+StyledPostPage.Sort = Sort
 
 export default StyledPostPage

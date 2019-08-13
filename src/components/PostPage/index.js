@@ -10,10 +10,12 @@ import StyledPostPage from './styles'
 
 class PostPage extends Component {
   state = {
-    sortBy: 'timestamp'
+    sortBy: 'voteScore'
+  }
+  sortComments = (sortBy) => {
+    this.setState({sortBy})
   }
   render() {
-    console.log(this.props)
     const { post, postId, postComments, commentsIds, currentUser } = this.props
     const { sortBy } = this.state
     return !post ? (
@@ -27,9 +29,16 @@ class PostPage extends Component {
           </StyledPostPage.H2>
           <CommentForm parentId={postId} />
           {commentsIds.length > 0 && (
-            <StyledPostPage.H2>
-              Comments ({commentsIds.length})
-            </StyledPostPage.H2>
+            <Fragment>
+              <StyledPostPage.H2>
+                Comments ({commentsIds.length})
+              </StyledPostPage.H2>
+              <StyledPostPage.Sort>
+                <span>sort: </span>
+                <button onClick={() => this.sortComments('timestamp')}>date</button>
+                <button onClick={() => this.sortComments('voteScore')}>vote score</button>
+              </StyledPostPage.Sort>
+            </Fragment>
           )}
           {Object.keys(postComments).length === 0
             ? null
