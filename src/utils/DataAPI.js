@@ -123,15 +123,16 @@ export const updateCommentScore = ({ id, option }) => {
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch(logError())
 }
-export const editExistingComment = ({ id, timestamp, body }) => {
+export const editExistingComment = ({ id, timestamp, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {
     ...initPUT,
-    body: JSON.stringify({ timestamp, body })
+    body: JSON.stringify({ timestamp, body, lastEdit })
   })
     .then((resp) => resp.json())
     .then((comment) => ({
       id: comment.id,
       timestamp: comment.timestamp,
-      body: comment.body
+      body: comment.body,
+      lastEdit: comment.lastEdit
     }))
 }

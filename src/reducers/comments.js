@@ -31,7 +31,8 @@ const comments = (state = {}, action) => {
         [action.id]: {
           ...state[action.id],
           timestamp: action.timestamp,
-          body: action.body
+          body: action.body,
+          lastEdit: action.lastEdit
         }
       }
     default:

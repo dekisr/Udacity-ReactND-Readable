@@ -10,7 +10,7 @@ import StyledPostPage from './styles'
 
 class PostPage extends Component {
   state = {
-    sortBy: 'voteScore'
+    sortBy: 'timestamp'
   }
   sortComments = (sortBy) => {
     this.setState({sortBy})

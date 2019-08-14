@@ -7,9 +7,7 @@ import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
 import Oction, {
   ChevronUp,
-  ChevronDown,
-  ArrowUp,
-  TriangleUp
+  ChevronDown
 } from '@primer/octicons-react'
 
 class Post extends Component {

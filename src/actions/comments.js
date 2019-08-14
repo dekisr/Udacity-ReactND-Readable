@@ -33,11 +33,12 @@ export const handleVoteComment = (info) => (dispatch) => {
   return updateCommentScore(info).then((resp) => dispatch(voteComment(resp)))
 }
 
-export const editComment = ({ id, timestamp, body }) => ({
+export const editComment = ({ id, timestamp, body, lastEdit }) => ({
   type: EDIT_COMMENT,
   id,
   timestamp,
-  body
+  body,
+  lastEdit
 })
 export const handleEditComment = (info) => (dispatch) => {
   return editExistingComment(info).then((resp) => dispatch(editComment(resp)))

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
@@ -9,13 +10,12 @@ class CommentForm extends Component {
   state = {
     body: '',
     bodyError: '',
-    valid: false
+    valid: false,
+    toPost: false
   }
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     const { comment } = this.props
-    if (comment !== prevProps.comment) {
-      this.setState({ body: comment.body })
-    }
+    comment && this.setState({ body: this.props.comment.body })
   }
   validateComment = (value) => {
     let error = ''
@@ -43,14 +43,18 @@ class CommentForm extends Component {
       commentData = {
         id: comment.id,
         timestamp: comment.timestamp,
-        body: this.state.body.trim().replace(/\s+/g, ' ')
+        body: this.state.body.trim().replace(/\s+/g, ' '),
+        lastEdit: {
+          timestamp: Date.now(),
+          author: currentUser
+        }
       }
       commentData.body.length > 20 &&
       commentData.body.length < 301 &&
       this.state.body !== comment.body
-        ? dispatch(handleEditComment(commentData)).then(() => {
-            this.setState({ body: '' })
-          })
+        ? dispatch(handleEditComment(commentData)).then(() =>
+            this.setState({ toPost: true })
+          )
         : this.setState({
             bodyError: '🧟‍ What?'
           })
@@ -60,7 +64,8 @@ class CommentForm extends Component {
         timestamp: Date.now(),
         body: this.state.body.trim().replace(/\s+/g, ' '),
         author: currentUser,
-        parentId: parentId
+        parentId: parentId,
+        lastEdit: null
       }
       commentData.body.length > 20 && commentData.body.length < 301
         ? dispatch(handleAddComment(commentData)).then(() => {
@@ -73,8 +78,10 @@ class CommentForm extends Component {
   }
   render() {
     const { comment, parentId, currentUser } = this.props
-    const { body, bodyError, valid } = this.state
-    return !comment && !parentId ? (
+    const { body, bodyError, valid, toPost } = this.state
+    return toPost ? (
+      <Redirect to={`/post/id/${comment.parentId}`} />
+    ) : !comment && !parentId ? (
       <h1>This comment does not exist.</h1>
     ) : (
       <StyledCommentForm
@@ -114,7 +121,7 @@ const mapStateToProps = ({ comments, currentUser }, ownProps) => {
   const comment = comments[commentId] || null
   return {
     comment,
-    currentUser: currentUser || null
+    currentUser: currentUser
   }
 }
 

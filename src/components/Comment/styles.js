@@ -34,7 +34,7 @@ const StyledComment = styled.article`
   }
 `
 const VoteScore = styled.div`
-  grid-row: 1 / span 2;
+  grid-row: 1 / span 3;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -45,7 +45,7 @@ const VoteScore = styled.div`
   font-size: 1.375rem;
   font-weight: 700;
   color: ${colors.grey.two};
-  button {
+  & button {
     display: block;
     border: none;
     text-align: center;
@@ -56,13 +56,38 @@ const VoteScore = styled.div`
   }
 `
 const Body = styled.p`
-  position: relative;
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: left;
   color: ${colors.grey.three};
+  & span {
+    display: block;
+    width: 100%;
+    margin: 0.5rem;
+    text-align: right;
+    font-size: 0.75rem;
+  }
   @media (min-width: 601px) {
     font-size: 1.125rem;
+  }
+`
+const Edit = styled.div`
+  display: grid;
+  justify-content: end;
+  align-content: center;
+  justify-items: end;
+  align-items: center;
+  grid-template-columns: auto auto;
+  grid-gap: 0.5rem;
+  & button {
+    display: block;
+    padding: 0.5rem;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: ${colors.grey.two};
+    background: none;
   }
 `
 const Info = styled.ul`
@@ -101,13 +126,14 @@ const Avatar = styled.div`
 `
 const Date = styled(InfoItem)`
   justify-self: end;
-  p {
+  & p {
     text-align: right;
   }
 `
 
 StyledComment.VoteScore = VoteScore
 StyledComment.Body = Body
+StyledComment.Edit = Edit
 StyledComment.Info = Info
 StyledComment.Info.Avatar = Avatar
 StyledComment.Info.Author = Author
