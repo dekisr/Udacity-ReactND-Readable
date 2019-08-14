@@ -1,4 +1,4 @@
-import { addNewPost, updatePostScore } from '../utils/DataAPI'
+import { fetchAddPost, fetchVotePost } from '../utils/DataAPI'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
@@ -14,7 +14,7 @@ const addPost = (post) => ({
   post
 })
 export const handleAddPost = (post) => (dispatch) => {
-  return addNewPost(post).then((newPost) => dispatch(addPost(newPost)))
+  return fetchAddPost(post).then((newPost) => dispatch(addPost(newPost)))
 }
 
 const votePost = ({ id, voteScore }) => ({
@@ -23,7 +23,7 @@ const votePost = ({ id, voteScore }) => ({
   voteScore
 })
 export const handleVotePost = (info) => (dispatch) => {
-  return updatePostScore(info).then(({ id, voteScore }) =>
+  return fetchVotePost(info).then(({ id, voteScore }) =>
     dispatch(votePost({ id, voteScore }))
   )
 }

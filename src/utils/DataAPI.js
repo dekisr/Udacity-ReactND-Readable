@@ -12,10 +12,12 @@ const headers = {
 }
 const initGET = {
   method: 'GET',
+  mode: 'cors',
   headers
 }
 const initPUT = {
   method: 'PUT',
+  mode: 'cors',
   headers: {
     ...headers,
     'Content-Type': 'application/json'
@@ -23,17 +25,23 @@ const initPUT = {
 }
 const initPOST = {
   method: 'POST',
+  mode: 'cors',
   headers: {
     ...headers,
     'Content-Type': 'application/json'
   }
 }
+const initDELETE = {
+  method: 'DELETE',
+  mode: 'cors',
+  headers
+}
 
 export const getInitialData = () => {
   return Promise.all([
-    getAllPosts(),
-    getAllCategories(),
-    getAllComments()
+    fetchAllPosts(),
+    fetchAllCategories(),
+    fetchAllComments()
   ]).then(([posts, categories, comments]) => ({
     posts,
     categories,
@@ -43,7 +51,7 @@ export const getInitialData = () => {
 
 // POSTS
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-export const getAllPosts = () => {
+export const fetchAllPosts = () => {
   return fetch(`${api}/posts`, initGET)
     .then((resp) => resp.json())
     .then((posts) => {
@@ -52,7 +60,7 @@ export const getAllPosts = () => {
     })
     .catch(logError())
 }
-export const addNewPost = (post) => {
+export const fetchAddPost = (post) => {
   return fetch(`${api}/posts`, {
     ...initPOST,
     body: JSON.stringify(post)
@@ -61,7 +69,7 @@ export const addNewPost = (post) => {
     .then((post) => post)
     .catch(logError())
 }
-export const updatePostScore = ({ id, option }) => {
+export const fetchVotePost = ({ id, option }) => {
   return fetch(`${api}/posts/${id}`, {
     ...initPOST,
     body: JSON.stringify({ option })
@@ -72,7 +80,7 @@ export const updatePostScore = ({ id, option }) => {
 }
 
 // CATEGORIES
-export const getAllCategories = () => {
+export const fetchAllCategories = () => {
   return fetch(`${api}/categories`, initGET)
     .then((resp) => resp.json())
     .then((categories) => {
@@ -83,10 +91,10 @@ export const getAllCategories = () => {
 }
 
 // COMMENTS
-export const getAllComments = async () => {
+export const fetchAllComments = async () => {
   let allComments
-  const postIds = await getAllPosts().then((posts) => Object.keys(posts))
-  const comments = postIds.map((id) => getCommentsByPost(id))
+  const postIds = await fetchAllPosts().then((posts) => Object.keys(posts))
+  const comments = postIds.map((id) => fetchCommentsByPost(id))
   return Promise.all(comments)
     .then((resp) => {
       resp.map((comment) => {
@@ -96,7 +104,7 @@ export const getAllComments = async () => {
     })
     .catch(logError())
 }
-export const getCommentsByPost = (id) => {
+export const fetchCommentsByPost = (id) => {
   return fetch(`${api}/posts/${id}/comments`, initGET)
     .then((resp) => resp.json())
     .then((comments) => {
@@ -105,7 +113,7 @@ export const getCommentsByPost = (id) => {
     })
     .catch(logError())
 }
-export const addNewComment = (comment) => {
+export const fetchAddComment = (comment) => {
   return fetch(`${api}/comments`, {
     ...initPOST,
     body: JSON.stringify(comment)
@@ -114,7 +122,7 @@ export const addNewComment = (comment) => {
     .then((comment) => comment)
     .catch(logError())
 }
-export const updateCommentScore = ({ id, option }) => {
+export const fetchVoteComment = ({ id, option }) => {
   return fetch(`${api}/comments/${id}`, {
     ...initPOST,
     body: JSON.stringify({ option })
@@ -123,7 +131,7 @@ export const updateCommentScore = ({ id, option }) => {
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch(logError())
 }
-export const editExistingComment = ({ id, timestamp, body, lastEdit }) => {
+export const fetchEditComment = ({ id, timestamp, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {
     ...initPUT,
     body: JSON.stringify({ timestamp, body, lastEdit })
@@ -135,4 +143,11 @@ export const editExistingComment = ({ id, timestamp, body, lastEdit }) => {
       body: comment.body,
       lastEdit: comment.lastEdit
     }))
+    .catch(logError())
+}
+export const fetchDeleteComment = (id) => {
+  return fetch(`${api}/comments/${id}`, initDELETE)
+    .then((resp) => resp.json())
+    .then((comment) => comment)
+    .catch(logError())
 }

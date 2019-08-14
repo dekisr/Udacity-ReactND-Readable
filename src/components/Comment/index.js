@@ -66,7 +66,7 @@ class Comment extends Component {
               />
             </button>
           </Link>
-          <button aria-label="Delete Comment">
+          <button aria-label="Delete Comment" onClick={() => this.teste(comment.id)}>
             <Oction
               icon={Trashcan}
               size="small"

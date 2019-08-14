@@ -1,7 +1,7 @@
 import {
-  addNewComment,
-  updateCommentScore,
-  editExistingComment
+  fetchAddComment,
+  fetchVoteComment,
+  fetchEditComment
 } from '../utils/DataAPI'
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
@@ -19,7 +19,7 @@ export const addComment = (comment) => ({
   comment
 })
 export const handleAddComment = (comment) => (dispatch) => {
-  return addNewComment(comment).then((newComment) =>
+  return fetchAddComment(comment).then((newComment) =>
     dispatch(addComment(newComment))
   )
 }
@@ -30,7 +30,7 @@ export const voteComment = ({ id, voteScore }) => ({
   voteScore
 })
 export const handleVoteComment = (info) => (dispatch) => {
-  return updateCommentScore(info).then((resp) => dispatch(voteComment(resp)))
+  return fetchVoteComment(info).then((resp) => dispatch(voteComment(resp)))
 }
 
 export const editComment = ({ id, timestamp, body, lastEdit }) => ({
@@ -41,5 +41,5 @@ export const editComment = ({ id, timestamp, body, lastEdit }) => ({
   lastEdit
 })
 export const handleEditComment = (info) => (dispatch) => {
-  return editExistingComment(info).then((resp) => dispatch(editComment(resp)))
+  return fetchEditComment(info).then((resp) => dispatch(editComment(resp)))
 }
