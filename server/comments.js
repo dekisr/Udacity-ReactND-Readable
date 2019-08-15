@@ -9,20 +9,22 @@ const defaultData = {
     parentId: "3e9bef70-a5f8-11e9-80d3-216ed62915e5",
     timestamp: 1468166872634,
     body: 'Hi there! I am a COMMENT.',
-    author: 'thingtwo',
+    author: 'indianred',
     voteScore: 100,
     deleted: false,
-    parentDeleted: false
+    parentDeleted: false,
+    lastEdit: null
   },
   "8b5ab1c0-a5f8-11e9-a3aa-15673fce599a": {
     id: '8b5ab1c0-a5f8-11e9-a3aa-15673fce599a',
     parentId: "3e9bef70-a5f8-11e9-80d3-216ed62915e5",
     timestamp: 1469479767190,
     body: 'Comments. Are. Cool.',
-    author: 'thingone',
+    author: 'powderblue',
     voteScore: -100,
     deleted: false,
-    parentDeleted: false
+    parentDeleted: false,
+    lastEdit: null
   }
 }
 
@@ -66,7 +68,8 @@ function add (token, comment) {
       parentId: comment.parentId,
       voteScore: 1,
       deleted: false,
-      parentDeleted: false
+      parentDeleted: false,
+      lastEdit: null
     }
 
     posts.incrementCommentCounter(token, comment.parentId, 1)
