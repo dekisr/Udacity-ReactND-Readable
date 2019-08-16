@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
+import { trimReplace } from './../../utils/helpers'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
@@ -13,37 +14,35 @@ class CommentForm extends Component {
     valid: false,
     toPost: false
   }
-  componentDidMount() {
-    const { comment } = this.props
-    comment && this.setState({ body: this.props.comment.body })
+  handleChange = (event) => {
+    const value = event.target.value
+    this.setState({ body: value })
+    this.validateComment(trimReplace(value))
   }
   validateComment = (value) => {
     let error = ''
     const { comment } = this.props
-    value.length > 20 && value.length < 301
-      ? (error = '')
-      : (error =
+
+    value.length < 21 || value.length > 300
+      ? (error =
           '🧟 Your comment must be longer than 20 and up to 300 characters long.')
-    if (comment && comment.body === value) {
-      error = '🧟 It was supposed to change this comment.'
-    }
+      : comment && comment.body === value
+      ? (error = '🧟 It was supposed to change this comment.')
+      : (error = '')
+
     this.setState({ bodyError: error })
     error ? this.setState({ valid: false }) : this.setState({ valid: true })
   }
-  handleChange = (event) => {
-    const value = event.target.value
-    this.setState({ body: value })
-    this.validateComment(value.trim().replace(/\s+/g, ' '))
-  }
   handleSubmit = (e) => {
     e.preventDefault()
-    const { comment, parentId, currentUser, dispatch } = this.props
+    const { body } = this.state
+    const { dispatch, comment, parentId, currentUser } = this.props
     let commentData
     if (comment) {
       commentData = {
         id: comment.id,
         timestamp: comment.timestamp,
-        body: this.state.body.trim().replace(/\s+/g, ' '),
+        body: trimReplace(body),
         lastEdit: {
           timestamp: Date.now(),
           author: currentUser
@@ -51,7 +50,7 @@ class CommentForm extends Component {
       }
       commentData.body.length > 20 &&
       commentData.body.length < 301 &&
-      this.state.body !== comment.body
+      body !== comment.body
         ? dispatch(handleEditComment(commentData)).then(() =>
             this.setState({ toPost: true })
           )
@@ -62,7 +61,7 @@ class CommentForm extends Component {
       commentData = {
         id: uuid(),
         timestamp: Date.now(),
-        body: this.state.body.trim().replace(/\s+/g, ' '),
+        body: trimReplace(body),
         author: currentUser,
         parentId: parentId,
         lastEdit: null
@@ -75,6 +74,10 @@ class CommentForm extends Component {
             bodyError: '🧟‍ What?'
           })
     }
+  }
+  componentDidMount() {
+    const { comment } = this.props
+    comment && this.setState({ body: this.props.comment.body })
   }
   render() {
     const { comment, parentId, currentUser } = this.props
@@ -99,7 +102,7 @@ class CommentForm extends Component {
         />
         {body.length > 0 && (
           <span>
-            <b>{body.trim().replace(/\s+/g, ' ').length} / 300</b>
+            <b>{trimReplace(body).length} / 300</b>
           </span>
         )}
         {bodyError && <span>{bodyError}</span>}

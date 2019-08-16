@@ -62,6 +62,10 @@ export const formatToTime = (timestamp) => {
   }).format(timestamp)
 }
 
+export const trimReplace = (string) => {
+  return string.trim().replace(/\s+/g, ' ')
+}
+
 // USERS
 export const getRandomUser = () => {
   const userName = users[Math.floor(Math.random() * users.length)]

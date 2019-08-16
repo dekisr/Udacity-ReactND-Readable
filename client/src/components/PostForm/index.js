@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddPost } from '../../actions/posts'
-import { sortCategories } from '../../utils/helpers'
+import { sortCategories, trimReplace } from '../../utils/helpers'
 import StyledPostForm from './styles'
 
 const initialState = {
@@ -62,24 +62,26 @@ class PostForm extends Component {
     const value = event.target.value
     const name = event.target.name
     this.setState({ [name]: value }, this.validateForm)
-    this.validateInput(name, value.trim().replace(/\s+/g, ' '))
+    this.validateInput(name, trimReplace(value))
   }
   handleBlur = (event) => {
     const value = event.target.value
     const name = event.target.name
-    this.validateInput(name, value.trim().replace(/\s+/g, ' '))
+    this.validateInput(name, trimReplace(value))
   }
   handleSubmit = (e) => {
     e.preventDefault()
+    const { title, body, category } = this.state
+    const { dispatch, currentUser } = this.props
     const post = {
       id: uuid(),
       timestamp: Date.now(),
-      title: this.state.title,
-      body: this.state.body.trim().replace(/\s+/g, ' '),
-      author: this.props.currentUser,
-      category: this.state.category
+      title: title,
+      body: body.trim().replace(/\s+/g, ' '),
+      author: currentUser,
+      category: category
     }
-    this.props.dispatch(handleAddPost(post))
+    dispatch(handleAddPost(post))
     this.setState({
       ...initialState,
       toHome: true
