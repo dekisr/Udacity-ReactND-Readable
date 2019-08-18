@@ -131,15 +131,14 @@ export const fetchVoteComment = ({ id, option }) => {
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch(logError())
 }
-export const fetchEditComment = ({ id, timestamp, body, lastEdit }) => {
+export const fetchEditComment = ({ id, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {
     ...initPUT,
-    body: JSON.stringify({ timestamp, body, lastEdit })
+    body: JSON.stringify({ body, lastEdit })
   })
     .then((resp) => resp.json())
     .then((comment) => ({
       id: comment.id,
-      timestamp: comment.timestamp,
       body: comment.body,
       lastEdit: comment.lastEdit
     }))

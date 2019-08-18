@@ -63,7 +63,21 @@ export const formatToTime = (timestamp) => {
 }
 
 export const trimReplace = (string) => {
-  return string.trim().replace(/\s+/g, ' ')
+  return (
+    string
+      // Replace all consecutive white spaces that are not a line break
+      .replace(/[^\S\r\n]+/g, ' ')
+      // Trim white spaces in each line
+      .replace(/^[^\S\r\n]+|[^\S\r\n]+$/gm, '')
+      // Replace multiple line break
+      .replace(/\n{3,}/g, '\n\n')
+      // Prevent start/end line break
+      .trim()
+  )
+}
+
+export const removeSpaces = (string) => {
+  return string.replace(/\s+/g, '')
 }
 
 // USERS

@@ -28,11 +28,10 @@ const comments = (state = {}, action) => {
     case EDIT_COMMENT:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
-          timestamp: action.timestamp,
-          body: action.body,
-          lastEdit: action.lastEdit
+        [action.commentData.id]: {
+          ...state[action.commentData.id],
+          body: action.commentData.body,
+          lastEdit: action.commentData.lastEdit
         }
       }
     default:
