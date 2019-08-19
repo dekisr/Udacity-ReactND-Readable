@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVoteComment, handleDeleteComment } from '../../actions/comments'
-import { formatToTime, formatToDate } from '../../utils/helpers'
+import { formatToTime, formatToDate, safeHTML, emphasisHTML } from '../../utils/helpers'
 import StyledComment from './styles'
 import Oction, {
   ChevronUp,
@@ -50,14 +50,18 @@ class Comment extends Component {
             />
           </button>
         </StyledComment.VoteScore>
-        <StyledComment.Body>
-          {comment.body}
+        <StyledComment.Body
+          dangerouslySetInnerHTML={{
+            __html: emphasisHTML(safeHTML(comment.body))
+          }}
+        >
+          {/* {comment.body}
           {comment.lastEdit && (
             <span>
               edited by: {comment.lastEdit.author}, on{' '}
               {formatToDate(comment.lastEdit.timestamp)}
             </span>
-          )}
+          )} */}
         </StyledComment.Body>
         <StyledComment.Edit>
           <Link to={`/comment/edit/id/${comment.id}`}>

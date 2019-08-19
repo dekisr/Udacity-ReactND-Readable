@@ -80,6 +80,27 @@ export const removeSpaces = (string) => {
   return string.replace(/\s+/g, '')
 }
 
+export const safeHTML = (string) => {
+  // https://developer.mozilla.org/en-US/docs/Glossary/Entity
+  // https://dev.w3.org/html5/html-author/charref
+  return string
+    .replace(/\$/g, '&#36;')
+    .replace(/&/g, '&#38;')
+    .replace(/</g, '&#60;')
+    .replace(/>/g, '&#62;')
+    .replace(/"/g, '&#34;')
+    .replace(/'/g, '&#39;')
+    .replace(/{/g, '&#123;')
+    .replace(/}/g, '&#125;')
+}
+
+export const emphasisHTML = (string) => {
+  return string
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/__(.+?)__/g, '<i>$1</i>')
+    .replace(/~~(.+?)~~/g, '<s>$1</s>')
+}
+
 // USERS
 export const getRandomUser = () => {
   const userName = users[Math.floor(Math.random() * users.length)]
