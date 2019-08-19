@@ -1,13 +1,15 @@
 import {
   fetchAddComment,
   fetchVoteComment,
-  fetchEditComment
+  fetchEditComment,
+  fetchDeleteComment
 } from '../utils/DataAPI'
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const receiveComments = (comments) => ({
   type: RECEIVE_COMMENTS,
@@ -40,5 +42,15 @@ export const editComment = (commentData) => ({
 export const handleEditComment = (commentData) => (dispatch) => {
   return fetchEditComment(commentData).then((updatedCommentData) =>
     dispatch(editComment(updatedCommentData))
+  )
+}
+
+export const deleteComment = (id) => ({
+  type: DELETE_COMMENT,
+  id
+})
+export const handleDeleteComment = (id) => (dispatch) => {
+  return fetchDeleteComment(id).then((commentId) =>
+    dispatch(deleteComment(commentId))
   )
 }

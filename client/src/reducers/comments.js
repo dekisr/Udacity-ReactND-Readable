@@ -2,7 +2,8 @@ import {
   RECEIVE_COMMENTS,
   ADD_COMMENT,
   VOTE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  DELETE_COMMENT
 } from '../actions/comments'
 
 const comments = (state = {}, action) => {
@@ -34,6 +35,10 @@ const comments = (state = {}, action) => {
           lastEdit: action.commentData.lastEdit
         }
       }
+    case DELETE_COMMENT:
+      const newState = { ...state }
+      delete newState[action.id]
+      return newState
     default:
       return state
   }

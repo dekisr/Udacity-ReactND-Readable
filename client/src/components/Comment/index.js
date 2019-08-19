@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { handleVoteComment } from '../../actions/comments'
+import { handleVoteComment, handleDeleteComment } from '../../actions/comments'
 import { formatToTime, formatToDate } from '../../utils/helpers'
 import StyledComment from './styles'
 import Oction, {
@@ -16,6 +16,10 @@ class Comment extends Component {
   handleCommentScore = (id, option) => {
     const { dispatch } = this.props
     return dispatch(handleVoteComment({ id, option }))
+  }
+  deleteComment = (id) => {
+    const { dispatch } = this.props
+    return dispatch(handleDeleteComment(id))
   }
   render() {
     const { comment } = this.props
@@ -66,7 +70,10 @@ class Comment extends Component {
               />
             </button>
           </Link>
-          <button aria-label="Delete Comment" onClick={() => this.teste(comment.id)}>
+          <button
+            aria-label="Delete Comment"
+            onClick={() => this.deleteComment(comment.id)}
+          >
             <Oction
               icon={Trashcan}
               size="small"

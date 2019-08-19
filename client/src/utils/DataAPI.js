@@ -147,6 +147,6 @@ export const fetchEditComment = ({ id, body, lastEdit }) => {
 export const fetchDeleteComment = (id) => {
   return fetch(`${api}/comments/${id}`, initDELETE)
     .then((resp) => resp.json())
-    .then((comment) => comment)
+    .then((comment) => comment.id)
     .catch(logError())
 }
