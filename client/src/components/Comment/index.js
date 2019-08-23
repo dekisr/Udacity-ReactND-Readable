@@ -42,7 +42,7 @@ class Comment extends Component {
               ariaLabel="Vote Up"
             />
           </button>
-          <span>{comment.voteScore}</span>
+          <div aria-label="Comment Vote Score">{comment.voteScore}</div>
           <button
             aria-label="Vote Comment Down"
             onClick={() => this.handleCommentScore(comment.id, 'downVote')}
@@ -65,9 +65,9 @@ class Comment extends Component {
             {formatToDate(comment.timestamp)} - {}
             {formatToTime(comment.timestamp)}
           </StyledComment.Info.Date>
-          <StyledComment.Info.Author>
-            <StyledComment.Info.Avatar author={comment.author} />
-            <span>{comment.author}</span>
+          <StyledComment.Info.Author aria-label="Author">
+            <StyledComment.Info.Avatar aria-label="Avatar" author={comment.author} />
+            <span aria-label="Name">{comment.author}</span>
           </StyledComment.Info.Author>
         </StyledComment.Info>
         <StyledComment.Edit>

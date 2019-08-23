@@ -103,29 +103,29 @@ class CommentForm extends Component {
             // onBlur={this.handleBlur}
           />
           {body.length > 0 && (
-            <span>
-              <b>{bodyChars} / 300</b>
-            </span>
+            <StyledCommentForm.Options>
+              <dl>
+                <dt>options:</dt>
+                <dd>
+                  **text**:<b>text</b>
+                </dd>
+                <dd>
+                  __text__:<i>text</i>
+                </dd>
+                <dd>
+                  ~~text~~:<s>text</s>
+                </dd>
+              </dl>
+              <span>
+                <b>{bodyChars} / 300</b>
+              </span>
+            </StyledCommentForm.Options>
           )}
           {bodyError && <span>{bodyError}</span>}
           <button type="submit" disabled={!isValid}>
             {comment ? 'Edit comment' : 'Add new comment'}
           </button>
         </StyledCommentForm>
-        <StyledCommentForm.Options>
-          <dl>
-            <dt>Options:</dt>
-            <dd>
-              **word**: <b>word</b>
-            </dd>
-            <dd>
-              __word__: <i>word</i>
-            </dd>
-            <dd>
-              ~~word~~: <s>word</s>
-            </dd>
-          </dl>
-        </StyledCommentForm.Options>
       </Fragment>
     )
   }

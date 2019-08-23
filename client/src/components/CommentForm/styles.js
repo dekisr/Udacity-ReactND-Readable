@@ -8,6 +8,7 @@ const StyledCommentForm = styled.form`
   align-content: center;
   justify-items: center;
   align-items: center;
+  grid-gap: 0.5rem;
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
   margin: 1rem auto;
@@ -18,13 +19,16 @@ const StyledCommentForm = styled.form`
   & b {
     font-weight: 700;
   }
-  & span {
+  & > span {
     display: block;
     width: calc(100% - 1rem);
-    margin: 0 auto 0.5rem auto;
-    padding: 0;
+    margin: 0 auto;
+    font-size: 0.75rem;
     text-align: right;
     color: ${colors.grey.two};
+    @media (min-width: 601px) {
+      font-size: 1rem;
+    }
   }
   & button {
     width: 100%;
@@ -63,7 +67,7 @@ const TextArea = styled.textarea`
   display: block;
   width: calc(100% - 1rem);
   height: 5rem;
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
   padding: 0.5rem;
   appearance: none;
   border: 1px solid ${colors.grey.four};
@@ -82,13 +86,31 @@ const TextArea = styled.textarea`
   }
 `
 const Options = styled.div`
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  align-items: center;
+  grid-gap: 0.5rem;
   width: calc(100% - 1rem);
   margin: 0 auto;
-  padding: 1rem;
+  font-size: 0.75rem;
+  color: ${colors.grey.two};
   background-color: snow;
+  & dl {
+    padding-left: 0.1rem;
+  }
   & dt, dd {
     display: inline;
+    font-size: 0.75rem;
+    @media (min-width: 601px) {
+      font-size: 0.875rem;
+    }
+  }
+  & dd {
+    padding: 0 0.5rem;
+  }
+  @media (min-width: 601px) {
+    font-size: 1rem;
   }
 `
 
