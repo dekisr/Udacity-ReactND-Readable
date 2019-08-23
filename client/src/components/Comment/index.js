@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVoteComment, handleDeleteComment } from '../../actions/comments'
-import { formatToTime, formatToDate, safeHTML, emphasisHTML } from '../../utils/helpers'
+import {
+  formatToTime,
+  formatToDate,
+  safeHTML,
+  emphasisHTML
+} from '../../utils/helpers'
 import StyledComment from './styles'
 import Oction, {
   ChevronUp,
@@ -37,7 +42,7 @@ class Comment extends Component {
               ariaLabel="Vote Up"
             />
           </button>
-          {comment.voteScore}
+          <span>{comment.voteScore}</span>
           <button
             aria-label="Vote Comment Down"
             onClick={() => this.handleCommentScore(comment.id, 'downVote')}
@@ -54,16 +59,25 @@ class Comment extends Component {
           dangerouslySetInnerHTML={{
             __html: emphasisHTML(safeHTML(comment.body))
           }}
-        >
-          {/* {comment.body}
-          {comment.lastEdit && (
-            <span>
-              edited by: {comment.lastEdit.author}, on{' '}
-              {formatToDate(comment.lastEdit.timestamp)}
-            </span>
-          )} */}
-        </StyledComment.Body>
+        />
+        <StyledComment.Info>
+          <StyledComment.Info.Date>
+            {formatToDate(comment.timestamp)} - {}
+            {formatToTime(comment.timestamp)}
+          </StyledComment.Info.Date>
+          <StyledComment.Info.Author>
+            <StyledComment.Info.Avatar author={comment.author} />
+            <span>{comment.author}</span>
+          </StyledComment.Info.Author>
+        </StyledComment.Info>
         <StyledComment.Edit>
+          <span>
+            {comment.lastEdit &&
+              `
+              edited by: ${comment.lastEdit.author}, on
+              ${formatToDate(comment.lastEdit.timestsmp)}
+              `}
+          </span>
           <Link to={`/comment/edit/id/${comment.id}`}>
             <button aria-label="Edit Comment">
               <Oction
@@ -86,16 +100,6 @@ class Comment extends Component {
             />
           </button>
         </StyledComment.Edit>
-        <StyledComment.Info>
-          <StyledComment.Info.Date>
-            {formatToDate(comment.timestamp)} - {}
-            {formatToTime(comment.timestamp)}
-          </StyledComment.Info.Date>
-          <StyledComment.Info.Author>
-            <StyledComment.Info.Avatar author={comment.author} />
-            <span>{comment.author}</span>
-          </StyledComment.Info.Author>
-        </StyledComment.Info>
       </StyledComment>
     )
   }

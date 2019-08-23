@@ -10,7 +10,7 @@ const StyledCommentForm = styled.form`
   align-items: center;
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
-  margin: 0.5rem auto 1rem auto;
+  margin: 1rem auto;
   box-shadow: ${({ author }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
     0 0 0 0.5rem ${author}`};
@@ -44,6 +44,7 @@ const StyledCommentForm = styled.form`
   }
   & button:disabled,
   button[disabled] {
+    cursor: not-allowed;
     background-color: ${colors.grey.five};
   }
   & button:hover {
@@ -69,7 +70,7 @@ const TextArea = styled.textarea`
   border-radius: 0;
   font-size: 0.875rem;
   line-height: 1.5;
-  color: red;
+  color: ${colors.grey.three};
   ::placeholder {
     text-align: center;
     text-transform: uppercase;
@@ -80,7 +81,18 @@ const TextArea = styled.textarea`
     font-size: 1.125rem;
   }
 `
+const Options = styled.div`
+  display: block;
+  width: calc(100% - 1rem);
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: snow;
+  & dt, dd {
+    display: inline;
+  }
+`
 
 StyledCommentForm.TextArea = TextArea
+StyledCommentForm.Options = Options
 
 export default StyledCommentForm

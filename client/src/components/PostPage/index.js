@@ -23,7 +23,7 @@ class PostPage extends Component {
     ) : (
       <Fragment>
         <Post id={postId} />
-        <StyledPostPage>
+        <StyledPostPage aria-label="Comments Section">
           <StyledPostPage.H2 author={currentUser}>
             Hey <span>{currentUser}</span>, how about adding a comment?
           </StyledPostPage.H2>

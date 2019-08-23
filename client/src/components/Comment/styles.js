@@ -4,7 +4,7 @@ import { colors } from '../../utils/globalStyles'
 const StyledComment = styled.article`
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr auto auto;
   grid-gap: 1rem;
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
@@ -61,34 +61,8 @@ const Body = styled.p`
   text-align: left;
   white-space: pre-line;
   color: ${colors.grey.three};
-  & span {
-    display: block;
-    width: 100%;
-    margin: 0.5rem;
-    text-align: right;
-    font-size: 0.75rem;
-  }
   @media (min-width: 601px) {
     font-size: 1.125rem;
-  }
-`
-const Edit = styled.div`
-  display: grid;
-  justify-content: end;
-  align-content: center;
-  justify-items: end;
-  align-items: center;
-  grid-template-columns: auto auto;
-  grid-gap: 0.5rem;
-  & button {
-    display: block;
-    padding: 0.5rem;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    color: ${colors.grey.two};
-    background: none;
   }
 `
 const Info = styled.ul`
@@ -107,11 +81,24 @@ const Info = styled.ul`
   }
 `
 const InfoItem = styled.li`
-  color: ${colors.grey.three};
+  color: ${colors.grey.two};
+`
+const Date = styled(InfoItem)`
+  justify-self: end;
+  & p {
+    text-align: right;
+  }
+`
+const Avatar = styled.div`
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid ${colors.grey.two};
+  background-color: ${({ author }) => author};
 `
 const Author = styled(InfoItem)`
   display: grid;
   grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
   align-content: center;
   align-items: center;
   grid-gap: 0.2rem;
@@ -120,15 +107,32 @@ const Author = styled(InfoItem)`
     display: block;
   }
 `
-const Avatar = styled.div`
-  width: 1rem;
-  height: 1rem;
-  background-color: ${({ author }) => author};
-`
-const Date = styled(InfoItem)`
-  justify-self: end;
-  & p {
+const Edit = styled.div`
+  display: grid;
+  justify-content: end;
+  align-content: center;
+  justify-items: end;
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  grid-gap: 1rem;
+  color: ${colors.grey.three};
+  & span {
+    display: block;
     text-align: right;
+    font-size: 0.625rem;
+    @media (min-width: 601px) {
+      font-size: 0.75rem;
+    }
+  }
+  & button {
+    display: block;
+    padding: 0.2rem;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: ${colors.grey.three};
+    background: none;
   }
 `
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ class CommentForm extends Component {
   state = {
     body: '',
     bodyError: '',
-    valid: false,
+    isValid: false,
     toPost: false
   }
   handleChange = (event) => {
@@ -32,7 +32,7 @@ class CommentForm extends Component {
       : (error = '')
 
     this.setState({ bodyError: error })
-    error ? this.setState({ valid: false }) : this.setState({ valid: true })
+    error ? this.setState({ isValid: false }) : this.setState({ isValid: true })
   }
   handleSubmit = (e) => {
     e.preventDefault()
@@ -49,11 +49,9 @@ class CommentForm extends Component {
           author: currentUser
         }
       }
-      bodyChars > 20 &&
-      bodyChars < 301 &&
-      body !== comment.body
+      bodyChars > 20 && bodyChars < 301 && body !== comment.body
         ? dispatch(handleEditComment(commentData)).then(() =>
-            this.setState({ toPost: true })
+            this.setState({ body: '', isValid: false, toPost: true })
           )
         : this.setState({
             bodyError: '🧟‍ What?'
@@ -69,7 +67,7 @@ class CommentForm extends Component {
       }
       bodyChars > 20 && bodyChars < 301
         ? dispatch(handleAddComment(commentData)).then(() => {
-            this.setState({ body: '' })
+            this.setState({ body: '', isValid: false })
           })
         : this.setState({
             bodyError: '🧟‍ What?'
@@ -82,36 +80,53 @@ class CommentForm extends Component {
   }
   render() {
     const { comment, parentId, currentUser } = this.props
-    const { body, bodyError, valid, toPost } = this.state
+    const { body, bodyError, isValid, toPost } = this.state
     const bodyChars = removeSpaces(body).length
     return toPost ? (
       <Redirect to={`/post/id/${comment.parentId}`} />
     ) : !comment && !parentId ? (
       <h1>This comment does not exist.</h1>
     ) : (
-      <StyledCommentForm
-        noValidade
-        onSubmit={this.handleSubmit}
-        author={currentUser}
-      >
-        <StyledCommentForm.TextArea
-          name="body"
-          placeholder="Type your message"
-          maxLength={300 + (body.length - bodyChars)}
-          value={body}
-          onChange={this.handleChange}
-          // onBlur={this.handleBlur}
-        />
-        {body.length > 0 && (
-          <span>
-            <b>{bodyChars} / 300</b>
-          </span>
-        )}
-        {bodyError && <span>{bodyError}</span>}
-        <button type="submit" disabled={!valid}>
-          {comment ? 'Edit comment' : 'Add new comment'}
-        </button>
-      </StyledCommentForm>
+      <Fragment>
+        {comment && <h1>Edit comment</h1>}
+        <StyledCommentForm
+          noValidade
+          onSubmit={this.handleSubmit}
+          author={currentUser}
+        >
+          <StyledCommentForm.TextArea
+            name="body"
+            placeholder="Type your message"
+            maxLength={300 + (body.length - bodyChars)}
+            value={body}
+            onChange={this.handleChange}
+            // onBlur={this.handleBlur}
+          />
+          {body.length > 0 && (
+            <span>
+              <b>{bodyChars} / 300</b>
+            </span>
+          )}
+          {bodyError && <span>{bodyError}</span>}
+          <button type="submit" disabled={!isValid}>
+            {comment ? 'Edit comment' : 'Add new comment'}
+          </button>
+        </StyledCommentForm>
+        <StyledCommentForm.Options>
+          <dl>
+            <dt>Options:</dt>
+            <dd>
+              **word**: <b>word</b>
+            </dd>
+            <dd>
+              __word__: <i>word</i>
+            </dd>
+            <dd>
+              ~~word~~: <s>word</s>
+            </dd>
+          </dl>
+        </StyledCommentForm.Options>
+      </Fragment>
     )
   }
 }
