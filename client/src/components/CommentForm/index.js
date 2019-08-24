@@ -6,6 +6,7 @@ import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
 import { trimReplace, removeSpaces } from './../../utils/helpers'
 import StyledCommentForm from './styles'
+import { handleToast } from '../../actions/toast';
 
 class CommentForm extends Component {
   state = {
@@ -54,7 +55,7 @@ class CommentForm extends Component {
             .then(() =>
               this.setState({ body: '', isValid: false, toPost: true })
             )
-            .catch((err) => this.props.toast(err.message))
+            .catch((err) => dispatch(handleToast(err.message, 'error')))
         : this.setState({
             bodyError: '🧟‍ What?'
           })
@@ -68,9 +69,11 @@ class CommentForm extends Component {
         lastEdit: null
       }
       bodyChars > 20 && bodyChars < 301
-        ? dispatch(handleAddComment(commentData)).then(() => {
-            this.setState({ body: '', isValid: false })
-          })
+        ? dispatch(handleAddComment(commentData))
+            .then(() => {
+              this.setState({ body: '', isValid: false })
+            })
+            .catch((err) => dispatch(handleToast(err.message, 'error')))
         : this.setState({
             bodyError: '🧟‍ What?'
           })

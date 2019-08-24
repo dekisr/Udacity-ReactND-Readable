@@ -22,9 +22,16 @@ export const addComment = (comment) => ({
   comment
 })
 export const handleAddComment = (comment) => (dispatch) => {
-  return fetchAddComment(comment).then((newComment) =>
-    dispatch(addComment(newComment))
-  )
+  dispatch(isLoadingBar(true))
+  return fetchAddComment(comment)
+    .then((newComment) => {
+      dispatch(addComment(newComment))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
 }
 
 export const voteComment = ({ id, voteScore }) => ({

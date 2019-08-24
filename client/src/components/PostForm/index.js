@@ -85,8 +85,6 @@ class PostForm extends Component {
       this.setState({
         ...initialState,
         toHome: true
-      }, () => {
-        this.props.toast('VAAAAI')
       })
     })
   }
