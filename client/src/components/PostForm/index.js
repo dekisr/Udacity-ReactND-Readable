@@ -81,10 +81,13 @@ class PostForm extends Component {
       author: currentUser,
       category: category
     }
-    dispatch(handleAddPost(post))
-    this.setState({
-      ...initialState,
-      toHome: true
+    dispatch(handleAddPost(post)).then(() => {
+      this.setState({
+        ...initialState,
+        toHome: true
+      }, () => {
+        this.props.toast('VAAAAI')
+      })
     })
   }
   render() {
