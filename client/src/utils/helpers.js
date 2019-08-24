@@ -1,12 +1,10 @@
 import users from './users'
 
-export const logError = () => {
-  return (err) => {
-    console.group('WHAT?')
-    const { msg, style } = errorMessage(err)
-    console.error(msg, style)
-    console.groupEnd()
-  }
+export const logError = (err) => {
+  console.group('WHAT?')
+  const { msg, style } = errorMessage(err)
+  console.error(msg, style)
+  console.groupEnd()
 }
 const errorMessage = (msg) => {
   return {

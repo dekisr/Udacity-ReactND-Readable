@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { isLoading } from '../../actions/loading'
 import { handleInitialData } from '../../actions/shared'
+import { isLoadingData } from '../../actions/loading'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
 import PostPage from '../PostPage'
@@ -33,32 +33,31 @@ class App extends Component {
         }
       })
     }, 3000)
+    console.log(message)
   }
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(isLoading(true))
-    dispatch(handleInitialData()).then(() => dispatch(isLoading(false)))
+    dispatch(handleInitialData()).catch((err) => this.toastTest(err.message))
   }
   render() {
-    const { loading } = this.props
+    const { loadingData } = this.props
     return (
       <BrowserRouter>
         <Header />
-        {loading ? (
+        {loadingData ? (
           <h1>LOOOADING</h1>
         ) : (
           <StyledApp>
             <Switch>
               <Route path="/" exact component={Dashboard} />
               <Route path="/post/id/:id" component={PostPage} />
+              <Route path="/post/new" exact component={PostForm} />
               <Route
-                path="/post/new"
-                exact
+                path="/comment/edit/id/:id"
                 render={(props) => (
-                  <PostForm {...props} toast={this.toastTest} />
+                  <CommentForm {...props} toast={this.toastTest} />
                 )}
               />
-              <Route path="/comment/edit/id/:id" component={CommentForm} />
               <Route render={() => <Error message="what? error" />} />
             </Switch>
             <button onClick={() => this.toastTest('EITA')}>TESTEE</button>
@@ -72,9 +71,9 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ loading }) => {
+const mapStateToProps = ({ loading: { loadingData } }) => {
   return {
-    loading
+    loadingData
   }
 }
 

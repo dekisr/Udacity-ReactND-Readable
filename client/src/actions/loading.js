@@ -1,6 +1,12 @@
-export const IS_LOADING = 'IS_LOADING'
+export const IS_LOADING_DATA = 'IS_LOADING'
+export const IS_LOADING_BAR = 'IS_LOADING_BAR'
 
-export const isLoading = (loading) => ({
-  type: IS_LOADING,
-  loading
+export const isLoadingData = (loadingData) => ({
+  type: IS_LOADING_DATA,
+  loadingData
+})
+
+export const isLoadingBar = (loadingBar) => ({
+  type: IS_LOADING_BAR,
+  loadingBar
 })

@@ -58,7 +58,10 @@ export const fetchAllPosts = () => {
       const formatted = toObject(posts, 'id')
       return formatted
     })
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while fetching Posts')
+    })
 }
 export const fetchAddPost = (post) => {
   return fetch(`${api}/posts`, {
@@ -67,7 +70,10 @@ export const fetchAddPost = (post) => {
   })
     .then((resp) => resp.json())
     .then((post) => post)
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while adding Post')
+    })
 }
 export const fetchVotePost = ({ id, option }) => {
   return fetch(`${api}/posts/${id}`, {
@@ -76,7 +82,10 @@ export const fetchVotePost = ({ id, option }) => {
   })
     .then((resp) => resp.json())
     .then((post) => ({ id: post.id, voteScore: post.voteScore }))
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while updating Post Vote Score')
+    })
 }
 
 // CATEGORIES
@@ -87,7 +96,10 @@ export const fetchAllCategories = () => {
       const formatted = toObject(categories['categories'], 'name')
       return formatted
     })
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while fetching Categories')
+    })
 }
 
 // COMMENTS
@@ -102,7 +114,10 @@ export const fetchAllComments = async () => {
       })
       return allComments
     })
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while fetching Comments')
+    })
 }
 export const fetchCommentsByPost = (id) => {
   return fetch(`${api}/posts/${id}/comments`, initGET)
@@ -111,7 +126,10 @@ export const fetchCommentsByPost = (id) => {
       const formatted = toObject(comments, 'id')
       return formatted
     })
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while fetching Post Comments')
+    })
 }
 export const fetchAddComment = (comment) => {
   return fetch(`${api}/comments`, {
@@ -120,7 +138,10 @@ export const fetchAddComment = (comment) => {
   })
     .then((resp) => resp.json())
     .then((comment) => comment)
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while adding Comment')
+    })
 }
 export const fetchVoteComment = ({ id, option }) => {
   return fetch(`${api}/comments/${id}`, {
@@ -129,7 +150,10 @@ export const fetchVoteComment = ({ id, option }) => {
   })
     .then((resp) => resp.json())
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while updating Comment Vote Score')
+    })
 }
 export const fetchEditComment = ({ id, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {
@@ -142,11 +166,17 @@ export const fetchEditComment = ({ id, body, lastEdit }) => {
       body: comment.body,
       lastEdit: comment.lastEdit
     }))
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while updating Comment')
+    })
 }
 export const fetchDeleteComment = (id) => {
   return fetch(`${api}/comments/${id}`, initDELETE)
     .then((resp) => resp.json())
     .then((comment) => comment.id)
-    .catch(logError())
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while deleting Comment')
+    })
 }

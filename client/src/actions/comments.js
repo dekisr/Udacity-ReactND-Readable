@@ -4,6 +4,7 @@ import {
   fetchEditComment,
   fetchDeleteComment
 } from '../utils/DataAPI'
+import { isLoadingBar } from './loading'
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
@@ -40,9 +41,16 @@ export const editComment = (commentData) => ({
   commentData
 })
 export const handleEditComment = (commentData) => (dispatch) => {
-  return fetchEditComment(commentData).then((updatedCommentData) =>
-    dispatch(editComment(updatedCommentData))
-  )
+  dispatch(isLoadingBar(true))
+  return fetchEditComment(commentData)
+    .then((updatedCommentData) => {
+      dispatch(editComment(updatedCommentData))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
 }
 
 export const deleteComment = (id) => ({
