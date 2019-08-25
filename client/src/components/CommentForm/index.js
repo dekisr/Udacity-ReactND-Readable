@@ -4,9 +4,9 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
+import { handleToast } from '../../actions/toast'
 import { trimReplace, removeSpaces } from './../../utils/helpers'
 import StyledCommentForm from './styles'
-import { handleToast } from '../../actions/toast'
 
 class CommentForm extends Component {
   state = {

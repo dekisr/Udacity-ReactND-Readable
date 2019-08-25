@@ -11,5 +11,5 @@ export const ridToast = () => ({
 })
 export const handleToast = (message, alertType) => (dispatch) => {
   dispatch(setToast(message, alertType))
-  return window.setTimeout(() => dispatch(ridToast()), 3000)
+  return setTimeout(() => dispatch(ridToast()), 3000)
 }

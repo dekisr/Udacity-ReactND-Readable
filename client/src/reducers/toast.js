@@ -2,8 +2,8 @@ import { SET_TOAST, RID_TOAST } from '../actions/toast'
 
 const initalState = {
   isVisible: false,
-  alertType: 'sucess',
-  message: ''
+  alertType: '',
+  message: '',
 }
 
 const toast = (state = { ...initalState }, action) => {

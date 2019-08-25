@@ -37,6 +37,16 @@ const initDELETE = {
   headers
 }
 
+export const resetInitialData = () => {
+  return Promise.all([
+    fetchResetPosts(),
+    fetchResetComments()
+  ]).then(([posts, comments]) => ({
+    posts,
+    comments
+  }))
+}
+
 export const getInitialData = () => {
   return Promise.all([
     fetchAllPosts(),
@@ -51,6 +61,15 @@ export const getInitialData = () => {
 
 // POSTS
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+export const fetchResetPosts = () => {
+  return fetch(`${api}/posts/reset`, initGET)
+    .then((resp) => resp.json())
+    .then((posts) => posts)
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while reseting Posts')
+    })
+}
 export const fetchAllPosts = () => {
   return fetch(`${api}/posts`, initGET)
     .then((resp) => resp.json())
@@ -103,22 +122,43 @@ export const fetchAllCategories = () => {
 }
 
 // COMMENTS
-export const fetchAllComments = async () => {
-  let allComments
-  const postIds = await fetchAllPosts().then((posts) => Object.keys(posts))
-  const comments = postIds.map((id) => fetchCommentsByPost(id))
-  return Promise.all(comments)
-    .then((resp) => {
-      resp.map((comment) => {
-        return (allComments = { ...allComments, ...comment })
-      })
-      return allComments
+export const fetchResetComments = () => {
+  return fetch(`${api}/comments/reset`, initGET)
+    .then((resp) => resp.json())
+    .then((comments) => comments)
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while reseting Comments')
+    })
+}
+export const fetchAllComments = () => {
+  return fetch(`${api}/comments`, initGET)
+    .then((resp) => resp.json())
+    .then((comments) => {
+      const formatted = toObject(comments, 'id')
+      return formatted
     })
     .catch((err) => {
       logError(err)
       throw new Error('There was an error while fetching Comments')
     })
 }
+// export const fetchAllComments = async () => {
+//   let allComments
+//   const postIds = await fetchAllPosts().then((posts) => Object.keys(posts))
+//   const comments = postIds.map((id) => fetchCommentsByPost(id))
+//   return Promise.all(comments)
+//     .then((resp) => {
+//       resp.map((comment) => {
+//         return (allComments = { ...allComments, ...comment })
+//       })
+//       return allComments
+//     })
+//     .catch((err) => {
+//       logError(err)
+//       throw new Error('There was an error while fetching Comments')
+//     })
+// }
 export const fetchCommentsByPost = (id) => {
   return fetch(`${api}/posts/${id}/comments`, initGET)
     .then((resp) => resp.json())

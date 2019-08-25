@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
+import { handleToast } from '../../actions/toast'
 import Loading from '../Loading'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
@@ -10,7 +11,6 @@ import PostForm from '../PostForm'
 import Error from '../Error'
 import StyledApp from './styles'
 import CommentForm from '../CommentForm'
-import { handleToast } from '../../actions/toast'
 
 class App extends Component {
   componentDidMount() {
