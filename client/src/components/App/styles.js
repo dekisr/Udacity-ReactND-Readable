@@ -12,7 +12,12 @@ const Toast = styled.div`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   width: 300px;
   height: 100px;
-  background-color: snow;
+  background-color: ${({ alertType }) =>
+    alertType === 'success'
+      ? 'palegreen'
+      : alertType === 'error'
+      ? 'lightsalmon'
+      : 'indigo'};
 `
 
 StyledApp.Toast = Toast

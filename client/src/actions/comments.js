@@ -40,7 +40,19 @@ export const voteComment = ({ id, voteScore }) => ({
   voteScore
 })
 export const handleVoteComment = (info) => (dispatch) => {
-  return fetchVoteComment(info).then((resp) => dispatch(voteComment(resp)))
+  // Optimistic Updates
+  let voteScore = info.voteScore
+  info.option === 'upVote' && voteScore++
+  info.option === 'downVote' && voteScore--
+  let newInfo = {
+    ...info,
+    voteScore
+  }
+  dispatch(voteComment(newInfo))
+  return fetchVoteComment(info).catch((err) => {
+    dispatch(voteComment(info))
+    throw new Error(err.message)
+  })
 }
 
 export const editComment = (commentData) => ({
@@ -65,7 +77,14 @@ export const deleteComment = (id) => ({
   id
 })
 export const handleDeleteComment = (id) => (dispatch) => {
-  return fetchDeleteComment(id).then((commentId) =>
-    dispatch(deleteComment(commentId))
-  )
+  dispatch(isLoadingBar(true))
+  return fetchDeleteComment(id)
+    .then((commentId) => {
+      dispatch(deleteComment(commentId))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
 }

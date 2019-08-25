@@ -16,15 +16,22 @@ import Oction, {
   Pencil,
   Trashcan
 } from '@primer/octicons-react'
+import { handleToast } from '../../actions/toast'
 
 class Comment extends Component {
-  handleCommentScore = (id, option) => {
+  handleCommentScore = (id, option, voteScore) => {
     const { dispatch } = this.props
-    return dispatch(handleVoteComment({ id, option }))
+    return dispatch(handleVoteComment({ id, option, voteScore })).catch((err) =>
+      dispatch(handleToast(err.message, 'error'))
+    )
   }
   deleteComment = (id) => {
     const { dispatch } = this.props
     return dispatch(handleDeleteComment(id))
+      .then(() =>
+        dispatch(handleToast('The comment was successfully deleted', 'success'))
+      )
+      .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
     const { comment } = this.props
@@ -33,7 +40,9 @@ class Comment extends Component {
         <StyledComment.VoteScore>
           <button
             aria-label="Vote Comment Up"
-            onClick={() => this.handleCommentScore(comment.id, 'upVote')}
+            onClick={() =>
+              this.handleCommentScore(comment.id, 'upVote', comment.voteScore)
+            }
           >
             <Oction
               icon={ChevronUp}
@@ -45,7 +54,9 @@ class Comment extends Component {
           <div aria-label="Comment Vote Score">{comment.voteScore}</div>
           <button
             aria-label="Vote Comment Down"
-            onClick={() => this.handleCommentScore(comment.id, 'downVote')}
+            onClick={() =>
+              this.handleCommentScore(comment.id, 'downVote', comment.voteScore)
+            }
           >
             <Oction
               icon={ChevronDown}
@@ -66,7 +77,10 @@ class Comment extends Component {
             {formatToTime(comment.timestamp)}
           </StyledComment.Info.Date>
           <StyledComment.Info.Author aria-label="Author">
-            <StyledComment.Info.Avatar aria-label="Avatar" author={comment.author} />
+            <StyledComment.Info.Avatar
+              aria-label="Avatar"
+              author={comment.author}
+            />
             <span aria-label="Name">{comment.author}</span>
           </StyledComment.Info.Author>
         </StyledComment.Info>

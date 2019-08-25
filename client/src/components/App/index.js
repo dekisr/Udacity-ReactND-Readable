@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
@@ -9,14 +9,17 @@ import PostForm from '../PostForm'
 import Error from '../Error'
 import StyledApp from './styles'
 import CommentForm from '../CommentForm'
+import { handleToast } from '../../actions/toast'
 
 class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(handleInitialData())
+    dispatch(handleInitialData()).catch((err) =>
+      dispatch(handleToast(err.message, 'error'))
+    )
   }
   render() {
-    const { loadingData } = this.props
+    const { loadingData, toast } = this.props
     return (
       <BrowserRouter>
         <Header />
@@ -32,7 +35,10 @@ class App extends Component {
               )}
               <Route render={() => <Error message="what? error" />} />
             </Switch>
-            <StyledApp.Toast isVisible={this.props.toast.isVisible}>
+            <StyledApp.Toast
+              isVisible={toast.isVisible}
+              alertType={toast.alertType}
+            >
               {this.props.toast.message}
             </StyledApp.Toast>
           </StyledApp>
