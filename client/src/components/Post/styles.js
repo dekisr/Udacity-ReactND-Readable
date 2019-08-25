@@ -135,7 +135,7 @@ const Join = styled.button`
   position: absolute;
   right: -1rem;
   bottom: 0;
-  z-index: 123;
+  z-index: 119;
   margin: 0;
   padding: 0.5rem;
   border: none;

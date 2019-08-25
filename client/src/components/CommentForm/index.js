@@ -94,7 +94,7 @@ class CommentForm extends Component {
     comment && this.setState({ body: comment.body })
   }
   render() {
-    const { loadingBar, comment, parentId, currentUser } = this.props
+    const { comment, parentId, currentUser } = this.props
     const { body, bodyError, isValid, toPost } = this.state
     const bodyChars = removeSpaces(body).length
     return toPost ? (
@@ -103,7 +103,6 @@ class CommentForm extends Component {
       <h1>This comment does not exist.</h1>
     ) : (
       <Fragment>
-        {loadingBar && <h1>LOOOADING BAAAR</h1>}
         {comment && <h1>Edit comment</h1>}
         <StyledCommentForm
           noValidade
@@ -152,14 +151,10 @@ CommentForm.propTypes = {
   currentUser: PropTypes.string.isRequired
 }
 
-const mapStateToProps = (
-  { loading: { loadingBar }, comments, currentUser },
-  ownProps
-) => {
+const mapStateToProps = ({ comments, currentUser }, ownProps) => {
   const commentId = ownProps.match ? ownProps.match.params.id : null
   const comment = comments[commentId] || null
   return {
-    loadingBar,
     comment,
     currentUser: currentUser
   }

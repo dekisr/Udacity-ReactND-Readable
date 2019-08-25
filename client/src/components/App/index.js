@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
+import Loading from '../Loading'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
 import PostPage from '../PostPage'
@@ -19,9 +20,10 @@ class App extends Component {
     )
   }
   render() {
-    const { loadingData, toast } = this.props
+    const { loadingData, loadingBar, toast } = this.props
     return (
       <BrowserRouter>
+        {loadingBar && <Loading />}
         <Header />
         {loadingData ? (
           <h1>LOOOADING</h1>
@@ -39,7 +41,7 @@ class App extends Component {
               isVisible={toast.isVisible}
               alertType={toast.alertType}
             >
-              {this.props.toast.message}
+              <p>{this.props.toast.message}</p>
             </StyledApp.Toast>
           </StyledApp>
         )}
@@ -48,9 +50,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ loading: { loadingData }, toast }) => {
+const mapStateToProps = ({ loading: { loadingData, loadingBar }, toast }) => {
   return {
     loadingData,
+    loadingBar,
     toast
   }
 }
