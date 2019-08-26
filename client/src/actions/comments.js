@@ -1,6 +1,7 @@
 import {
   fetchAddComment,
   fetchVoteComment,
+  fetchReloadComment,
   fetchEditComment,
   fetchDeleteComment
 } from '../utils/DataAPI'
@@ -12,6 +13,7 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const RELOAD_COMMENT = 'RELOAD_COMMENT'
 
 export const receiveComments = (comments) => ({
   type: RECEIVE_COMMENTS,
@@ -57,6 +59,19 @@ export const handleVoteComment = (info) => (dispatch) => {
   dispatch(voteComment(newInfo))
   return fetchVoteComment(info).catch((err) => {
     dispatch(voteComment(info))
+    throw new Error(err.message)
+  })
+}
+
+export const reloadComment = (comment) => ({
+  type: RELOAD_COMMENT,
+  comment
+})
+export const handleReloadComment = (id) => (dispatch) => {
+  return fetchReloadComment(id).then((comment) => {
+    dispatch(reloadComment(comment))
+  })
+  .catch((err) => {
     throw new Error(err.message)
   })
 }

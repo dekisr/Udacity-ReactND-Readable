@@ -1,9 +1,11 @@
-import { fetchAddPost, fetchVotePost } from '../utils/DataAPI'
+import { fetchAddPost, fetchVotePost, fetchReloadPost } from '../utils/DataAPI'
 import { isLoadingBar } from './loading'
+
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RESET_POSTS = 'RESET_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
+export const RELOAD_POST = 'RELOAD_POST'
 
 export const receivePosts = (posts) => ({
   type: RECEIVE_POSTS,
@@ -38,7 +40,30 @@ const votePost = ({ id, voteScore }) => ({
   voteScore
 })
 export const handleVotePost = (info) => (dispatch) => {
-  return fetchVotePost(info).then(({ id, voteScore }) =>
-    dispatch(votePost({ id, voteScore }))
-  )
+  // Optimistic Updates
+  let voteScore = info.voteScore
+  info.option === 'upVote' && voteScore++
+  info.option === 'downVote' && voteScore--
+  let newInfo = {
+    ...info,
+    voteScore
+  }
+  dispatch(votePost(newInfo))
+  return fetchVotePost(info).catch((err) => {
+    dispatch(votePost(info))
+    throw new Error(err.message)
+  })
+}
+
+export const reloadPost = (post) => ({
+  type: RELOAD_POST,
+  post
+})
+export const handleReloadPost = (id) => (dispatch) => {
+  return fetchReloadPost(id).then((post) => {
+    dispatch(reloadPost(post))
+  })
+  .catch((err) => {
+    throw new Error(err.message)
+  })
 }

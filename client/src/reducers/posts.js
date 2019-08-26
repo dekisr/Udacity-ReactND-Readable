@@ -2,7 +2,8 @@ import {
   RECEIVE_POSTS,
   VOTE_POST,
   ADD_POST,
-  RESET_POSTS
+  RESET_POSTS,
+  RELOAD_POST
 } from '../actions/posts'
 
 const posts = (state = {}, action) => {
@@ -27,6 +28,13 @@ const posts = (state = {}, action) => {
         [action.id]: {
           ...state[action.id],
           voteScore: action.voteScore
+        }
+      }
+    case RELOAD_POST:
+      return {
+        ...state,
+        [action.post.id]: {
+          ...action.post
         }
       }
     default:

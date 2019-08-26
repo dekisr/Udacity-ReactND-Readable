@@ -2,35 +2,45 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { handleVotePost } from '../../actions/posts'
+import { handleVotePost, handleReloadPost } from '../../actions/posts'
+import { handleToast } from '../../actions/toast'
 import { formatToDate, formatToTime } from '../../utils/helpers'
 import StyledPost from './styles'
-import Oction, {
-  ChevronUp,
-  ChevronDown
-} from '@primer/octicons-react'
+import Oction, { ChevronUp, ChevronDown } from '@primer/octicons-react'
 
 class Post extends Component {
-  handleVoteScore = (id, option) => {
+  changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
-    return dispatch(handleVotePost({ id, option }))
+    return dispatch(handleVotePost({ id, option, voteScore })).catch((err) => {
+      dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
+      /*
+        on server errror:
+        try to reload the post preventing bugs with Optimistic
+        Updates if clicking too fast using slow connections
+      */
+      dispatch(handleReloadPost(id)).catch((err) =>
+        dispatch(handleToast(err.message, 'error'))
+      )
+    })
   }
   render() {
     const { post, commentCount } = this.props
-    return !post ? (
-      null
-    ) : (
+    return !post ? null : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
           <button
-            onClick={() => this.handleVoteScore(post.id, 'upVote')}
+            onClick={() =>
+              this.changeVoteScore(post.id, 'upVote', post.voteScore)
+            }
             aria-label="Vote Post Up"
           >
             <Oction icon={ChevronUp} size="medium" verticalAlign="middle" />
           </button>
           {post.voteScore}
           <button
-            onClick={() => this.handleVoteScore(post.id, 'downVote')}
+            onClick={() =>
+              this.changeVoteScore(post.id, 'downVote', post.voteScore)
+            }
             aria-label="Vote Post Down"
           >
             <Oction icon={ChevronDown} size="medium" verticalAlign="middle" />
@@ -74,9 +84,10 @@ Post.propTypes = {
 
 const mapStateToProps = ({ posts, comments }, { id }) => {
   const post = posts[id] || null
-  const commentCount = Object.keys(comments).filter(
-    (commentId) => comments[commentId].parentId === post.id
-  ).length || 0
+  const commentCount =
+    Object.keys(comments).filter(
+      (commentId) => comments[commentId].parentId === post.id
+    ).length || 0
   return {
     post,
     commentCount

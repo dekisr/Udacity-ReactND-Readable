@@ -106,6 +106,15 @@ export const fetchVotePost = ({ id, option }) => {
       throw new Error('There was an error while updating Post Vote Score')
     })
 }
+export const fetchReloadPost = (id) => {
+  return fetch(`${api}/posts/${id}`, initGET)
+  .then((resp) => resp.json())
+  .then((post) => post)
+  .catch((err) => {
+    logError(err)
+    throw new Error('There was an error while reloading Post')
+  })
+}
 
 // CATEGORIES
 export const fetchAllCategories = () => {
@@ -194,6 +203,15 @@ export const fetchVoteComment = ({ id, option }) => {
       logError(err)
       throw new Error('There was an error while updating Comment Vote Score')
     })
+}
+export const fetchReloadComment = (id) => {
+  return fetch(`${api}/comments/${id}`, initGET)
+  .then((resp) => resp.json())
+  .then((comment) => comment)
+  .catch((err) => {
+    logError(err)
+    throw new Error('There was an error while reloading Comment')
+  })
 }
 export const fetchEditComment = ({ id, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {

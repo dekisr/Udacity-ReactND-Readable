@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { handleVoteComment, handleDeleteComment } from '../../actions/comments'
+import { handleVoteComment, handleDeleteComment, handleReloadComment } from '../../actions/comments'
 import { handleToast } from '../../actions/toast'
 import {
   formatToTime,
@@ -21,9 +21,17 @@ import Oction, {
 class Comment extends Component {
   changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
-    return dispatch(handleVoteComment({ id, option, voteScore })).catch((err) =>
-      dispatch(handleToast(err.message, 'error'))
-    )
+    return dispatch(handleVoteComment({ id, option, voteScore })).catch((err) => {
+      dispatch(handleToast(`${err.message}. Resyinc the comment...`, 'error'))
+      /*
+        on server errror:
+        try to reload the comment preventing bugs with Optimistic
+        Updates if clicking too fast using slow connections
+      */
+      dispatch(handleReloadComment(id)).catch((err) =>
+        dispatch(handleToast(err.message, 'error'))
+      )
+    })
   }
   deleteComment = (id) => {
     const { dispatch } = this.props
