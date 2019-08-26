@@ -88,8 +88,9 @@ const TextArea = styled.textarea`
 const Options = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
-  align-content: center;
-  align-items: center;
+  grid-template-rows: auto;
+  align-content: start;
+  align-items: start;
   grid-gap: 0.5rem;
   width: calc(100% - 1rem);
   margin: 0 auto;
@@ -100,14 +101,26 @@ const Options = styled.div`
     padding-left: 0.1rem;
   }
   & dt, dd {
-    display: inline;
     font-size: 0.75rem;
     @media (min-width: 601px) {
       font-size: 0.875rem;
     }
   }
+  & dt {
+    display: block;
+    @media (min-width: 601px) {
+      display: inline;
+    }
+  }
   & dd {
-    padding: 0 0.5rem;
+    display: inline;
+    padding: 0 0.3rem;
+    @media (min-width: 601px) {
+      padding: 0 0.5rem;
+    }
+  }
+  & span {
+    text-align: right;
   }
   @media (min-width: 601px) {
     font-size: 1rem;

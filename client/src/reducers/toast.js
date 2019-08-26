@@ -1,23 +1,24 @@
 import { SET_TOAST, RID_TOAST } from '../actions/toast'
 
-const initalState = {
-  isVisible: false,
-  alertType: '',
-  message: '',
-}
-
-const toast = (state = { ...initalState }, action) => {
+const toast = (state = {}, action) => {
   switch (action.type) {
     case SET_TOAST:
       return {
         ...state,
-        isVisible: true,
-        alertType: action.alertType,
-        message: action.message
+        [action.id]: {
+          isVisible: true,
+          id: action.id,
+          alertType: action.alertType,
+          message: action.message
+        }
       }
     case RID_TOAST:
       return {
-        ...initalState
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          isVisible: false
+        }
       }
     default:
       return state

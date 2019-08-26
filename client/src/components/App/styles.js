@@ -14,32 +14,43 @@ const toastOpacity = css`
     }
     10% {
       opacity: 0.95;
-      right: 2rem;
+      right: 0rem;
     }
     90% {
       opacity: 0.95;
-      right: 2rem;
+      right: 0rem;
     }
     to {
       opacity: 0;
       right: -20rem;
     }
   }
-  animation: 3.2s fade linear;
+  animation: 3.5s fade linear;
+`
+const ToastWrapper = styled.section`
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 121;
+  display: ${({ show }) => (show ? 'block' : 'none')};
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+  padding: 0 1rem;
+  pointer-events: none;
+  background: none;
 `
 const Toast = styled.div`
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  z-index: 121;
+  position: relative;
+  right: -40rem;
   display: ${({ isVisible }) => (isVisible ? 'grid' : 'none')};
   justify-content: center;
   align-content: center;
   justify-items: center;
   align-items: center;
-  width: 20rem;
+  width: 100%;
   height: 7rem;
-  opacity: 0.95;
+  margin-top: 1rem;
   ${({ isVisible }) => (isVisible ? toastOpacity : 'animation: none')};
   box-shadow: 0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5);
   color: snow;
@@ -48,7 +59,7 @@ const Toast = styled.div`
       ? 'palegreen'
       : alertType === 'error'
       ? 'lightsalmon'
-      : 'indigo'};
+      : 'lightslategrey'};
   & p {
     padding: 1rem;
     font-size: 1rem;
@@ -58,6 +69,7 @@ const Toast = styled.div`
   }
 `
 
+StyledApp.ToastWrapper = ToastWrapper
 StyledApp.Toast = Toast
 
 export default StyledApp

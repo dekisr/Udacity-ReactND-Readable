@@ -1,15 +1,20 @@
+import uuid from 'uuid'
+
 export const SET_TOAST = 'SET_TOAST'
 export const RID_TOAST = 'RID_TOAST'
 
-export const setToast = (message, alertType) => ({
+export const setToast = (id, alertType, message) => ({
   type: SET_TOAST,
-  message,
-  alertType
+  id,
+  alertType,
+  message
 })
-export const ridToast = () => ({
-  type: RID_TOAST
+export const ridToast = (id) => ({
+  type: RID_TOAST,
+  id
 })
 export const handleToast = (message, alertType) => (dispatch) => {
-  dispatch(setToast(message, alertType))
-  return setTimeout(() => dispatch(ridToast()), 3000)
+  const id = uuid()
+  dispatch(setToast(id, alertType, message))
+  return setTimeout(() => dispatch(ridToast(id)), 4000)
 }

@@ -20,7 +20,7 @@ class App extends Component {
     )
   }
   render() {
-    const { loadingData, loadingBar, toast } = this.props
+    const { loadingData, loadingBar, toast, toastIds, showToastWrapper } = this.props
     return (
       <BrowserRouter>
         {loadingBar && <Loading />}
@@ -37,12 +37,18 @@ class App extends Component {
               )}
               <Route render={() => <Error message="what? error" />} />
             </Switch>
-            <StyledApp.Toast
-              isVisible={toast.isVisible}
-              alertType={toast.alertType}
-            >
-              <p>{this.props.toast.message}</p>
-            </StyledApp.Toast>
+            <StyledApp.ToastWrapper show={showToastWrapper}>
+              {toastIds.map((key) => {
+                return (
+                  <StyledApp.Toast
+                    isVisible={toast[key].isVisible}
+                    alertType={toast[key].alertType}
+                  >
+                    <p>{toast[key].message}</p>
+                  </StyledApp.Toast>
+                )
+              })}
+            </StyledApp.ToastWrapper>
           </StyledApp>
         )}
       </BrowserRouter>
@@ -51,10 +57,16 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ loading: { loadingData, loadingBar }, toast }) => {
+  const toastIds = Object.keys(toast)
+  const showToastWrapper = Object.values(toast).filter(
+    (toast) => toast.isVisible === true
+  ).length
   return {
     loadingData,
     loadingBar,
-    toast
+    toast,
+    toastIds,
+    showToastWrapper
   }
 }
 

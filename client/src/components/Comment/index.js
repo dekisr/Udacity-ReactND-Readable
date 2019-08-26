@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVoteComment, handleDeleteComment } from '../../actions/comments'
+import { handleToast } from '../../actions/toast'
 import {
   formatToTime,
   formatToDate,
@@ -16,7 +17,6 @@ import Oction, {
   Pencil,
   Trashcan
 } from '@primer/octicons-react'
-import { handleToast } from '../../actions/toast'
 
 class Comment extends Component {
   handleCommentScore = (id, option, voteScore) => {

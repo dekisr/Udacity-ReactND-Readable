@@ -25,7 +25,7 @@ const Menu = styled.nav`
   color: palegreen;
 `
 const MenuItem = styled(Link)`
-  color: royalblue;
+  color: wheat;
 `
 const MenuButton = styled.button`
   border: none;
