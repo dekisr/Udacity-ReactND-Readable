@@ -1,4 +1,5 @@
 import { fetchAddPost, fetchVotePost } from '../utils/DataAPI'
+import { isLoadingBar } from './loading'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RESET_POSTS = 'RESET_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -19,7 +20,16 @@ const addPost = (post) => ({
   post
 })
 export const handleAddPost = (post) => (dispatch) => {
-  return fetchAddPost(post).then((newPost) => dispatch(addPost(newPost)))
+  dispatch(isLoadingBar(true))
+  return fetchAddPost(post)
+    .then((newPost) => {
+      dispatch(addPost(newPost))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
 }
 
 const votePost = ({ id, voteScore }) => ({

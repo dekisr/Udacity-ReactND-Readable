@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddPost } from '../../actions/posts'
-import { sortCategories, trimReplace } from '../../utils/helpers'
+import { handleToast } from '../../actions/toast'
+import { sortCategories, trimReplace, removeSpaces } from '../../utils/helpers'
 import StyledPostForm from './styles'
 
 const initialState = {
@@ -14,9 +15,9 @@ const initialState = {
   categoryError: '',
   titleError: '',
   bodyError: '',
-  valid: false
+  error: '',
+  isValid: false
 }
-
 class PostForm extends Component {
   state = {
     ...initialState,
@@ -39,20 +40,29 @@ class PostForm extends Component {
     !categoryError &&
     !titleError &&
     !bodyError
-      ? this.setState({ valid: true })
-      : this.setState({ valid: false })
+      ? this.setState({ isValid: true })
+      : this.setState({ isValid: false })
   }
   validateInput = (name, value) => {
     let error = ''
+    const valueChars = removeSpaces(value).length
     switch (name) {
       case 'category':
-        value === 'none' ? (error = 'You must select a category') : (error = '')
+        value === 'none'
+          ? (error = '🧟‍♀️ You must select a category')
+          : (error = '')
         return this.setState({ categoryError: error })
       case 'title':
-        value.length < 5 ? (error = 'Title MUST have 5 chars') : (error = '')
+        valueChars < 5 || valueChars > 25
+          ? (error =
+              '🧟‍♂️ Your title be longer than 5 and up to 25 characters long.')
+          : (error = '')
         return this.setState({ titleError: error })
       case 'body':
-        value.length < 10 ? (error = 'Write more') : (error = '')
+        valueChars < 41 || valueChars > 600
+          ? (error =
+              '🧟‍♀️ Your post must be longer than 40 and up to 600 characters long.')
+          : (error = '')
         return this.setState({ bodyError: error })
       default:
         return this.setState({ error })
@@ -71,31 +81,49 @@ class PostForm extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    const { title, body, category } = this.state
+    const { title, body, category, isValid } = this.state
     const { dispatch, currentUser } = this.props
     const post = {
       id: uuid(),
       timestamp: Date.now(),
-      title: title,
-      body: body.trim().replace(/\s+/g, ' '),
+      title: trimReplace(title),
+      body: trimReplace(body),
       author: currentUser,
       category: category
     }
-    dispatch(handleAddPost(post)).then(() => {
-      this.setState({
-        ...initialState,
-        toHome: true
-      })
-    })
+    isValid
+      ? dispatch(handleAddPost(post))
+          .then(() => {
+            this.setState({
+              ...initialState,
+              toHome: true
+            })
+          })
+          .then(() => {
+            dispatch(
+              handleToast('The post was successfully created', 'success')
+            )
+          })
+          .catch((err) => dispatch(handleToast(err.message, 'error')))
+      : this.setState({ error: '🧛🏻‍♀️ What?' })
   }
   render() {
-    const { categoryError, titleError, bodyError, valid, toHome } = this.state
+    const {
+      body,
+      categoryError,
+      titleError,
+      bodyError,
+      isValid,
+      error,
+      toHome
+    } = this.state
+    const bodyChars = removeSpaces(body).length
     return toHome ? (
       <Redirect to="/" />
     ) : (
-      <StyledPostForm>
+      <Fragment>
         <h1>New Post</h1>
-        <StyledPostForm.Form noValidate onSubmit={this.handleSubmit}>
+        <StyledPostForm noValidate onSubmit={this.handleSubmit}>
           <select
             name="category"
             value={this.state.category}
@@ -111,7 +139,7 @@ class PostForm extends Component {
               </option>
             ))}
           </select>
-          {categoryError && <div>{categoryError}</div>}
+          {categoryError && <span>{categoryError}</span>}
           <input
             type="text"
             name="title"
@@ -120,21 +148,41 @@ class PostForm extends Component {
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />
-          {titleError && <div>{titleError}</div>}
+          {titleError && <span>{titleError}</span>}
           <textarea
             name="body"
             placeholder="Body"
-            maxLength="600"
+            maxLength={600 + (body.length - bodyChars)}
             value={this.state.body}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />
-          {bodyError && <div>{bodyError}</div>}
-          <button type="submit" disabled={!valid}>
+          {body.length > 0 && (
+            <StyledPostForm.Options>
+              <dl>
+                <dt>options:</dt>
+                <dd>
+                  **text**:<b>text</b>
+                </dd>
+                <dd>
+                  __text__:<i>text</i>
+                </dd>
+                <dd>
+                  ~~text~~:<s>text</s>
+                </dd>
+              </dl>
+              <span>
+                <b>{bodyChars} / 600</b>
+              </span>
+            </StyledPostForm.Options>
+          )}
+          {bodyError && <span>{bodyError}</span>}
+          {error && <span>{error}</span>}
+          <button type="submit" disabled={!isValid}>
             Create a new post!
           </button>
-        </StyledPostForm.Form>
-      </StyledPostForm>
+        </StyledPostForm>
+      </Fragment>
     )
   }
 }

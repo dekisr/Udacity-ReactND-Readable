@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -19,7 +19,7 @@ import Oction, {
 } from '@primer/octicons-react'
 
 class Comment extends Component {
-  handleCommentScore = (id, option, voteScore) => {
+  changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
     return dispatch(handleVoteComment({ id, option, voteScore })).catch((err) =>
       dispatch(handleToast(err.message, 'error'))
@@ -41,7 +41,7 @@ class Comment extends Component {
           <button
             aria-label="Vote Comment Up"
             onClick={() =>
-              this.handleCommentScore(comment.id, 'upVote', comment.voteScore)
+              this.changeVoteScore(comment.id, 'upVote', comment.voteScore)
             }
           >
             <Oction
@@ -55,7 +55,7 @@ class Comment extends Component {
           <button
             aria-label="Vote Comment Down"
             onClick={() =>
-              this.handleCommentScore(comment.id, 'downVote', comment.voteScore)
+              this.changeVoteScore(comment.id, 'downVote', comment.voteScore)
             }
           >
             <Oction

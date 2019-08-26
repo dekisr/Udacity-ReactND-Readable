@@ -15,11 +15,6 @@ class CommentForm extends Component {
     isValid: false,
     toPost: false
   }
-  handleChange = (event) => {
-    const value = event.target.value
-    this.setState({ body: value })
-    this.validateComment(trimReplace(value))
-  }
   validateComment = (value) => {
     const { comment } = this.props
     const valueChars = removeSpaces(value).length
@@ -27,19 +22,23 @@ class CommentForm extends Component {
 
     valueChars < 21 || valueChars > 300
       ? (error =
-          '🧟 Your comment must be longer than 20 and up to 300 characters long.')
+          '🧟‍♂️ Your comment must be longer than 20 and up to 300 characters long.')
       : comment && comment.body === value
-      ? (error = '🧟 It was supposed to change this comment.')
+      ? (error = '🧟‍♀️ It was supposed to change this comment.')
       : (error = '')
 
     this.setState({ bodyError: error })
     error ? this.setState({ isValid: false }) : this.setState({ isValid: true })
   }
+  handleChange = (event) => {
+    const value = event.target.value
+    this.setState({ body: value })
+    this.validateComment(trimReplace(value))
+  }
   handleSubmit = (e) => {
     e.preventDefault()
-    const { body } = this.state
+    const { body, isValid } = this.state
     const { dispatch, comment, parentId, currentUser } = this.props
-    const bodyChars = removeSpaces(body).length
     let commentData
     if (comment) {
       commentData = {
@@ -50,7 +49,7 @@ class CommentForm extends Component {
           author: currentUser
         }
       }
-      bodyChars > 20 && bodyChars < 301 && body !== comment.body
+      isValid && body !== comment.body
         ? dispatch(handleEditComment(commentData))
             .then(() =>
               this.setState({ body: '', isValid: false, toPost: true })
@@ -62,7 +61,7 @@ class CommentForm extends Component {
             })
             .catch((err) => dispatch(handleToast(err.message, 'error')))
         : this.setState({
-            bodyError: '🧟‍ What?'
+            bodyError: '🧛🏻‍♂️ What?'
           })
     } else {
       commentData = {
@@ -73,7 +72,7 @@ class CommentForm extends Component {
         parentId: parentId,
         lastEdit: null
       }
-      bodyChars > 20 && bodyChars < 301
+      isValid
         ? dispatch(handleAddComment(commentData))
             .then(() => {
               this.setState({ body: '', isValid: false })
@@ -85,7 +84,7 @@ class CommentForm extends Component {
             })
             .catch((err) => dispatch(handleToast(err.message, 'error')))
         : this.setState({
-            bodyError: '🧟‍ What?'
+            bodyError: '🧛🏻‍♂️ What?'
           })
     }
   }
@@ -94,8 +93,8 @@ class CommentForm extends Component {
     comment && this.setState({ body: comment.body })
   }
   render() {
-    const { comment, parentId, currentUser } = this.props
     const { body, bodyError, isValid, toPost } = this.state
+    const { comment, parentId, currentUser } = this.props
     const bodyChars = removeSpaces(body).length
     return toPost ? (
       <Redirect to={`/post/id/${comment.parentId}`} />
@@ -147,6 +146,7 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
+  comment: PropTypes.object,
   parentId: PropTypes.string,
   currentUser: PropTypes.string.isRequired
 }

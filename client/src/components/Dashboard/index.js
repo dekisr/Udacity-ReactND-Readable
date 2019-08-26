@@ -8,7 +8,7 @@ import { sortCategories, sortPostsComments } from '../../utils/helpers'
 
 class Dashboard extends Component {
   state = {
-    sortBy: 'voteScore'
+    sortBy: 'timestamp'
   }
   render() {
     const { postIds, posts } = this.props
