@@ -12,8 +12,8 @@ export const handleInitialData = () => (dispatch) => {
   dispatch(isLoadingData(true))
   return getInitialData()
     .then(({ posts, categories, comments }) => {
-      dispatch(receivePosts(posts))
       dispatch(receiveCategories(categories))
+      dispatch(receivePosts(posts))
       dispatch(receiveComments(comments))
       dispatch(setCurrentUser(userName))
       dispatch(isLoadingData(false))

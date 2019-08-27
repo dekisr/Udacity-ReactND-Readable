@@ -148,7 +148,7 @@ class CommentForm extends Component {
 CommentForm.propTypes = {
   comment: PropTypes.object,
   parentId: PropTypes.string,
-  currentUser: PropTypes.string.isRequired
+  currentUser: PropTypes.string
 }
 
 const mapStateToProps = ({ comments, currentUser }, ownProps) => {
@@ -156,7 +156,7 @@ const mapStateToProps = ({ comments, currentUser }, ownProps) => {
   const comment = comments[commentId] || null
   return {
     comment,
-    currentUser: currentUser
+    currentUser
   }
 }
 

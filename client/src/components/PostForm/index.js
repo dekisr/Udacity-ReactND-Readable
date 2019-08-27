@@ -189,13 +189,13 @@ class PostForm extends Component {
 
 PostForm.propTypes = {
   categories: PropTypes.array.isRequired,
-  currentUser: PropTypes.string.isRequired
+  currentUser: PropTypes.string
 }
 
 const mapStateToProps = ({ categories, currentUser }) => {
   return {
     categories: sortCategories(categories),
-    currentUser: currentUser
+    currentUser
   }
 }
 

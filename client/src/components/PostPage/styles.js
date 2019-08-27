@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { colors } from '../../utils/globalStyles'
 
 const StyledPostPage = styled.section`
   width: 100%;

@@ -2,9 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Post from '../Post'
-import Category from '../Category'
-import Comment from '../Comment'
-import { sortCategories, sortPostsComments } from '../../utils/helpers'
+import { sortPostsComments } from '../../utils/helpers'
 
 class Dashboard extends Component {
   state = {

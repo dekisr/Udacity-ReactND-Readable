@@ -47,7 +47,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  currentUser: PropTypes.string.isRequired
+  currentUser: PropTypes.string
 }
 
 const mapStateToProps = ({ currentUser }) => {

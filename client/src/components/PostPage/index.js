@@ -56,7 +56,7 @@ PostPage.propTypes = {
   postId: PropTypes.string.isRequired,
   postComments: PropTypes.object.isRequired,
   commentsIds: PropTypes.array.isRequired,
-  currentUser: PropTypes.string.isRequired
+  currentUser: PropTypes.string
 }
 
 const mapStateToProps = (
