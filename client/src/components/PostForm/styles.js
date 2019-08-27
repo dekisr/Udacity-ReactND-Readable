@@ -13,7 +13,18 @@ const StyledPostForm = styled.form`
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
   margin: 1rem auto;
-  box-shadow: 0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5), 0 0 0 0.5rem palevioletred;
+  transition: box-shadow 1s ease;
+  box-shadow: ${({ category }) => `
+    0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
+    0 0 0 0.5rem ${
+      category === 'blue'
+        ? colors.blue.three
+        : category === 'red'
+        ? colors.red.three
+        : category === 'yellow'
+        ? colors.yellow.three
+        : 'snow'
+    }`};
   background-color: snow;
   & b {
     font-weight: 700;

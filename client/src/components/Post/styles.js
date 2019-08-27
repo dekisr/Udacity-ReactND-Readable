@@ -71,6 +71,7 @@ const Body = styled.p`
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: left;
+  white-space: pre-line;
   color: ${colors.grey.three};
   @media (min-width: 601px) {
     font-size: 1.125rem;

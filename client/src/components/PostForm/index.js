@@ -53,9 +53,9 @@ class PostForm extends Component {
           : (error = '')
         return this.setState({ categoryError: error })
       case 'title':
-        valueChars < 5 || valueChars > 25
+        valueChars < 5 || valueChars > 50
           ? (error =
-              '🧟‍♂️ Your title be longer than 5 and up to 25 characters long.')
+              '🧟‍♂️ Your title be longer than 5 and up to 50 characters long.')
           : (error = '')
         return this.setState({ titleError: error })
       case 'body':
@@ -109,6 +109,8 @@ class PostForm extends Component {
   }
   render() {
     const {
+      category,
+      title,
       body,
       categoryError,
       titleError,
@@ -117,13 +119,14 @@ class PostForm extends Component {
       error,
       toHome
     } = this.state
+    const titleChars = removeSpaces(title).length
     const bodyChars = removeSpaces(body).length
     return toHome ? (
       <Redirect to="/" />
     ) : (
       <Fragment>
         <h1>New Post</h1>
-        <StyledPostForm noValidate onSubmit={this.handleSubmit}>
+        <StyledPostForm noValidate category={category} onSubmit={this.handleSubmit}>
           <select
             name="category"
             value={this.state.category}
@@ -144,6 +147,7 @@ class PostForm extends Component {
             type="text"
             name="title"
             placeholder="Title"
+            maxLength={50 + (title.length - titleChars)}
             value={this.state.title}
             onChange={this.handleChange}
             onBlur={this.handleBlur}

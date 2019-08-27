@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVotePost, handleReloadPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
-import { formatToDate, formatToTime } from '../../utils/helpers'
+import {
+  formatToDate,
+  formatToTime,
+  emphasisHTML,
+  safeHTML
+} from '../../utils/helpers'
 import StyledPost from './styles'
 import Oction, { ChevronUp, ChevronDown } from '@primer/octicons-react'
 
@@ -47,15 +52,18 @@ class Post extends Component {
           </button>
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
-        <StyledPost.Body>
-          {post.body}
-          {this.props.dashboard && (
+        <StyledPost.Body
+          dangerouslySetInnerHTML={{
+            __html: emphasisHTML(safeHTML(post.body))
+          }}
+        >
+          {/* {this.props.dashboard && (
             <Link to={`/post/id/${post.id}`}>
               <StyledPost.Join category={post.category}>
                 ... join the conversation
               </StyledPost.Join>
             </Link>
-          )}
+          )} */}
         </StyledPost.Body>
         <StyledPost.Info category={post.category}>
           <StyledPost.Info.Author>
