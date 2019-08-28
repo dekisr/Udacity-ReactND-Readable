@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
 
 const StyledPost = styled.article`
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
@@ -65,6 +66,9 @@ const Title = styled.h2`
   text-align: left;
   color: ${colors.grey.two};
 `
+const Content = styled.div`
+  position: relative;
+`
 const Body = styled.p`
   position: relative;
   min-height: 8rem;
@@ -75,6 +79,48 @@ const Body = styled.p`
   color: ${colors.grey.three};
   @media (min-width: 601px) {
     font-size: 1.125rem;
+  }
+`
+const Join = styled.button`
+  /* https://css-tricks.com/overriding-default-button-styles/ */
+  position: absolute;
+  right: -1rem;
+  bottom: 0;
+  z-index: 119;
+  padding: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 400ms ease, transform 150ms ease;
+  /* transition: background 400ms ease; */
+  color: ${colors.grey.two};
+  background-color: ${({ category }) =>
+    category === 'blue'
+      ? colors.blue.five
+      : category === 'red'
+      ? colors.red.five
+      : colors.yellow.five};
+  &:hover,
+  &:focus {
+    color: snow;
+    outline: 1px solid snow;
+    outline-offset: -2px;
+  }
+  &:focus {
+    outline: 1px solid snow;
+    outline-offset: -4px;
+  }
+  &:active {
+    outline-offset: -4px;
+    transform: scale(0.99);
+    background-color: ${({ category }) =>
+      category === 'blue'
+        ? colors.blue.two
+        : category === 'red'
+        ? colors.red.two
+        : colors.yellow.two};
   }
 `
 const Info = styled.ul`
@@ -131,48 +177,10 @@ const CommentCount = styled(InfoItem)`
   justify-self: end;
   font-weight: 700;
 `
-const Join = styled.button`
-  /* https://css-tricks.com/overriding-default-button-styles/ */
-  position: absolute;
-  right: -1rem;
-  bottom: 0;
-  z-index: 119;
-  margin: 0;
-  padding: 0.5rem;
-  border: none;
-  font-size: 1rem;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  color: ${colors.grey.two};
-  background-color: ${({ category }) =>
-    category === 'blue'
-      ? colors.blue.five
-      : category === 'red'
-      ? colors.red.five
-      : colors.yellow.five};
-  &:hover,
-  &:focus {
-    color: snow;
-    background-color: ${({ category }) =>
-      category === 'blue'
-        ? colors.blue.two
-        : category === 'red'
-        ? colors.red.two
-        : colors.yellow.two};
-  }
-  &:focus {
-    outline: 1px solid snow;
-    outline-offset: -4px;
-  }
-  &:active {
-    transform: scale(0.99);
-  }
-`
 
 StyledPost.VoteScore = VoteScore
 StyledPost.Title = Title
+StyledPost.Content = Content
 StyledPost.Body = Body
 StyledPost.Info = Info
 StyledPost.Info.Author = Author

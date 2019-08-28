@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVotePost, handleReloadPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
@@ -14,6 +14,9 @@ import StyledPost from './styles'
 import Oction, { ChevronUp, ChevronDown } from '@primer/octicons-react'
 
 class Post extends Component {
+  state = {
+    toPost: false
+  }
   changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
     return dispatch(handleVotePost({ id, option, voteScore })).catch((err) => {
@@ -28,9 +31,15 @@ class Post extends Component {
       )
     })
   }
+  joinPost = () => {
+    this.setState({ toPost: true })
+  }
   render() {
+    const { toPost } = this.state
     const { post, commentCount } = this.props
-    return !post ? null : (
+    return !post ? null : toPost ? (
+      <Redirect to={`/post/id/${post.id}`} />
+    ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
           <button
@@ -52,19 +61,18 @@ class Post extends Component {
           </button>
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
-        <StyledPost.Body
-          dangerouslySetInnerHTML={{
-            __html: emphasisHTML(safeHTML(post.body))
-          }}
-        >
-          {/* {this.props.dashboard && (
-            <Link to={`/post/id/${post.id}`}>
-              <StyledPost.Join category={post.category}>
-                ... join the conversation
-              </StyledPost.Join>
-            </Link>
-          )} */}
-        </StyledPost.Body>
+        <StyledPost.Content>
+          <StyledPost.Body
+            dangerouslySetInnerHTML={{
+              __html: emphasisHTML(safeHTML(post.body))
+            }}
+          />
+          {this.props.dashboard && (
+            <StyledPost.Join category={post.category} onClick={this.joinPost}>
+              ... join the conversation
+            </StyledPost.Join>
+          )}
+        </StyledPost.Content>
         <StyledPost.Info category={post.category}>
           <StyledPost.Info.Author>
             <StyledPost.Info.Author.Avatar author={post.author} />
@@ -85,9 +93,10 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   post: PropTypes.object,
-  commentCount: PropTypes.number.isRequired
+  commentCount: PropTypes.number,
+  dashboard: PropTypes.bool
 }
 
 const mapStateToProps = ({ posts, comments }, { id }) => {

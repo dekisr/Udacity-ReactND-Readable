@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { setCurrentUser } from '../../actions/currentUser'
-import { handleResetData } from '../../actions/shared';
-import { handleToast } from '../../actions/toast';
+import { handleResetData } from '../../actions/shared'
+import { handleToast } from '../../actions/toast'
 import { getRandomUser } from '../../utils/helpers'
 import StyledHeader from './styles'
+import Oction, { Home } from '@primer/octicons-react'
 
 class Header extends Component {
   handleUser = () => {
@@ -18,7 +19,7 @@ class Header extends Component {
   }
 
   resetData = () => {
-    const { dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(handleResetData()).catch((err) =>
       dispatch(handleToast(err.message, 'error'))
     )
@@ -28,19 +29,30 @@ class Header extends Component {
     const { currentUser } = this.props
     return (
       <StyledHeader>
-        <StyledHeader.Logo>READABLE</StyledHeader.Logo>
-        <StyledHeader.Menu>
-          {/* <StyledHeader.MenuItem>{uuid.v1()}</StyledHeader.MenuItem> */}
-          <StyledHeader.MenuItem to="/">Home</StyledHeader.MenuItem>
-          <StyledHeader.MenuButton onClick={this.resetData}>
-            Reset Data
-          </StyledHeader.MenuButton>
-          <StyledHeader.MenuButton onClick={this.handleUser}>
-            Change User
-          </StyledHeader.MenuButton>
-          <StyledHeader.MenuItem to="/post/new">New post</StyledHeader.MenuItem>
-        </StyledHeader.Menu>
-        <div>{currentUser}</div>
+        <StyledHeader.Wrapper>
+          <StyledHeader.Logo color={currentUser}>
+            {currentUser}
+          </StyledHeader.Logo>
+          <StyledHeader.Menu>
+            <StyledHeader.MenuItem to="/" exact activeClassName="routerActive">
+              <Oction icon={Home} size="small" verticalAlign="middle" />
+              <span>Home</span>
+            </StyledHeader.MenuItem>
+            <StyledHeader.MenuButton onClick={this.resetData}>
+              Reset Data
+            </StyledHeader.MenuButton>
+            <StyledHeader.MenuButton onClick={this.handleUser}>
+              Change User
+            </StyledHeader.MenuButton>
+            <StyledHeader.MenuItem
+              to="/post/new"
+              newPost
+              activeClassName="routerActive"
+            >
+              New post
+            </StyledHeader.MenuItem>
+          </StyledHeader.Menu>
+        </StyledHeader.Wrapper>
       </StyledHeader>
     )
   }
