@@ -107,6 +107,15 @@ class PostForm extends Component {
           .catch((err) => dispatch(handleToast(err.message, 'error')))
       : this.setState({ error: '🧛🏻‍♀️ What?' })
   }
+  componentDidMount() {
+    const { post } = this.props
+    post &&
+      this.setState({
+        category: post.category,
+        title: post.title,
+        body: post.body
+      })
+  }
   render() {
     const {
       category,
@@ -119,14 +128,21 @@ class PostForm extends Component {
       error,
       toHome
     } = this.state
+    const { post, newPost } = this.props
     const titleChars = removeSpaces(title).length
     const bodyChars = removeSpaces(body).length
     return toHome ? (
       <Redirect to="/" />
+    ) : !post && !newPost ? (
+      <h1>This post does not exist.</h1>
     ) : (
       <Fragment>
-        <h1>New Post</h1>
-        <StyledPostForm noValidate category={category} onSubmit={this.handleSubmit}>
+        {post ? <h1>Edit Post</h1> : <h1>New Post</h1>}
+        <StyledPostForm
+          noValidate
+          category={category}
+          onSubmit={this.handleSubmit}
+        >
           <select
             name="category"
             value={this.state.category}
@@ -192,13 +208,21 @@ class PostForm extends Component {
 }
 
 PostForm.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.array,
+  newPost: PropTypes.bool,
+  post: PropTypes.object,
   currentUser: PropTypes.string
 }
 
-const mapStateToProps = ({ categories, currentUser }) => {
+const mapStateToProps = ({ categories, posts, currentUser }, ownProps) => {
+  console.log(ownProps)
+  const newPost = ownProps.location.pathname === '/post/new'
+  const postId = ownProps.match ? ownProps.match.params.id : null
+  const post = posts[postId] || null
   return {
     categories: sortCategories(categories),
+    newPost,
+    post,
     currentUser
   }
 }

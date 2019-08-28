@@ -2,10 +2,6 @@ import { logError, toObject } from './helpers'
 
 const api = 'http://localhost:3001'
 
-// let token = Math.random()
-//   .toString(36)
-//   .substr(-8)
-
 const headers = {
   Accept: 'application/json',
   Authorization: 'Charizard'

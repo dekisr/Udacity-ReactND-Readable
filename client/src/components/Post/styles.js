@@ -5,7 +5,7 @@ const StyledPost = styled.article`
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
   grid-gap: 1rem;
   width: calc(100% - 1rem);
   min-width: calc(320px - 1rem);
@@ -41,7 +41,7 @@ const StyledPost = styled.article`
   }
 `
 const VoteScore = styled.div`
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -177,16 +177,45 @@ const CommentCount = styled(InfoItem)`
   justify-self: end;
   font-weight: 700;
 `
+const Edit = styled.div`
+  display: grid;
+  justify-content: end;
+  align-content: center;
+  justify-items: end;
+  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  grid-gap: 1rem;
+  color: ${colors.grey.three};
+  & span {
+    display: block;
+    text-align: right;
+    font-size: 0.625rem;
+    @media (min-width: 601px) {
+      font-size: 0.75rem;
+    }
+  }
+  & button {
+    display: block;
+    padding: 0.2rem;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: ${colors.grey.three};
+    background: none;
+  }
+`
 
 StyledPost.VoteScore = VoteScore
 StyledPost.Title = Title
 StyledPost.Content = Content
 StyledPost.Body = Body
+StyledPost.Join = Join
 StyledPost.Info = Info
 StyledPost.Info.Author = Author
 StyledPost.Info.Author.Avatar = Avatar
 StyledPost.Info.Date = Date
 StyledPost.Info.CommentCount = CommentCount
-StyledPost.Join = Join
+StyledPost.Edit = Edit
 
 export default StyledPost

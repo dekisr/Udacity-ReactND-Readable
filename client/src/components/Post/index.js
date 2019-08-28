@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { handleVotePost, handleReloadPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
@@ -11,7 +11,12 @@ import {
   safeHTML
 } from '../../utils/helpers'
 import StyledPost from './styles'
-import Oction, { ChevronUp, ChevronDown } from '@primer/octicons-react'
+import Oction, {
+  ChevronUp,
+  ChevronDown,
+  Pencil,
+  Trashcan
+} from '@primer/octicons-react'
 
 class Post extends Component {
   state = {
@@ -73,6 +78,36 @@ class Post extends Component {
             </StyledPost.Join>
           )}
         </StyledPost.Content>
+        <StyledPost.Edit>
+          <span>
+            {post.lastEdit &&
+              `
+              edited by: ${post.lastEdit.author}, on
+              ${formatToDate(post.lastEdit.timestsmp)}
+              `}
+          </span>
+          <Link to={`/post/edit/id/${post.id}`}>
+            <button aria-label="Edit Post">
+              <Oction
+                icon={Pencil}
+                size="small"
+                verticalAlign="middle"
+                ariaLabel="Edit Post"
+              />
+            </button>
+          </Link>
+          <button
+            aria-label="Delete Post"
+            onClick={() => this.deleteComment(post.id)}
+          >
+            <Oction
+              icon={Trashcan}
+              size="small"
+              verticalAlign="middle"
+              ariaLabel="Delete Post"
+            />
+          </button>
+        </StyledPost.Edit>
         <StyledPost.Info category={post.category}>
           <StyledPost.Info.Author>
             <StyledPost.Info.Author.Avatar author={post.author} />
