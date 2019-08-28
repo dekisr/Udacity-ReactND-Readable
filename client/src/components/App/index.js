@@ -20,7 +20,13 @@ class App extends Component {
     )
   }
   render() {
-    const { loadingData, loadingBar, toast, toastIds, showToastWrapper } = this.props
+    const {
+      loadingData,
+      loadingBar,
+      toast,
+      toastIds,
+      showToastWrapper
+    } = this.props
     return (
       <BrowserRouter>
         {loadingBar && <Loading />}
@@ -41,6 +47,7 @@ class App extends Component {
               {toastIds.map((key) => {
                 return (
                   <StyledApp.Toast
+                    key={key}
                     isVisible={toast[key].isVisible}
                     alertType={toast[key].alertType}
                   >

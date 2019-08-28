@@ -13,19 +13,21 @@ const defaultData = {
     category: 'red',
     voteScore: 6,
     deleted: false,
-    commentCount: 2
+    commentCount: 2,
+    lastEdit: null
   },
   '73405860-a5f8-11e9-896c-67c1c09b9d3e': {
     id: '73405860-a5f8-11e9-896c-67c1c09b9d3e',
     timestamp: 1468479767190,
     title: 'Learn Redux in 10 minutes!',
     body:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit, enim vel luctus semper, ipsum ipsum condimentum nisi, et pretium lorem arcu eu justo. Sed mattis nibh et lacinia finibus. Etiam imperdiet libero ultricies neque dapibus, vel lacinia enim pharetra. Sed mattis massa nisl, ullamcorper blandit tortor feugiat id. Suspendisse hendrerit, est sit amet cursus scelerisque, lectus dolor finibus tellus, ut euismod ligula arcu sit amet risus. Praesent malesuada, mi sed tincidunt tincidunt.',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit, enim vel luctus semper, ipsum ipsum condimentum nisi, et pretium lorem arcu eu justo. Sed mattis nibh et lacinia finibus. Etiam imperdiet libero ultricies neque dapibus, vel lacinia enim pharetra. Sed mattis massa nisl, ullamcorper blandit tortor feugiat id. Suspendisse hendrerit, est sit amet cursus scelerisque, lectus dolor finibus tellus, ut euismod ligula arcu sit amet risus. Praesent malesuada, mi sed tincidunt tincidunt.',
     author: 'palegoldenrod',
     category: 'blue',
     voteScore: -5,
     deleted: false,
-    commentCount: 0
+    commentCount: 0,
+    lastEdit: null
   }
 }
 
@@ -85,7 +87,8 @@ function add(token, post) {
       category: post.category,
       voteScore: 0,
       deleted: false,
-      commentCount: 0
+      commentCount: 0,
+      lastEdit: null
     }
 
     res(posts[post.id])

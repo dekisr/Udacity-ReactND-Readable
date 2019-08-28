@@ -41,7 +41,7 @@ const MenuItem = styled(NavLink)`
   font-weight: 700;
   text-decoration: none;
   color: wheat;
-  border: ${({ newPost }) => (newPost ? '2px solid snow' : 'none')};
+  border: ${({ special }) => (special ? '2px solid snow' : 'none')};
   &.routerActive {
     color: indianred;
   }

@@ -46,7 +46,7 @@ class Header extends Component {
             </StyledHeader.MenuButton>
             <StyledHeader.MenuItem
               to="/post/new"
-              newPost
+              special="true"
               activeClassName="routerActive"
             >
               New post
