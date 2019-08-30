@@ -33,14 +33,8 @@ const initDELETE = {
   headers
 }
 
-export const resetInitialData = () => {
-  return Promise.all([
-    fetchResetPosts(),
-    fetchResetComments()
-  ]).then(([posts, comments]) => ({
-    posts,
-    comments
-  }))
+const serverResponse = (resp) => {
+  !resp.ok ? new Error('500 error') : resp.json()
 }
 
 export const getInitialData = () => {
@@ -53,6 +47,15 @@ export const getInitialData = () => {
     categories,
     comments
   }))
+}
+
+export const resetInitialData = () => {
+  return Promise.all([fetchResetPosts(), fetchResetComments()]).then(
+    ([posts, comments]) => ({
+      posts,
+      comments
+    })
+  )
 }
 
 // POSTS
@@ -104,12 +107,39 @@ export const fetchVotePost = ({ id, option }) => {
 }
 export const fetchReloadPost = (id) => {
   return fetch(`${api}/posts/${id}`, initGET)
-  .then((resp) => resp.json())
-  .then((post) => post)
-  .catch((err) => {
-    logError(err)
-    throw new Error('There was an error while reloading Post')
+    .then((resp) => resp.json())
+    .then((post) => post)
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while reloading Post')
+    })
+}
+export const fetchEditPost = ({ id, category, title, body, lastEdit }) => {
+  return fetch(`${api}/posts/${id}`, {
+    ...initPUT,
+    body: JSON.stringify({ category, title, body, lastEdit })
   })
+    .then((resp) => resp.json())
+    .then((post) => ({
+      id: post.id,
+      category: post.category,
+      title: post.title,
+      body: post.body,
+      lastEdit: post.lastEdit
+    }))
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while updating Comment')
+    })
+}
+export const fetchDeletePost = (id) => {
+  return fetch(`${api}/posts/${id}`, initDELETE)
+    .then((resp) => (!resp.ok ? new Error('500 error') : resp.json()))
+    .then((post) => post.id)
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while deleting Post')
+    })
 }
 
 // CATEGORIES
@@ -193,7 +223,7 @@ export const fetchVoteComment = ({ id, option }) => {
     ...initPOST,
     body: JSON.stringify({ option })
   })
-    .then((resp) => resp.json())
+    .then(serverResponse)
     .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
     .catch((err) => {
       logError(err)
@@ -202,12 +232,12 @@ export const fetchVoteComment = ({ id, option }) => {
 }
 export const fetchReloadComment = (id) => {
   return fetch(`${api}/comments/${id}`, initGET)
-  .then((resp) => resp.json())
-  .then((comment) => comment)
-  .catch((err) => {
-    logError(err)
-    throw new Error('There was an error while reloading Comment')
-  })
+    .then((resp) => resp.json())
+    .then((comment) => comment)
+    .catch((err) => {
+      logError(err)
+      throw new Error('There was an error while reloading Comment')
+    })
 }
 export const fetchEditComment = ({ id, body, lastEdit }) => {
   return fetch(`${api}/comments/${id}`, {

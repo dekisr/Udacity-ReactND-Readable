@@ -3,7 +3,9 @@ import {
   VOTE_POST,
   ADD_POST,
   RESET_POSTS,
-  RELOAD_POST
+  RELOAD_POST,
+  EDIT_POST,
+  DELETE_POST
 } from '../actions/posts'
 
 const posts = (state = {}, action) => {
@@ -37,6 +39,21 @@ const posts = (state = {}, action) => {
           ...action.post
         }
       }
+    case EDIT_POST:
+      return {
+        ...state,
+        [action.postData.id]: {
+          ...state[action.postData.id],
+          category: action.postData.category,
+          title: action.postData.title,
+          body: action.postData.body,
+          lastEdit: action.postData.lastEdit
+        }
+      }
+    case DELETE_POST:
+      const newState = {...state}
+      delete newState[action.id]
+      return newState
     default:
       return state
   }

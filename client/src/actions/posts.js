@@ -1,4 +1,10 @@
-import { fetchAddPost, fetchVotePost, fetchReloadPost } from '../utils/DataAPI'
+import {
+  fetchAddPost,
+  fetchVotePost,
+  fetchReloadPost,
+  fetchDeletePost,
+  fetchEditPost
+} from '../utils/DataAPI'
 import { isLoadingBar } from './loading'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -6,6 +12,8 @@ export const RESET_POSTS = 'RESET_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
 export const RELOAD_POST = 'RELOAD_POST'
+export const EDIT_POST = 'EDIT_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export const receivePosts = (posts) => ({
   type: RECEIVE_POSTS,
@@ -60,10 +68,44 @@ export const reloadPost = (post) => ({
   post
 })
 export const handleReloadPost = (id) => (dispatch) => {
-  return fetchReloadPost(id).then((post) => {
-    dispatch(reloadPost(post))
-  })
-  .catch((err) => {
-    throw new Error(err.message)
-  })
+  return fetchReloadPost(id)
+    .then((post) => {
+      dispatch(reloadPost(post))
+    })
+    .catch((err) => {
+      throw new Error(err.message)
+    })
+}
+
+export const editPost = (postData) => ({
+  type: EDIT_POST,
+  postData
+})
+export const handleEditPost = (postData) => (dispatch) => {
+  dispatch(isLoadingBar(true))
+  return fetchEditPost(postData)
+    .then((updatedPostData) => {
+      dispatch(editPost(updatedPostData))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
+}
+export const deletePost = (id) => ({
+  type: DELETE_POST,
+  id
+})
+export const handleDeletePost = (id) => (dispatch) => {
+  dispatch(isLoadingBar(true))
+  return fetchDeletePost(id)
+    .then((postId) => {
+      dispatch(deletePost(postId))
+      dispatch(isLoadingBar(false))
+    })
+    .catch((err) => {
+      dispatch(isLoadingBar(false))
+      throw new Error(err.message)
+    })
 }

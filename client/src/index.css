@@ -8,8 +8,13 @@
 }
 
 html {
-  background-image: url(./assets/asfalt-dark.png),
-    linear-gradient(0deg, rgba(79, 11, 38, 1) 17%, rgba(120, 20, 64, 1) 89%);
+  background:
+    linear-gradient(
+      180deg,
+      rgb(57, 62, 63) 0%,
+      rgb(59, 58, 58) 70%,
+      rgb(49, 49, 49) 100%
+    );
 
   /* background: linear-gradient(180deg, hsl(240, 20%, 40%), hsl(240, 15%, 20%)); */
   background-attachment: fixed;

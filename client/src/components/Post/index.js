@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { handleVotePost, handleReloadPost } from '../../actions/posts'
+import {
+  handleVotePost,
+  handleReloadPost,
+  handleDeletePost
+} from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
 import {
   formatToDate,
@@ -20,6 +24,7 @@ import Oction, {
 
 class Post extends Component {
   state = {
+    toHome: false,
     toPost: false
   }
   changeVoteScore = (id, option, voteScore) => {
@@ -39,11 +44,23 @@ class Post extends Component {
   joinPost = () => {
     this.setState({ toPost: true })
   }
+  deletePost = (id) => {
+    const { dashboard } = this.props
+    !dashboard && this.setState({ toHome: true })
+    const { dispatch } = this.props
+    return dispatch(handleDeletePost(id))
+      .then(() => {
+        dispatch(handleToast('The post was successfully deleted', 'success'))
+      })
+      .catch((err) => dispatch(handleToast(err.message, 'error')))
+  }
   render() {
-    const { toPost } = this.state
-    const { post, commentCount } = this.props
+    const { toHome, toPost } = this.state
+    const { post, commentCount, dashboard } = this.props
     return !post ? null : toPost ? (
       <Redirect to={`/post/id/${post.id}`} />
+    ) : toHome ? (
+      <Redirect to="/" />
     ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
@@ -72,7 +89,7 @@ class Post extends Component {
               __html: emphasisHTML(safeHTML(post.body))
             }}
           />
-          {this.props.dashboard && (
+          {dashboard && (
             <StyledPost.Join category={post.category} onClick={this.joinPost}>
               ... join the conversation
             </StyledPost.Join>
@@ -98,7 +115,7 @@ class Post extends Component {
           </Link>
           <button
             aria-label="Delete Post"
-            onClick={() => this.deleteComment(post.id)}
+            onClick={() => this.deletePost(post.id)}
           >
             <Oction
               icon={Trashcan}
