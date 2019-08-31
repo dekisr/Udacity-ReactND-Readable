@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { colors } from '../../utils/globalStyles'
 import { NavLink } from 'react-router-dom'
 
 const StyledHeader = styled.header`
@@ -34,7 +33,7 @@ const Menu = styled.nav`
   align-items: center;
   grid-gap: 1rem;
   color: palegreen;
-  `
+`
 const MenuItem = styled(NavLink)`
   padding: 0.5rem;
   font-size: 1rem;
@@ -50,7 +49,7 @@ const MenuItem = styled(NavLink)`
     bottom: -1px;
     margin-left: 0.1rem;
   }
-  `
+`
 const MenuButton = styled.button`
   padding: 0.5rem;
   border: none;

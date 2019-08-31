@@ -51,7 +51,7 @@ const posts = (state = {}, action) => {
         }
       }
     case DELETE_POST:
-      const newState = {...state}
+      const newState = { ...state }
       delete newState[action.id]
       return newState
     default:

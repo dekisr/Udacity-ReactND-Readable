@@ -68,12 +68,13 @@ export const reloadComment = (comment) => ({
   comment
 })
 export const handleReloadComment = (id) => (dispatch) => {
-  return fetchReloadComment(id).then((comment) => {
-    dispatch(reloadComment(comment))
-  })
-  .catch((err) => {
-    throw new Error(err.message)
-  })
+  return fetchReloadComment(id)
+    .then((comment) => {
+      dispatch(reloadComment(comment))
+    })
+    .catch((err) => {
+      throw new Error(err.message)
+    })
 }
 
 export const editComment = (commentData) => ({

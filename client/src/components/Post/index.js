@@ -45,9 +45,8 @@ class Post extends Component {
     this.setState({ toPost: true })
   }
   deletePost = (id) => {
-    const { dashboard } = this.props
+    const { dispatch, dashboard } = this.props
     !dashboard && this.setState({ toHome: true })
-    const { dispatch } = this.props
     return dispatch(handleDeletePost(id))
       .then(() => {
         dispatch(handleToast('The post was successfully deleted', 'success'))

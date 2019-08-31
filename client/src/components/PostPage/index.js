@@ -13,7 +13,7 @@ class PostPage extends Component {
     sortBy: 'timestamp'
   }
   sortComments = (sortBy) => {
-    this.setState({sortBy})
+    this.setState({ sortBy })
   }
   render() {
     const { post, postId, postComments, commentsIds, currentUser } = this.props
@@ -35,8 +35,12 @@ class PostPage extends Component {
               </StyledPostPage.H2>
               <StyledPostPage.Sort>
                 <span>sort: </span>
-                <button onClick={() => this.sortComments('timestamp')}>date</button>
-                <button onClick={() => this.sortComments('voteScore')}>vote score</button>
+                <button onClick={() => this.sortComments('timestamp')}>
+                  date
+                </button>
+                <button onClick={() => this.sortComments('voteScore')}>
+                  vote score
+                </button>
               </StyledPostPage.Sort>
             </Fragment>
           )}

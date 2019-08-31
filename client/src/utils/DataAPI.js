@@ -34,7 +34,12 @@ const initDELETE = {
 }
 
 const serverResponse = (resp) => {
-  !resp.ok ? new Error('500 error') : resp.json()
+  // !resp.ok ? new Error('500 error') : resp.json()
+  if (!resp.ok) {
+    throw new Error('500 error')
+  } else {
+    return resp.json()
+  }
 }
 
 export const getInitialData = () => {
@@ -134,7 +139,7 @@ export const fetchEditPost = ({ id, category, title, body, lastEdit }) => {
 }
 export const fetchDeletePost = (id) => {
   return fetch(`${api}/posts/${id}`, initDELETE)
-    .then((resp) => (!resp.ok ? new Error('500 error') : resp.json()))
+    .then(serverResponse)
     .then((post) => post.id)
     .catch((err) => {
       logError(err)

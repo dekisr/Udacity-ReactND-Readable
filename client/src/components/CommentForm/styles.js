@@ -100,7 +100,8 @@ const Options = styled.div`
   & dl {
     padding-left: 0.1rem;
   }
-  & dt, dd {
+  & dt,
+  dd {
     font-size: 0.75rem;
     @media (min-width: 601px) {
       font-size: 0.875rem;
