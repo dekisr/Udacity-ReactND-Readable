@@ -38,10 +38,10 @@ class App extends Component {
             <h1>{process.env.NODE_ENV}</h1>
             <Switch>
               <Route path="/" exact component={Dashboard} />
-              <Route path="/post/id/:id" component={PostPage} />
+              <Route path="/post/id/:id" exact component={PostPage} />
               <Route path="/post/new" exact component={PostForm} />
               <Route path="/post/edit/id/:id" exact component={PostForm} />
-              <Route path="/comment/edit/id/:id" component={CommentForm} />
+              <Route path="/comment/edit/id/:id" exact component={CommentForm} />
               )}
               <Route render={() => <Error message="what? error" />} />
             </Switch>

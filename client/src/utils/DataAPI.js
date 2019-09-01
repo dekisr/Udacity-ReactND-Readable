@@ -134,7 +134,7 @@ export const fetchEditPost = ({ id, category, title, body, lastEdit }) => {
     }))
     .catch((err) => {
       logError(err)
-      throw new Error('There was an error while updating Comment')
+      throw new Error('There was an error while updating Post')
     })
 }
 export const fetchDeletePost = (id) => {

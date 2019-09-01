@@ -57,9 +57,9 @@ class Post extends Component {
     const { toHome, toPost } = this.state
     const { post, commentCount, dashboard } = this.props
     return !post ? null : toPost ? (
-      <Redirect to={`/post/id/${post.id}`} />
+      <Redirect push to={`/post/id/${post.id}`} />
     ) : toHome ? (
-      <Redirect to="/" />
+      <Redirect push to="/" />
     ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
@@ -83,7 +83,7 @@ class Post extends Component {
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
         <StyledPost.Content>
-          <StyledPost.Body
+          <StyledPost.Body dashboard={dashboard}
             dangerouslySetInnerHTML={{
               __html: emphasisHTML(safeHTML(post.body))
             }}

@@ -39,9 +39,8 @@ class CommentForm extends Component {
     e.preventDefault()
     const { body, isValid } = this.state
     const { dispatch, comment, parentId, currentUser } = this.props
-    let commentData
     if (comment) {
-      commentData = {
+      const commentData = {
         id: comment.id,
         body: trimReplace(body),
         lastEdit: {
@@ -64,7 +63,7 @@ class CommentForm extends Component {
             bodyError: '🧛🏻‍♂️ What?'
           })
     } else {
-      commentData = {
+      const commentData = {
         id: uuid(),
         timestamp: Date.now(),
         body: trimReplace(body),
@@ -97,7 +96,7 @@ class CommentForm extends Component {
     const { comment, parentId, currentUser } = this.props
     const bodyChars = removeSpaces(body).length
     return toPost ? (
-      <Redirect to={`/post/id/${comment.parentId}`} />
+      <Redirect push to={`/post/id/${comment.parentId}`} />
     ) : !comment && !parentId ? (
       <h1>This comment does not exist.</h1>
     ) : (

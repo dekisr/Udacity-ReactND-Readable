@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
-import { handleAddPost } from '../../actions/posts'
+import { handleAddPost, handleEditPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
 import { sortCategories, trimReplace, removeSpaces } from '../../utils/helpers'
 import StyledPostForm from './styles'
@@ -21,7 +21,8 @@ const initialState = {
 class PostForm extends Component {
   state = {
     ...initialState,
-    toHome: false
+    toHome: false,
+    toPost: false
   }
 
   validateForm = () => {
@@ -34,18 +35,29 @@ class PostForm extends Component {
       bodyError
     } = this.state
 
+    const { post } = this.props
+    let error
+    post &&
+    post.category === trimReplace(category) &&
+    post.title === trimReplace(title) &&
+    post.body === trimReplace(body)
+      ? (error = 'It was supposed to change something in this Post')
+      : (error = '')
+    this.setState({ error })
+
     category !== 'none' &&
     title &&
     body &&
     !categoryError &&
     !titleError &&
-    !bodyError
+    !bodyError &&
+    !error
       ? this.setState({ isValid: true })
       : this.setState({ isValid: false })
   }
   validateInput = (name, value) => {
-    let error = ''
     const valueChars = removeSpaces(value).length
+    let error = ''
     switch (name) {
       case 'category':
         value === 'none'
@@ -81,31 +93,69 @@ class PostForm extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    const { title, body, category, isValid } = this.state
-    const { dispatch, currentUser } = this.props
-    const post = {
-      id: uuid(),
-      timestamp: Date.now(),
-      title: trimReplace(title),
-      body: trimReplace(body),
-      author: currentUser,
-      category: category
-    }
-    isValid
-      ? dispatch(handleAddPost(post))
-          .then(() => {
-            this.setState({
-              ...initialState,
-              toHome: true
+    const { category, title, body, isValid } = this.state
+    const { dispatch, post, currentUser } = this.props
+    if (post) {
+      const postData = {
+        id: post.id,
+        category: category,
+        title: trimReplace(title),
+        body: trimReplace(body),
+        lastEdit: {
+          timestamp: Date.now(),
+          author: currentUser
+        }
+      }
+      isValid
+        ? dispatch(handleEditPost(postData))
+            .then(() => this.setState({ toPost: true }))
+            .then(() => {
+              dispatch(
+                handleToast('The post was successfully edited', 'success')
+              )
             })
-          })
-          .then(() => {
-            dispatch(
-              handleToast('The post was successfully created', 'success')
-            )
-          })
-          .catch((err) => dispatch(handleToast(err.message, 'error')))
-      : this.setState({ error: '🧛🏻‍♀️ What?' })
+            .catch((err) => dispatch(handleToast(err.message, 'error')))
+        : this.setState({ error: '🧛🏻‍♂️ What?' })
+    } else {
+      const postData = {
+        id: uuid(),
+        timestamp: Date.now(),
+        category: category,
+        title: trimReplace(title),
+        body: trimReplace(body),
+        author: currentUser,
+        lastEdit: null
+      }
+      isValid
+        ? dispatch(handleAddPost(postData))
+            .then(() => {
+              this.setState({
+                ...initialState,
+                toHome: true
+              })
+            })
+            .then(() => {
+              dispatch(
+                handleToast('The post was successfully created', 'success')
+              )
+            })
+            .catch((err) => dispatch(handleToast(err.message, 'error')))
+        : this.setState({ error: '🧛🏻‍♀️ What?' })
+    }
+  }
+  componentDidUpdate(prevProps) {
+    const { post, newPost } = this.props
+    prevProps.newPost !== newPost &&
+      newPost &&
+      this.setState({ ...initialState })
+    prevProps.newPost !== newPost &&
+      !newPost &&
+      post &&
+      this.setState({
+        category: post.category,
+        title: post.title,
+        body: post.body
+      })
   }
   componentDidMount() {
     const { post } = this.props
@@ -126,13 +176,16 @@ class PostForm extends Component {
       bodyError,
       isValid,
       error,
-      toHome
+      toHome,
+      toPost
     } = this.state
     const { post, newPost } = this.props
     const titleChars = removeSpaces(title).length
     const bodyChars = removeSpaces(body).length
     return toHome ? (
-      <Redirect to="/" />
+      <Redirect push to="/" />
+    ) : toPost && post ? (
+      <Redirect push to={`/post/id/${post.id}`} />
     ) : !post && !newPost ? (
       <h1>This post does not exist.</h1>
     ) : (
@@ -199,7 +252,7 @@ class PostForm extends Component {
           {bodyError && <span>{bodyError}</span>}
           {error && <span>{error}</span>}
           <button type="submit" disabled={!isValid}>
-            Create a new post!
+            {post ? 'Edit post' : 'Create a new post!'}
           </button>
         </StyledPostForm>
       </Fragment>
@@ -215,7 +268,6 @@ PostForm.propTypes = {
 }
 
 const mapStateToProps = ({ categories, posts, currentUser }, ownProps) => {
-  console.log(ownProps)
   const newPost = ownProps.location.pathname === '/post/new'
   const postId = ownProps.match ? ownProps.match.params.id : null
   const post = posts[postId] || null
