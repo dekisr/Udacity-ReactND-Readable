@@ -43,7 +43,7 @@ class App extends Component {
               <Route path="/post/edit/id/:id" exact component={PostForm} />
               <Route path="/comment/edit/id/:id" exact component={CommentForm} />
               )}
-              <Route render={() => <Error message="what? error" />} />
+              <Route render={() => <Error message="404:What<?> 🙀 It looks like this page does not exist." />} />
             </Switch>
             <StyledApp.ToastWrapper show={showToastWrapper}>
               {toastIds.map((key) => {

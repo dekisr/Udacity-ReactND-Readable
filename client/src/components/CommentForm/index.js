@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
 import { handleToast } from '../../actions/toast'
+import Error from '../Error'
 import { trimReplace, removeSpaces } from './../../utils/helpers'
 import StyledCommentForm from './styles'
 
@@ -98,7 +99,7 @@ class CommentForm extends Component {
     return toPost ? (
       <Redirect push to={`/post/id/${comment.parentId}`} />
     ) : !comment && !parentId ? (
-      <h1>This comment does not exist.</h1>
+      <Error message="👨‍🌾 We couldn't find any comments with this id. 👩‍🌾" />
     ) : (
       <Fragment>
         {comment && <h1>Edit comment</h1>}

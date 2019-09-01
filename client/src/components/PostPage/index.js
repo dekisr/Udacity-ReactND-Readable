@@ -19,7 +19,7 @@ class PostPage extends Component {
     const { post, postId, postComments, commentsIds, currentUser } = this.props
     const { sortBy } = this.state
     return !post ? (
-      <Error message="This post does not exist." />
+      <Error message="🧝🏻‍♂️ There are no posts with this id... 🧝🏻‍♀️" />
     ) : (
       <Fragment>
         <Post id={postId} />

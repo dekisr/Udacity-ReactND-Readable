@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddPost, handleEditPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
+import Error from '../Error'
 import { sortCategories, trimReplace, removeSpaces } from '../../utils/helpers'
 import StyledPostForm from './styles'
 
@@ -187,7 +188,7 @@ class PostForm extends Component {
     ) : toPost && post ? (
       <Redirect push to={`/post/id/${post.id}`} />
     ) : !post && !newPost ? (
-      <h1>This post does not exist.</h1>
+      <Error message="🦸🏾‍♀️ It looks like this post does not exist. 🦸🏾‍♂️" />
     ) : (
       <Fragment>
         {post ? <h1>Edit Post</h1> : <h1>New Post</h1>}
