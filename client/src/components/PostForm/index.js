@@ -11,7 +11,6 @@ import {
   sortCategories,
   trimReplace,
   removeSpaces,
-  formatToTime,
   socketEmit
 } from '../../utils/helpers'
 import StyledPostForm from './styles'
@@ -118,6 +117,16 @@ class PostForm extends Component {
         ? dispatch(handleEditPost(postData))
             .then(() => this.setState({ toPost: true }))
             .then(() => {
+              socketEmit('edit post', {
+                id: postData.id,
+                user: currentUser
+              })
+              dispatch(
+                updateSessionLog(
+                  'A post has been edited by',
+                  currentUser
+                )
+              )
               dispatch(
                 handleToast('The post was successfully edited', 'success')
               )
@@ -145,15 +154,10 @@ class PostForm extends Component {
             .then(() => {
               socketEmit('new post', {
                 id: postData.id,
-                user: currentUser,
-                timestamp: postData.timestamp
+                user: currentUser
               })
               dispatch(
-                updateSessionLog(
-                  postData.timestamp,
-                  'New post created by',
-                  currentUser
-                )
+                updateSessionLog('New post created by', currentUser)
               )
               dispatch(
                 handleToast('The post was successfully created', 'success')

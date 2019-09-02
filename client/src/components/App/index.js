@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
-import { handleReloadPost } from '../../actions/posts'
+import { handleReloadPost, deletePost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
+import { updateSessionLog } from '../../actions/sessionLog'
 import Loading from '../Loading'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
@@ -13,7 +14,6 @@ import Error from '../Error'
 import StyledApp from './styles'
 import CommentForm from '../CommentForm'
 import { socketOn } from '../../utils/helpers'
-import { updateSessionLog } from '../../actions/sessionLog'
 
 class App extends Component {
   componentDidMount() {
@@ -21,18 +21,28 @@ class App extends Component {
     dispatch(handleInitialData()).catch((err) =>
       dispatch(handleToast(err.message, 'error'))
     )
-    socketOn('new post', ({ id, user, timestamp }) => {
+    socketOn('new post', ({ id, user }) => {
+      dispatch(handleReloadPost(id))
+        .then(() => dispatch(updateSessionLog('New post created by', user)))
+        .catch((err) => dispatch(handleToast(err.message, 'error')))
+    })
+    socketOn('edit post', ({ id, user }) => {
       dispatch(handleReloadPost(id))
         .then(() =>
-          dispatch(updateSessionLog(timestamp, 'New post created by', user))
+          dispatch(updateSessionLog('A post has been edited by', user))
         )
         .catch((err) => dispatch(handleToast(err.message, 'error')))
     })
-    socketOn('new comment', (msg) => console.log(msg))
-    socketOn('edit post', (msg) => console.log(msg))
-    socketOn('edit comment', (msg) => console.log(msg))
-    socketOn('delete post', (msg) => console.log(msg))
-    socketOn('delete comment', (msg) => console.log(msg))
+    socketOn('delete post', ({ id, user }) => {
+      dispatch(deletePost(id))
+      dispatch(updateSessionLog('Post DELETED by', user))
+    })
+
+    // TODO
+    // socketOn('new comment', (msg) => console.log(msg))
+    // socketOn('edit comment', (msg) => console.log(msg))
+    // socketOn('delete post', (msg) => console.log(msg))
+    // socketOn('delete comment', (msg) => console.log(msg))
   }
   render() {
     const {

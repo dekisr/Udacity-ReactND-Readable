@@ -8,7 +8,7 @@ const sessionLog = (state = { messages: [] }, action) => {
         messages: [
           ...state.messages,
           {
-            timestamp: action.timestamp,
+            timestamp: Date.now(),
             message: action.message,
             user: action.user
           }

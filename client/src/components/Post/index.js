@@ -8,11 +8,13 @@ import {
   handleDeletePost
 } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
+import { updateSessionLog } from '../../actions/sessionLog'
 import {
   formatToDate,
   formatToTime,
   emphasisHTML,
-  safeHTML
+  safeHTML,
+  socketEmit
 } from '../../utils/helpers'
 import StyledPost from './styles'
 import Oction, {
@@ -45,10 +47,17 @@ class Post extends Component {
     this.setState({ toPost: true })
   }
   deletePost = (id) => {
-    const { dispatch, dashboard } = this.props
+    const { dispatch, dashboard, currentUser } = this.props
     !dashboard && this.setState({ toHome: true })
     return dispatch(handleDeletePost(id))
       .then(() => {
+        socketEmit('delete post', {
+          id,
+          user: currentUser
+        })
+        dispatch(
+          updateSessionLog('Post DELETED by', currentUser)
+        )
         dispatch(handleToast('The post was successfully deleted', 'success'))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
@@ -147,10 +156,11 @@ Post.propTypes = {
   id: PropTypes.string,
   post: PropTypes.object,
   commentCount: PropTypes.number,
-  dashboard: PropTypes.bool
+  dashboard: PropTypes.bool,
+  currentUser: PropTypes.string
 }
 
-const mapStateToProps = ({ posts, comments }, { id }) => {
+const mapStateToProps = ({ posts, comments, currentUser }, { id }) => {
   const post = posts[id] || null
   const commentCount =
     Object.keys(comments).filter(
@@ -158,7 +168,8 @@ const mapStateToProps = ({ posts, comments }, { id }) => {
     ).length || 0
   return {
     post,
-    commentCount
+    commentCount,
+    currentUser
   }
 }
 

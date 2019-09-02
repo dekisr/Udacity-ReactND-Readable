@@ -15,12 +15,15 @@ const server = app.listen(config.port, () => {
 })
 const io = socketIO(server)
 io.on('connection', (socket) => {
-
   socket.on('new post', (info) => {
     socket.broadcast.emit('new post', info)
   })
-
-
+  socket.on('edit post', (info) => {
+    socket.broadcast.emit('edit post', info)
+  })
+  socket.on('delete post', (info) => {
+    socket.broadcast.emit('delete post', info)
+  })
 })
 
 const corsOptions = {
