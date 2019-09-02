@@ -3,15 +3,32 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const socketIO = require('socket.io')
 const config = require('./config')
 const categories = require('./categories')
 const posts = require('./posts')
 const comments = require('./comments')
 
 const app = express()
+const server = app.listen(config.port, () => {
+  console.log('Server listening on port %s, Ctrl+C to stop', config.port)
+})
+const io = socketIO(server)
+io.on('connection', (socket) => {
 
+  socket.on('new post', (info) => {
+    socket.broadcast.emit('new post', info)
+  })
+
+
+})
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
 app.use(express.static('public'))
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
   const help = `
@@ -338,8 +355,4 @@ app.delete('/comments/:id', (req, res) => {
       })
     }
   )
-})
-
-app.listen(config.port, () => {
-  console.log('Server listening on port %s, Ctrl+C to stop', config.port)
 })

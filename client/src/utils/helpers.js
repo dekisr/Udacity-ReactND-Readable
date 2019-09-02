@@ -1,3 +1,4 @@
+import io from 'socket.io-client'
 import users from './users'
 
 export const logError = (err) => {
@@ -104,4 +105,13 @@ export const getRandomUser = () => {
   const userName = users[Math.floor(Math.random() * users.length)]
   localStorage.setItem('userName', userName)
   return userName
+}
+
+// WEBSOCKETS
+const socket = io('http://localhost:3001')
+export const socketEmit = (message, info) => {
+  return socket.emit(message, info)
+}
+export const socketOn = (message, func) => {
+  return socket.on(message, func)
 }

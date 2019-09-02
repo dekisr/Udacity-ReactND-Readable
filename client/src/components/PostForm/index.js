@@ -5,8 +5,15 @@ import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddPost, handleEditPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
+import { updateSessionLog } from '../../actions/sessionLog'
 import Error from '../Error'
-import { sortCategories, trimReplace, removeSpaces } from '../../utils/helpers'
+import {
+  sortCategories,
+  trimReplace,
+  removeSpaces,
+  formatToTime,
+  socketEmit
+} from '../../utils/helpers'
 import StyledPostForm from './styles'
 
 const initialState = {
@@ -136,6 +143,18 @@ class PostForm extends Component {
               })
             })
             .then(() => {
+              socketEmit('new post', {
+                id: postData.id,
+                user: currentUser,
+                timestamp: postData.timestamp
+              })
+              dispatch(
+                updateSessionLog(
+                  postData.timestamp,
+                  'New post created by',
+                  currentUser
+                )
+              )
               dispatch(
                 handleToast('The post was successfully created', 'success')
               )
