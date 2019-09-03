@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   handleVotePost,
@@ -27,7 +27,6 @@ import Confirm from '../Confirm'
 
 class Post extends Component {
   state = {
-    toHome: false,
     toPost: false,
     confirmDelete: false
   }
@@ -49,10 +48,10 @@ class Post extends Component {
     this.setState({ toPost: true })
   }
   deletePost = (id) => {
-    const { dispatch, dashboard, currentUser } = this.props
-    !dashboard && this.setState({ toHome: true })
+    const { dispatch, dashboard, currentUser, history } = this.props
     return dispatch(handleDeletePost(id))
       .then(() => {
+        !dashboard && history.push('/')
         socketEmit('delete post', {
           id,
           user: currentUser
@@ -63,12 +62,10 @@ class Post extends Component {
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
-    const { toHome, toPost } = this.state
+    const { toPost } = this.state
     const { post, commentCount, dashboard } = this.props
     return !post ? null : toPost ? (
       <Redirect push to={`/post/id/${post.id}`} />
-    ) : toHome ? (
-      <Redirect push to="/" />
     ) : (
       <StyledPost category={post.category}>
         <StyledPost.VoteScore>
@@ -180,4 +177,4 @@ const mapStateToProps = ({ posts, comments, currentUser }, { id }) => {
   }
 }
 
-export default connect(mapStateToProps)(Post)
+export default withRouter(connect(mapStateToProps)(Post))
