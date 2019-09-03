@@ -29,5 +29,13 @@ export const colors = {
     three: 'hsl(0, 0%, 45%)',
     four: 'hsl(0, 0%, 60%)',
     five: 'hsl(0, 0%, 75%)'
+  },
+  danger: {
+    firebrick: 'hsl(0, 70%, 45%)',
+    crimson: 'hsl(350, 85%, 45%)',
+    tomato: 'hsl(10, 100%, 65%)',
+    tomatoa: 'hsla(10, 100%, 65%, 0.5)',
+    lightcoral: 'hsl(0, 80%, 70%)',
+    burlywood: 'hsl(35, 60%, 70%)'
   }
 }

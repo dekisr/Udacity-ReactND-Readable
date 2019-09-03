@@ -23,11 +23,13 @@ import Oction, {
   Pencil,
   Trashcan
 } from '@primer/octicons-react'
+import Confirm from '../Confirm'
 
 class Post extends Component {
   state = {
     toHome: false,
-    toPost: false
+    toPost: false,
+    confirmDelete: false
   }
   changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
@@ -55,9 +57,7 @@ class Post extends Component {
           id,
           user: currentUser
         })
-        dispatch(
-          updateSessionLog('Post DELETED by', currentUser)
-        )
+        dispatch(updateSessionLog('Post DELETED by', currentUser))
         dispatch(handleToast('The post was successfully deleted', 'success'))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
@@ -92,7 +92,8 @@ class Post extends Component {
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
         <StyledPost.Content>
-          <StyledPost.Body dashboard={dashboard}
+          <StyledPost.Body
+            dashboard={dashboard}
             dangerouslySetInnerHTML={{
               __html: emphasisHTML(safeHTML(post.body))
             }}
@@ -123,7 +124,7 @@ class Post extends Component {
           </Link>
           <button
             aria-label="Delete Post"
-            onClick={() => this.deletePost(post.id)}
+            onClick={() => this.setState({ confirmDelete: true })}
           >
             <Oction
               icon={Trashcan}
@@ -147,6 +148,12 @@ class Post extends Component {
             {commentCount}
           </StyledPost.Info.CommentCount>
         </StyledPost.Info>
+        <Confirm
+          active={this.state.confirmDelete}
+          message="Are you sure to delete this post?"
+          confirm={() => this.deletePost(post.id)}
+          cancel={() => this.setState({ confirmDelete: false })}
+        />
       </StyledPost>
     )
   }

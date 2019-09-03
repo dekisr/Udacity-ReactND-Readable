@@ -12,7 +12,7 @@ const fakeBorder = css`
   }
   animation: glide 10s linear infinite alternate;
 `
-const StyledError = styled.article`
+const StyledError = styled.div`
   width: 100%;
   min-width: 320px;
   margin-right: auto;

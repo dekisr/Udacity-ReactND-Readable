@@ -6,7 +6,7 @@ const StyledLoading = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 122;
+  z-index: 125;
   display: grid;
   justify-content: center;
   align-content: center;

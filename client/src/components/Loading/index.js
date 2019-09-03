@@ -1,10 +1,10 @@
 import React from 'react'
 import StyledLoading from './styles'
 
-const Loading = () => {
+const Loading = (props) => {
   return (
     <StyledLoading>
-      <h1>Loading...</h1>
+      {props.data && <h1>Loading...</h1>}
     </StyledLoading>
   )
 }
