@@ -7,12 +7,14 @@ import {
   handleDeleteComment,
   handleReloadComment
 } from '../../actions/comments'
+import { updateSessionLog } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import {
   formatToTime,
   formatToDate,
   safeHTML,
-  emphasisHTML
+  emphasisHTML,
+  socketEmit
 } from '../../utils/helpers'
 import StyledComment from './styles'
 import Oction, {
@@ -40,11 +42,16 @@ class Comment extends Component {
     )
   }
   deleteComment = (id) => {
-    const { dispatch } = this.props
+    const { dispatch, currentUser } = this.props
     return dispatch(handleDeleteComment(id))
-      .then(() =>
+      .then(() => {
+        socketEmit('delete comment', {
+          id,
+          user: currentUser
+        })
+        dispatch(updateSessionLog('A comment has been deleted by', currentUser))
         dispatch(handleToast('The comment was successfully deleted', 'success'))
-      )
+      })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
@@ -138,10 +145,11 @@ Comment.propTypes = {
   comment: PropTypes.object
 }
 
-const mapStateToProps = ({ comments }, { id }) => {
+const mapStateToProps = ({ comments, currentUser }, { id }) => {
   const comment = comments[id] || null
   return {
-    comment
+    comment,
+    currentUser
   }
 }
 

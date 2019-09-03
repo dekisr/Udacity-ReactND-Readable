@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
 import { handleReloadPost, deletePost } from '../../actions/posts'
+import { handleReloadComment, deleteComment } from '../../actions/comments';
 import { handleToast } from '../../actions/toast'
 import { updateSessionLog } from '../../actions/sessionLog'
 import Loading from '../Loading'
@@ -38,11 +39,22 @@ class App extends Component {
       dispatch(updateSessionLog('Post DELETED by', user))
     })
 
-    // TODO
-    // socketOn('new comment', (msg) => console.log(msg))
-    // socketOn('edit comment', (msg) => console.log(msg))
-    // socketOn('delete post', (msg) => console.log(msg))
-    // socketOn('delete comment', (msg) => console.log(msg))
+    socketOn('new comment', ({ id, user }) => {
+      dispatch(handleReloadComment(id))
+        .then(() => dispatch(updateSessionLog('New comment posted by', user)))
+        .catch((err) => dispatch(handleToast(err.message, 'error')))
+    })
+    socketOn('edit comment', ({ id, user }) => {
+      dispatch(handleReloadComment(id))
+        .then(() =>
+          dispatch(updateSessionLog('A comment has been edited by', user))
+        )
+        .catch((err) => dispatch(handleToast(err.message, 'error')))
+    })
+    socketOn('delete comment', ({ id, user }) => {
+      dispatch(deleteComment(id))
+      dispatch(updateSessionLog('Comment DELETED by', user))
+    })
   }
   render() {
     const {

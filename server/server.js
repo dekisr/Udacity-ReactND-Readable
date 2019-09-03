@@ -15,6 +15,7 @@ const server = app.listen(config.port, () => {
 })
 const io = socketIO(server)
 io.on('connection', (socket) => {
+  // POSTS
   socket.on('new post', (info) => {
     socket.broadcast.emit('new post', info)
   })
@@ -23,6 +24,16 @@ io.on('connection', (socket) => {
   })
   socket.on('delete post', (info) => {
     socket.broadcast.emit('delete post', info)
+  })
+  // COMMENTS
+  socket.on('new comment', (info) => {
+    socket.broadcast.emit('new comment', info)
+  })
+  socket.on('edit comment', (info) => {
+    socket.broadcast.emit('edit comment', info)
+  })
+  socket.on('delete comment', (info) => {
+    socket.broadcast.emit('delete comment', info)
   })
 })
 

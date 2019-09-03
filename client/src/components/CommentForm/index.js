@@ -4,9 +4,10 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
+import { updateSessionLog } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import Error from '../Error'
-import { trimReplace, removeSpaces } from './../../utils/helpers'
+import { trimReplace, removeSpaces, socketEmit } from './../../utils/helpers'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
@@ -55,6 +56,16 @@ class CommentForm extends Component {
               this.setState({ body: '', isValid: false, toPost: true })
             )
             .then(() => {
+              socketEmit('edit comment', {
+                id: commentData.id,
+                user: currentUser
+              })
+              dispatch(
+                updateSessionLog(
+                  'A comment has been edited by',
+                  currentUser
+                )
+              )
               dispatch(
                 handleToast('The comment was successfully edited', 'success')
               )
@@ -78,6 +89,16 @@ class CommentForm extends Component {
               this.setState({ body: '', isValid: false })
             })
             .then(() => {
+              socketEmit('new comment', {
+                id: commentData.id,
+                user: currentUser
+              })
+              dispatch(
+                updateSessionLog(
+                  'New comment posted by',
+                  currentUser
+                )
+              )
               dispatch(
                 handleToast('The comment was successfully posted', 'success')
               )
