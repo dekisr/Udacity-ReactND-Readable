@@ -9,6 +9,7 @@ import {
 } from '../../actions/comments'
 import { updateSessionLog } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
+import Confirm from '../Confirm'
 import {
   formatToTime,
   formatToDate,
@@ -25,6 +26,9 @@ import Oction, {
 } from '@primer/octicons-react'
 
 class Comment extends Component {
+  state = {
+    confirmDelete: false
+  }
   changeVoteScore = (id, option, voteScore) => {
     const { dispatch } = this.props
     return dispatch(handleVoteComment({ id, option, voteScore })).catch(
@@ -55,6 +59,7 @@ class Comment extends Component {
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
+    const { confirmDelete } = this.state
     const { comment } = this.props
     return !comment ? null : (
       <StyledComment author={comment.author}>
@@ -125,7 +130,7 @@ class Comment extends Component {
           </Link>
           <button
             aria-label="Delete Comment"
-            onClick={() => this.deleteComment(comment.id)}
+            onClick={() => this.setState({ confirmDelete: true })}
           >
             <Oction
               icon={Trashcan}
@@ -135,6 +140,12 @@ class Comment extends Component {
             />
           </button>
         </StyledComment.Edit>
+        <Confirm
+          active={confirmDelete}
+          message="Want to delete this comment?"
+          confirm={() => this.deleteComment(comment.id)}
+          cancel={() => this.setState({ confirmDelete: false })}
+        />
       </StyledComment>
     )
   }

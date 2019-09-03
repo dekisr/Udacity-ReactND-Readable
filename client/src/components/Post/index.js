@@ -9,6 +9,7 @@ import {
 } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
 import { updateSessionLog } from '../../actions/sessionLog'
+import Confirm from '../Confirm'
 import {
   formatToDate,
   formatToTime,
@@ -23,7 +24,6 @@ import Oction, {
   Pencil,
   Trashcan
 } from '@primer/octicons-react'
-import Confirm from '../Confirm'
 
 class Post extends Component {
   state = {
@@ -62,7 +62,7 @@ class Post extends Component {
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
-    const { toPost } = this.state
+    const { toPost, confirmDelete } = this.state
     const { post, commentCount, dashboard } = this.props
     return !post ? null : toPost ? (
       <Redirect push to={`/post/id/${post.id}`} />
@@ -146,7 +146,8 @@ class Post extends Component {
           </StyledPost.Info.CommentCount>
         </StyledPost.Info>
         <Confirm
-          active={this.state.confirmDelete}
+          post
+          active={confirmDelete}
           message="Are you sure to delete this post?"
           confirm={() => this.deletePost(post.id)}
           cancel={() => this.setState({ confirmDelete: false })}

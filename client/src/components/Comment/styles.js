@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
 
 const StyledComment = styled.article`
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto auto;
