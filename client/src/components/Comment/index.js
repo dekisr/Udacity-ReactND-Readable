@@ -76,10 +76,10 @@ class Comment extends Component {
   }
   render() {
     const { confirmDelete } = this.state
-    const { comment } = this.props
+    const { comment, currentUser } = this.props
     return !comment ? null : (
       <StyledComment author={comment.author}>
-        <StyledComment.VoteScore>
+        <StyledComment.VoteScore voted={comment.votedBy.includes(currentUser)}>
           <button
             aria-label="Vote Comment Up"
             onClick={() =>

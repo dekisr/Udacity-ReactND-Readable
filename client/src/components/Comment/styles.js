@@ -52,7 +52,7 @@ const VoteScore = styled.div`
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${colors.grey.two};
+    color: ${({ voted }) => (voted ? colors.grey.five : colors.grey.two)};
     background: none;
   }
 `
