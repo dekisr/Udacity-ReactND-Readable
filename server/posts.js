@@ -12,6 +12,7 @@ const defaultData = {
     author: 'lightseagreen',
     category: 'red',
     voteScore: 6,
+    votedBy: ['blue', 'red'],
     deleted: false,
     commentCount: 2,
     lastEdit: null
@@ -25,6 +26,7 @@ const defaultData = {
     author: 'palegoldenrod',
     category: 'blue',
     voteScore: -5,
+    votedBy: ['blue', 'red'],
     deleted: false,
     commentCount: 0,
     lastEdit: null
@@ -86,6 +88,7 @@ function add(token, post) {
       author: post.author,
       category: post.category,
       voteScore: 0,
+      votedBy: [],
       deleted: false,
       commentCount: 0,
       lastEdit: null
@@ -95,19 +98,25 @@ function add(token, post) {
   })
 }
 
-function vote(token, id, option) {
+function vote(token, id, user, option) {
   return new Promise((res) => {
     let posts = getData(token)
     post = posts[id]
-    switch (option) {
-      case 'upVote':
-        post.voteScore = post.voteScore + 1
-        break
-      case 'downVote':
-        post.voteScore = post.voteScore - 1
-        break
-      default:
-        console.log(`posts.vote received incorrect parameter: ${option}`)
+    if (post.votedBy.includes(user)) {
+      console.log(`The user ${user} already voted in this post.`)
+      return
+    } else {
+      post.votedBy = [...post.votedBy, user]
+      switch (option) {
+        case 'upVote':
+          post.voteScore = post.voteScore + 1
+          break
+        case 'downVote':
+          post.voteScore = post.voteScore - 1
+          break
+        default:
+          console.log(`posts.vote received incorrect parameter: ${option}`)
+      }
     }
     res(post)
   })

@@ -37,7 +37,7 @@ class Comment extends Component {
         /*
         on server errror:
         try to reload the comment preventing bugs with Optimistic
-        Updates if clicking too fast using slow connections
+        Updates if clicking too fast using slow connections and bad hardware
       */
         dispatch(handleReloadComment(id)).catch((err) =>
           dispatch(handleToast(err.message, 'error'))

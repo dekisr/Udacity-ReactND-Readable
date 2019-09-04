@@ -58,12 +58,13 @@ const VoteScore = styled.div`
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${colors.grey.two};
+    color: ${({ voted }) => (voted ? colors.grey.five : colors.grey.two)};
     background: none;
   }
 `
 const Title = styled.h2`
   text-align: left;
+  word-break: break-all;
   color: ${colors.grey.two};
 `
 const Content = styled.div`

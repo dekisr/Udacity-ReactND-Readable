@@ -42,10 +42,12 @@ export const handleAddPost = (post) => (dispatch) => {
     })
 }
 
-const votePost = ({ id, voteScore }) => ({
+const votePost = ({ id, voteScore, currentUser, error }) => ({
   type: VOTE_POST,
   id,
-  voteScore
+  voteScore,
+  currentUser,
+  error
 })
 export const handleVotePost = (info) => (dispatch) => {
   // Optimistic Updates
@@ -54,11 +56,16 @@ export const handleVotePost = (info) => (dispatch) => {
   info.option === 'downVote' && voteScore--
   let newInfo = {
     ...info,
-    voteScore
+    voteScore,
+    error: false
   }
   dispatch(votePost(newInfo))
   return fetchVotePost(info).catch((err) => {
-    dispatch(votePost(info))
+    newInfo = {
+      ...info,
+      error: true
+    }
+    dispatch(votePost(newInfo))
     throw new Error(err.message)
   })
 }

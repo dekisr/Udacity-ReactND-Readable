@@ -56,8 +56,10 @@ const Toast = styled.div`
   color: snow;
   background-color: ${({ alertType }) =>
     alertType === 'success'
-      ? 'palegreen'
+      ? 'turquoise'
       : alertType === 'error'
+      ? 'indianred'
+      : alertType === 'alert'
       ? 'lightsalmon'
       : 'lightslategrey'};
   & p {

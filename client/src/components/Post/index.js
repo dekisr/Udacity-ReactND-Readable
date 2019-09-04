@@ -30,19 +30,27 @@ class Post extends Component {
     toPost: false,
     confirmDelete: false
   }
-  changeVoteScore = (id, option, voteScore) => {
-    const { dispatch } = this.props
-    return dispatch(handleVotePost({ id, option, voteScore })).catch((err) => {
-      dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
-      /*
-        on server errror:
-        try to reload the post preventing bugs with Optimistic
-        Updates if clicking too fast using slow connections
-      */
-      dispatch(handleReloadPost(id)).catch((err) =>
-        dispatch(handleToast(err.message, 'error'))
+  changeVoteScore = (id, option, voteScore, votedBy) => {
+    const { dispatch, currentUser } = this.props
+    if (votedBy.includes(currentUser)) {
+      dispatch(
+        handleToast(`The user ${currentUser} already voted here!`, 'alert')
       )
-    })
+    } else {
+      return dispatch(
+        handleVotePost({ id, option, voteScore, currentUser })
+      ).catch((err) => {
+        dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
+        /*
+          on server errror:
+          try to reload the post preventing bugs with Optimistic
+          Updates if clicking too fast using slow connections and bad hardware
+        */
+        dispatch(handleReloadPost(id)).catch((err) =>
+          dispatch(handleToast(err.message, 'error'))
+        )
+      })
+    }
   }
   joinPost = () => {
     this.setState({ toPost: true })
@@ -63,15 +71,20 @@ class Post extends Component {
   }
   render() {
     const { toPost, confirmDelete } = this.state
-    const { post, commentCount, dashboard } = this.props
+    const { post, commentCount, dashboard, currentUser } = this.props
     return !post ? null : toPost ? (
       <Redirect push to={`/post/id/${post.id}`} />
     ) : (
       <StyledPost category={post.category}>
-        <StyledPost.VoteScore>
+        <StyledPost.VoteScore voted={post.votedBy.includes(currentUser)}>
           <button
             onClick={() =>
-              this.changeVoteScore(post.id, 'upVote', post.voteScore)
+              this.changeVoteScore(
+                post.id,
+                'upVote',
+                post.voteScore,
+                post.votedBy
+              )
             }
             aria-label="Vote Post Up"
           >
@@ -80,7 +93,12 @@ class Post extends Component {
           {post.voteScore}
           <button
             onClick={() =>
-              this.changeVoteScore(post.id, 'downVote', post.voteScore)
+              this.changeVoteScore(
+                post.id,
+                'downVote',
+                post.voteScore,
+                post.votedBy
+              )
             }
             aria-label="Vote Post Down"
           >

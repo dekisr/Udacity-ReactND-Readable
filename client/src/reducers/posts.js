@@ -29,7 +29,12 @@ const posts = (state = {}, action) => {
         ...state,
         [action.id]: {
           ...state[action.id],
-          voteScore: action.voteScore
+          voteScore: action.voteScore,
+          votedBy: action.error
+            ? state[action.id].votedBy.filter(
+                (user) => user !== action.currentUser
+              )
+            : [...state[action.id].votedBy, action.currentUser]
         }
       }
     case RELOAD_POST:

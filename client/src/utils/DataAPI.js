@@ -98,10 +98,10 @@ export const fetchAddPost = (post) => {
       throw new Error('There was an error while adding Post')
     })
 }
-export const fetchVotePost = ({ id, option }) => {
+export const fetchVotePost = ({ id, currentUser, option }) => {
   return fetch(`${api}/posts/${id}`, {
     ...initPOST,
-    body: JSON.stringify({ option })
+    body: JSON.stringify({ option, user: currentUser })
   })
     .then((resp) => resp.json())
     .then((post) => ({ id: post.id, voteScore: post.voteScore }))
