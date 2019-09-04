@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
 import { handleReloadPost, deletePost } from '../../actions/posts'
-import { handleReloadComment, deleteComment } from '../../actions/comments';
+import { handleReloadComment, deleteComment } from '../../actions/comments'
 import { handleToast } from '../../actions/toast'
 import { updateSessionLog } from '../../actions/sessionLog'
 import Loading from '../Loading'
@@ -17,44 +17,69 @@ import CommentForm from '../CommentForm'
 import { socketOn } from '../../utils/helpers'
 
 class App extends Component {
+  socketsOn = (sockets) => {
+    const { dispatch } = this.props
+    return sockets.map((item) => {
+      return item.name.includes('delete')
+        ? socketOn(item.name, ({ id, user }) => {
+            dispatch(item.function(id))
+            dispatch(updateSessionLog(item.message, user))
+          })
+        : socketOn(item.name, ({ id, user }) => {
+            dispatch(item.function(id))
+              .then(() => dispatch(updateSessionLog(item.message, user)))
+              .catch((err) => dispatch(handleToast(err.message, 'error')))
+          })
+    })
+  }
+  sockets = [
+    {
+      name: 'new post',
+      message: 'New post created by',
+      function: handleReloadPost
+    },
+    {
+      name: 'edit post',
+      message: 'A post has been edited by',
+      function: handleReloadPost
+    },
+    {
+      name: 'vote post',
+      message: 'A post received a vote from',
+      function: handleReloadPost
+    },
+    {
+      name: 'delete post',
+      message: 'Post DELETED by',
+      function: deletePost
+    },
+    {
+      name: 'new comment',
+      message: 'New comment by',
+      function: handleReloadComment
+    },
+    {
+      name: 'edit comment',
+      message: 'A comment has been edited by',
+      function: handleReloadComment
+    },
+    {
+      name: 'vote comment',
+      message: 'A comment received a vote from',
+      function: handleReloadComment
+    },
+    {
+      name: 'delete comment',
+      message: 'Comment DELETED by',
+      function: deleteComment
+    }
+  ]
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(handleInitialData()).catch((err) =>
       dispatch(handleToast(err.message, 'error'))
     )
-    socketOn('new post', ({ id, user }) => {
-      dispatch(handleReloadPost(id))
-        .then(() => dispatch(updateSessionLog('New post created by', user)))
-        .catch((err) => dispatch(handleToast(err.message, 'error')))
-    })
-    socketOn('edit post', ({ id, user }) => {
-      dispatch(handleReloadPost(id))
-        .then(() =>
-          dispatch(updateSessionLog('A post has been edited by', user))
-        )
-        .catch((err) => dispatch(handleToast(err.message, 'error')))
-    })
-    socketOn('delete post', ({ id, user }) => {
-      dispatch(deletePost(id))
-      dispatch(updateSessionLog('Post DELETED by', user))
-    })
-
-    socketOn('new comment', ({ id, user }) => {
-      dispatch(handleReloadComment(id))
-        .then(() => dispatch(updateSessionLog('New comment posted by', user)))
-        .catch((err) => dispatch(handleToast(err.message, 'error')))
-    })
-    socketOn('edit comment', ({ id, user }) => {
-      dispatch(handleReloadComment(id))
-        .then(() =>
-          dispatch(updateSessionLog('A comment has been edited by', user))
-        )
-        .catch((err) => dispatch(handleToast(err.message, 'error')))
-    })
-    socketOn('delete comment', ({ id, user }) => {
-      dispatch(deleteComment(id))
-      dispatch(updateSessionLog('Comment DELETED by', user))
-    })
+    this.socketsOn(this.sockets)
   }
   render() {
     const {

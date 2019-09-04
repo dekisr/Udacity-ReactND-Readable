@@ -22,6 +22,9 @@ io.on('connection', (socket) => {
   socket.on('edit post', (info) => {
     socket.broadcast.emit('edit post', info)
   })
+  socket.on('vote post', (info) => {
+    socket.broadcast.emit('vote post', info)
+  })
   socket.on('delete post', (info) => {
     socket.broadcast.emit('delete post', info)
   })
@@ -31,6 +34,9 @@ io.on('connection', (socket) => {
   })
   socket.on('edit comment', (info) => {
     socket.broadcast.emit('edit comment', info)
+  })
+  socket.on('vote comment', (info) => {
+    socket.broadcast.emit('vote comment', info)
   })
   socket.on('delete comment', (info) => {
     socket.broadcast.emit('delete comment', info)

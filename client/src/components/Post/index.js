@@ -39,7 +39,18 @@ class Post extends Component {
     } else {
       return dispatch(
         handleVotePost({ id, option, voteScore, currentUser })
-      ).catch((err) => {
+      ).then(() => {
+        socketEmit('vote post', {
+          id,
+          user: currentUser
+        })
+        dispatch(
+          updateSessionLog(
+            'A post received a vote from',
+            currentUser
+          )
+        )
+      }).catch((err) => {
         dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
         /*
           on server errror:
