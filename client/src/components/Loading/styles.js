@@ -3,7 +3,7 @@ import {colors} from '../../utils/globalStyles'
 
 const StyledLoading = styled.div`
   position: fixed;
-  z-index: 125;
+  z-index: 126;
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;

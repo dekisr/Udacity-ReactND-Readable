@@ -34,7 +34,7 @@ const Content = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  height: ${({ post }) => (post ? 'auto' : '100%')};
+  /* height: ${({ post }) => (post ? 'auto' : '100%')}; */
   max-width: calc(980px - 1rem);
   margin-right: auto;
   margin-left: auto;
@@ -70,7 +70,7 @@ const Content = styled.div`
     font-size: ${({ post }) => (post ? '1.625rem' : '1.125rem')};
   }
   @media (min-width: 601px) {
-    width: ${({ post }) => (post ? 'calc(100% - 1rem)' : '100%')};
+    width: calc(100% - 1rem);
   }
 `
 const Button = styled.button`
