@@ -353,8 +353,9 @@ app.post('/comments', bodyParser.json(), (req, res) => {
 })
 
 app.post('/comments/:id', bodyParser.json(), (req, res) => {
-  const { option } = req.body
-  comments.vote(req.token, req.params.id, option).then(
+  const { option, user } = req.body
+  const id = req.params.id
+  comments.vote(req.token, id, user, option).then(
     (data) => res.send(data),
     (error) => {
       console.error(error)

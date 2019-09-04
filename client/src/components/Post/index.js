@@ -33,34 +33,29 @@ class Post extends Component {
   changeVoteScore = (id, option, voteScore, votedBy) => {
     const { dispatch, currentUser } = this.props
     if (votedBy.includes(currentUser)) {
-      dispatch(
+      return dispatch(
         handleToast(`The user ${currentUser} already voted here!`, 'alert')
       )
     } else {
-      return dispatch(
-        handleVotePost({ id, option, voteScore, currentUser })
-      ).then(() => {
-        socketEmit('vote post', {
-          id,
-          user: currentUser
+      return dispatch(handleVotePost({ id, option, voteScore, currentUser }))
+        .then(() => {
+          socketEmit('vote post', {
+            id,
+            user: currentUser
+          })
+          dispatch(updateSessionLog('A post received a vote from', currentUser))
         })
-        dispatch(
-          updateSessionLog(
-            'A post received a vote from',
-            currentUser
-          )
-        )
-      }).catch((err) => {
-        dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
-        /*
+        .catch((err) => {
+          dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
+          /*
           on server errror:
           try to reload the post preventing bugs with Optimistic
           Updates if clicking too fast using slow connections and bad hardware
         */
-        dispatch(handleReloadPost(id)).catch((err) =>
-          dispatch(handleToast(err.message, 'error'))
-        )
-      })
+          dispatch(handleReloadPost(id)).catch((err) =>
+            dispatch(handleToast(err.message, 'error'))
+          )
+        })
     }
   }
   joinPost = () => {

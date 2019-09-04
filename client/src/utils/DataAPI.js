@@ -104,7 +104,11 @@ export const fetchVotePost = ({ id, currentUser, option }) => {
     body: JSON.stringify({ option, user: currentUser })
   })
     .then((resp) => resp.json())
-    .then((post) => ({ id: post.id, voteScore: post.voteScore }))
+    .then((post) => ({
+      id: post.id,
+      voteScore: post.voteScore,
+      votedBy: post.votedBy
+    }))
     .catch((err) => {
       logError(err)
       throw new Error('There was an error while updating Post Vote Score')
@@ -223,13 +227,17 @@ export const fetchAddComment = (comment) => {
       throw new Error('There was an error while adding Comment')
     })
 }
-export const fetchVoteComment = ({ id, option }) => {
+export const fetchVoteComment = ({ id, currentUser, option }) => {
   return fetch(`${api}/comments/${id}`, {
     ...initPOST,
-    body: JSON.stringify({ option })
+    body: JSON.stringify({ option, user: currentUser })
   })
     .then(serverResponse)
-    .then((comment) => ({ id: comment.id, voteScore: comment.voteScore }))
+    .then((comment) => ({
+      id: comment.id,
+      voteScore: comment.voteScore,
+      votedBy: comment.votedBy
+    }))
     .catch((err) => {
       logError(err)
       throw new Error('There was an error while updating Comment Vote Score')

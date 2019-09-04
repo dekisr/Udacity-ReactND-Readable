@@ -11,6 +11,7 @@ const defaultData = {
     body: 'Hi there! I am a COMMENT.',
     author: 'indianred',
     voteScore: 100,
+    votedBy: [],
     deleted: false,
     parentDeleted: false,
     lastEdit: null
@@ -22,6 +23,7 @@ const defaultData = {
     body: 'Comments. Are. Cool.',
     author: 'powderblue',
     voteScore: -100,
+    votedBy: [],
     deleted: false,
     parentDeleted: false,
     lastEdit: null
@@ -83,6 +85,7 @@ function add(token, comment) {
       author: comment.author,
       parentId: comment.parentId,
       voteScore: 0,
+      votedBy: [],
       deleted: false,
       parentDeleted: false,
       lastEdit: null
@@ -93,19 +96,25 @@ function add(token, comment) {
   })
 }
 
-function vote(token, id, option) {
+function vote(token, id, user, option) {
   return new Promise((res) => {
     let comments = getData(token)
     comment = comments[id]
-    switch (option) {
-      case 'upVote':
-        comment.voteScore = comment.voteScore + 1
-        break
-      case 'downVote':
-        comment.voteScore = comment.voteScore - 1
-        break
-      default:
-        console.log(`comments.vote received incorrect parameter: ${option}`)
+    if (comment.votedBy.includes(user)) {
+      console.log(`The user ${user} already voted in this comment.`)
+      return
+    } else {
+      comment.votedBy = [...comment.votedBy, user]
+      switch (option) {
+        case 'upVote':
+          comment.voteScore = comment.voteScore + 1
+          break
+        case 'downVote':
+          comment.voteScore = comment.voteScore - 1
+          break
+        default:
+          console.log(`comments.vote received incorrect parameter: ${option}`)
+      }
     }
     res(comment)
   })

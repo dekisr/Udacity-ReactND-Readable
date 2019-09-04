@@ -29,21 +29,37 @@ class Comment extends Component {
   state = {
     confirmDelete: false
   }
-  changeVoteScore = (id, option, voteScore) => {
-    const { dispatch } = this.props
-    return dispatch(handleVoteComment({ id, option, voteScore })).catch(
-      (err) => {
-        dispatch(handleToast(`${err.message}. Resyinc the comment...`, 'error'))
-        /*
-        on server errror:
-        try to reload the comment preventing bugs with Optimistic
-        Updates if clicking too fast using slow connections and bad hardware
-      */
-        dispatch(handleReloadComment(id)).catch((err) =>
-          dispatch(handleToast(err.message, 'error'))
-        )
-      }
-    )
+  changeVoteScore = (id, option, voteScore, votedBy) => {
+    const { dispatch, currentUser } = this.props
+    if (votedBy.includes(currentUser)) {
+      return dispatch(
+        handleToast(`The user ${currentUser} already voted here!`, 'alert')
+      )
+    } else {
+      return dispatch(handleVoteComment({ id, option, voteScore, currentUser }))
+        .then(() => {
+          socketEmit('vote comment', {
+            id,
+            user: currentUser
+          })
+          dispatch(
+            updateSessionLog('A comment received a vote from', currentUser)
+          )
+        })
+        .catch((err) => {
+          dispatch(
+            handleToast(`${err.message}. Resyinc the comment...`, 'error')
+          )
+          /*
+          on server errror:
+          try to reload the comment preventing bugs with Optimistic
+          Updates if clicking too fast using slow connections and bad hardware
+        */
+          dispatch(handleReloadComment(id)).catch((err) =>
+            dispatch(handleToast(err.message, 'error'))
+          )
+        })
+    }
   }
   deleteComment = (id) => {
     const { dispatch, currentUser } = this.props
@@ -67,7 +83,12 @@ class Comment extends Component {
           <button
             aria-label="Vote Comment Up"
             onClick={() =>
-              this.changeVoteScore(comment.id, 'upVote', comment.voteScore)
+              this.changeVoteScore(
+                comment.id,
+                'upVote',
+                comment.voteScore,
+                comment.votedBy
+              )
             }
           >
             <Oction
@@ -81,7 +102,12 @@ class Comment extends Component {
           <button
             aria-label="Vote Comment Down"
             onClick={() =>
-              this.changeVoteScore(comment.id, 'downVote', comment.voteScore)
+              this.changeVoteScore(
+                comment.id,
+                'downVote',
+                comment.voteScore,
+                comment.votedBy
+              )
             }
           >
             <Oction

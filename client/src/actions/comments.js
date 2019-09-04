@@ -42,10 +42,12 @@ export const handleAddComment = (comment) => (dispatch) => {
     })
 }
 
-export const voteComment = ({ id, voteScore }) => ({
+export const voteComment = ({ id, voteScore, currentUser, error }) => ({
   type: VOTE_COMMENT,
   id,
-  voteScore
+  voteScore,
+  currentUser,
+  error
 })
 export const handleVoteComment = (info) => (dispatch) => {
   // Optimistic Updates
@@ -54,11 +56,16 @@ export const handleVoteComment = (info) => (dispatch) => {
   info.option === 'downVote' && voteScore--
   let newInfo = {
     ...info,
-    voteScore
+    voteScore,
+    error: false
   }
   dispatch(voteComment(newInfo))
   return fetchVoteComment(info).catch((err) => {
-    dispatch(voteComment(info))
+    newInfo = {
+      ...info,
+      error: true
+    }
+    dispatch(voteComment(newInfo))
     throw new Error(err.message)
   })
 }
