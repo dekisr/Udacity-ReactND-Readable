@@ -72,10 +72,11 @@ const Content = styled.div`
 `
 const Body = styled.p`
   position: relative;
-  ${({ dashboard }) =>
+  /* ${({ dashboard }) =>
     dashboard
       ? 'height: 8rem; overflow-y: hidden;'
-      : 'height: auto; overflow-y:visible;'}
+      : 'height: auto; overflow-y:visible;'} */
+
   min-height: 8rem;
   font-size: 0.875rem;
   line-height: 1.5;

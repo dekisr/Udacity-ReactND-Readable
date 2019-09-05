@@ -61,10 +61,7 @@ class CommentForm extends Component {
                 user: currentUser
               })
               dispatch(
-                updateSessionLog(
-                  'A comment has been edited by',
-                  currentUser
-                )
+                updateSessionLog('A comment has been edited by', currentUser)
               )
               dispatch(
                 handleToast('The comment was successfully edited', 'success')
@@ -93,12 +90,7 @@ class CommentForm extends Component {
                 id: commentData.id,
                 user: currentUser
               })
-              dispatch(
-                updateSessionLog(
-                  'New comment posted by',
-                  currentUser
-                )
-              )
+              dispatch(updateSessionLog('New comment posted by', currentUser))
               dispatch(
                 handleToast('The comment was successfully posted', 'success')
               )
@@ -132,13 +124,15 @@ class CommentForm extends Component {
           <StyledCommentForm.TextArea
             name="body"
             placeholder="Type your message"
-            maxLength={300 + (body.length - bodyChars)}
+            // maxLength={300 + (body.length - bodyChars)}
             value={body}
             onChange={this.handleChange}
             // onBlur={this.handleBlur}
           />
           {body.length > 0 && (
-            <StyledCommentForm.Options>
+            <StyledCommentForm.Options
+              invalidChars={bodyChars > 300 || bodyChars < 21}
+            >
               <dl>
                 <dt>options:</dt>
                 <dd>
@@ -151,9 +145,11 @@ class CommentForm extends Component {
                   ~~text~~:<s>text</s>
                 </dd>
               </dl>
-              <span>
-                <b>{bodyChars} / 300</b>
-              </span>
+              <div aria-label="Characters Counter">
+                <b>
+                  <span>{bodyChars}</span> / 300
+                </b>
+              </div>
             </StyledCommentForm.Options>
           )}
           {bodyError && <span>{bodyError}</span>}

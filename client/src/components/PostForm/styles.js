@@ -138,8 +138,12 @@ const Options = styled.div`
       padding: 0 0.5rem;
     }
   }
-  & span {
+  & div {
     text-align: right;
+  }
+  & div span {
+    color: ${({ invalidChars }) =>
+      invalidChars ? colors.danger.firebrick : colors.grey.two};
   }
   @media (min-width: 601px) {
     font-size: 1rem;

@@ -122,10 +122,7 @@ class PostForm extends Component {
                 user: currentUser
               })
               dispatch(
-                updateSessionLog(
-                  'A post has been edited by',
-                  currentUser
-                )
+                updateSessionLog('A post has been edited by', currentUser)
               )
               dispatch(
                 handleToast('The post was successfully edited', 'success')
@@ -156,9 +153,7 @@ class PostForm extends Component {
                 id: postData.id,
                 user: currentUser
               })
-              dispatch(
-                updateSessionLog('New post created by', currentUser)
-              )
+              dispatch(updateSessionLog('New post created by', currentUser))
               dispatch(
                 handleToast('The post was successfully created', 'success')
               )
@@ -249,13 +244,15 @@ class PostForm extends Component {
           <textarea
             name="body"
             placeholder="Body"
-            maxLength={600 + (body.length - bodyChars)}
+            // maxLength={600 + (body.length - bodyChars)}
             value={this.state.body}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />
           {body.length > 0 && (
-            <StyledPostForm.Options>
+            <StyledPostForm.Options
+              invalidChars={bodyChars > 600 || bodyChars < 41}
+            >
               <dl>
                 <dt>options:</dt>
                 <dd>
@@ -268,9 +265,11 @@ class PostForm extends Component {
                   ~~text~~:<s>text</s>
                 </dd>
               </dl>
-              <span>
-                <b>{bodyChars} / 600</b>
-              </span>
+              <div aria-label="Characters Counter">
+                <b>
+                  <span>{bodyChars}</span> / 600
+                </b>
+              </div>
             </StyledPostForm.Options>
           )}
           {bodyError && <span>{bodyError}</span>}
