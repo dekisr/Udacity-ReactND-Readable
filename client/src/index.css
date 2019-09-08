@@ -8,12 +8,7 @@
 }
 
 html {
-  background: linear-gradient(
-    180deg,
-    rgb(57, 62, 63) 0%,
-    rgb(59, 58, 58) 70%,
-    rgb(49, 49, 49) 100%
-  );
+  background: hsl(10, 10%, 15%);
 
   /* background: linear-gradient(180deg, hsl(240, 20%, 40%), hsl(240, 15%, 20%)); */
   background-attachment: fixed;
@@ -70,11 +65,11 @@ code {
   color: hsl(50, 85%, 80%);
   color: hsla(50, 85%, 80%, 0.3);
 
-  color: rgb(42, 35, 34);
-  color: rgb(84, 71, 68);
-  color: rgb(126, 107, 103);
-  color: rgb(163, 146, 142);
-  color: rgb(197, 187, 184);
+  color: hsl(10, 10%, 15%);
+  color: hsl(10, 10%, 30%);
+  color: hsl(10, 10%, 45%);
+  color: hsl(10, 10%, 60%);
+  color: hsl(10, 10%, 75%);
 
   color: hsl(10, 50%, 50%);
   color: hsl(55, 70%, 50%);
