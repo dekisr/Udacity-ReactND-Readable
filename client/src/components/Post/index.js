@@ -43,7 +43,7 @@ class Post extends Component {
             id,
             user: currentUser
           })
-          dispatch(updateSessionLog('A post received a vote from', currentUser))
+          dispatch(updateSessionLog('You voted for a post, ', currentUser))
         })
         .catch((err) => {
           dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
@@ -70,7 +70,7 @@ class Post extends Component {
           id,
           user: currentUser
         })
-        dispatch(updateSessionLog('Post DELETED by', currentUser))
+        dispatch(updateSessionLog('You DELETED a post, ', currentUser))
         dispatch(handleToast('The post was successfully deleted', 'success'))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))

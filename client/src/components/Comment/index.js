@@ -43,7 +43,7 @@ class Comment extends Component {
             user: currentUser
           })
           dispatch(
-            updateSessionLog('A comment received a vote from', currentUser)
+            updateSessionLog('You voted for a comment, ', currentUser)
           )
         })
         .catch((err) => {
@@ -69,7 +69,7 @@ class Comment extends Component {
           id,
           user: currentUser
         })
-        dispatch(updateSessionLog('A comment has been deleted by', currentUser))
+        dispatch(updateSessionLog('You deleted a comment, ', currentUser))
         dispatch(handleToast('The comment was successfully deleted', 'success'))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))

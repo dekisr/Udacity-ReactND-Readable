@@ -122,7 +122,7 @@ class PostForm extends Component {
                 user: currentUser
               })
               dispatch(
-                updateSessionLog('A post has been edited by', currentUser)
+                updateSessionLog('You edited a post, ', currentUser)
               )
               dispatch(
                 handleToast('The post was successfully edited', 'success')
@@ -153,7 +153,7 @@ class PostForm extends Component {
                 id: postData.id,
                 user: currentUser
               })
-              dispatch(updateSessionLog('New post created by', currentUser))
+              dispatch(updateSessionLog('You have created a new post, ', currentUser))
               dispatch(
                 handleToast('The post was successfully created', 'success')
               )

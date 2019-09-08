@@ -86,7 +86,7 @@ const Button = styled.button`
   transition: background 400ms ease, transform 150ms ease;
   color: snow;
   background-color: ${({ cancel }) =>
-    cancel ? colors.danger.firebrick : colors.grey.two};
+    cancel ? colors.danger.tomato : colors.grey.two};
   @media (min-width: 601px) {
     font-size: 1rem;
   }
@@ -97,7 +97,8 @@ const Button = styled.button`
   &:active {
     outline-offset: -4px;
     transform: scale(0.95);
-    background-color: ${colors.grey.one};
+    background-color: ${({ cancel }) =>
+    cancel ? colors.danger.crimson : colors.grey.one};
   }
 `
 

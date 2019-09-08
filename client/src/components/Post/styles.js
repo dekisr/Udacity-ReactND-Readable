@@ -101,7 +101,6 @@ const Join = styled.button`
   text-decoration: none;
   cursor: pointer;
   transition: background 400ms ease, transform 150ms ease;
-  /* transition: background 400ms ease; */
   color: ${colors.grey.two};
   background-color: ${({ category }) =>
     category === 'blue'
@@ -124,10 +123,10 @@ const Join = styled.button`
     transform: scale(0.99);
     background-color: ${({ category }) =>
       category === 'blue'
-        ? colors.blue.two
+        ? colors.blue.three
         : category === 'red'
-        ? colors.red.two
-        : colors.yellow.two};
+        ? colors.red.three
+        : colors.yellow.three};
   }
 `
 const Info = styled.ul`

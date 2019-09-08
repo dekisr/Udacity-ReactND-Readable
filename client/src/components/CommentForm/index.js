@@ -61,7 +61,7 @@ class CommentForm extends Component {
                 user: currentUser
               })
               dispatch(
-                updateSessionLog('A comment has been edited by', currentUser)
+                updateSessionLog('You edited a comment, ', currentUser)
               )
               dispatch(
                 handleToast('The comment was successfully edited', 'success')
@@ -90,9 +90,9 @@ class CommentForm extends Component {
                 id: commentData.id,
                 user: currentUser
               })
-              dispatch(updateSessionLog('New comment posted by', currentUser))
+              dispatch(updateSessionLog('You have created a new comment, ', currentUser))
               dispatch(
-                handleToast('The comment was successfully posted', 'success')
+                handleToast('The comment was successfully created', 'success')
               )
             })
             .catch((err) => dispatch(handleToast(err.message, 'error')))

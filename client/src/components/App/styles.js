@@ -56,11 +56,11 @@ const Toast = styled.div`
   color: snow;
   background-color: ${({ alertType }) =>
     alertType === 'success'
-      ? 'turquoise'
+      ? colors.toast.success
       : alertType === 'error'
-      ? 'indianred'
+      ? colors.toast.error
       : alertType === 'alert'
-      ? 'lightsalmon'
+      ? colors.toast.alert
       : 'lightslategrey'};
   & p {
     padding: 1rem;
