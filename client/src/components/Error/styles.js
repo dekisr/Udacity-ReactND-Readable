@@ -20,7 +20,7 @@ const StyledError = styled.div`
   padding: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   background-repeat: repeat;
   background: linear-gradient(
     90deg,
@@ -56,7 +56,7 @@ const StyledError = styled.div`
     cursor: pointer;
     transition: background 400ms ease, transform 150ms ease;
     color: snow;
-    background-color: ${colors.grey.two};
+    background-color: ${colors.brown.two};
     @media (min-width: 601px) {
       font-size: 1rem;
     }
@@ -68,7 +68,7 @@ const StyledError = styled.div`
   & div button:active {
     outline-offset: -4px;
     transform: scale(0.95);
-    background-color: ${colors.grey.one};
+    background-color: ${colors.brown.one};
   }
   @media (min-width: 601px) {
     width: calc(100% - 1rem);

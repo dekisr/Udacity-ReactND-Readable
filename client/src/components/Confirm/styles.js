@@ -40,7 +40,7 @@ const Content = styled.div`
   margin-left: auto;
   padding: 0.5rem;
   font-weight: 700;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   background-repeat: repeat;
   background: linear-gradient(
     90deg,
@@ -86,7 +86,7 @@ const Button = styled.button`
   transition: background 400ms ease, transform 150ms ease;
   color: snow;
   background-color: ${({ cancel }) =>
-    cancel ? colors.danger.tomato : colors.grey.two};
+    cancel ? colors.danger.tomato : colors.brown.two};
   @media (min-width: 601px) {
     font-size: 1rem;
   }
@@ -98,7 +98,7 @@ const Button = styled.button`
     outline-offset: -4px;
     transform: scale(0.95);
     background-color: ${({ cancel }) =>
-    cancel ? colors.danger.crimson : colors.grey.one};
+    cancel ? colors.danger.crimson : colors.brown.one};
   }
 `
 

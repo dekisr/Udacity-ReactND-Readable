@@ -23,12 +23,12 @@ export const colors = {
     five: 'hsl(50, 85%, 80%)',
     fivea: 'hsla(50, 85%, 80%, 0.3)'
   },
-  grey: {
-    one: 'hsl(0, 0%, 15%)',
-    two: 'hsl(0, 0%, 30%)',
-    three: 'hsl(0, 0%, 45%)',
-    four: 'hsl(0, 0%, 60%)',
-    five: 'hsl(0, 0%, 75%)'
+  brown: {
+    one: 'hsl(10, 10%, 15%)',
+    two: 'hsl(10, 10%, 30%)',
+    three: 'hsl(10, 10%, 45%)',
+    four: 'hsl(10, 10%, 60%)',
+    five: 'hsl(10, 10%, 75%)'
   },
   toast: {
     error: 'hsl(10, 50%, 50%)',

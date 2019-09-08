@@ -45,14 +45,14 @@ const VoteScore = styled.div`
   padding: 0 0.5rem;
   font-size: 1.375rem;
   font-weight: 700;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   & button {
     display: block;
     border: none;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${({ voted }) => (voted ? colors.grey.five : colors.grey.two)};
+    color: ${({ voted }) => (voted ? colors.brown.five : colors.brown.two)};
     background: none;
   }
 `
@@ -62,7 +62,7 @@ const Body = styled.p`
   text-align: left;
   word-break: break-all;
   white-space: pre-line;
-  color: ${colors.grey.three};
+  color: ${colors.brown.three};
   @media (min-width: 601px) {
     font-size: 1.125rem;
   }
@@ -83,7 +83,7 @@ const Info = styled.ul`
   }
 `
 const InfoItem = styled.li`
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
 `
 const Date = styled(InfoItem)`
   justify-self: end;
@@ -94,7 +94,7 @@ const Date = styled(InfoItem)`
 const Avatar = styled.div`
   width: 1rem;
   height: 1rem;
-  border: 1px solid ${colors.grey.two};
+  border: 1px solid ${colors.brown.two};
   background-color: ${({ author }) => author};
 `
 const Author = styled(InfoItem)`
@@ -117,7 +117,7 @@ const Edit = styled.div`
   align-items: center;
   grid-template-columns: 1fr auto auto;
   grid-gap: 1rem;
-  color: ${colors.grey.three};
+  color: ${colors.brown.three};
   & span {
     display: block;
     text-align: right;
@@ -133,7 +133,7 @@ const Edit = styled.div`
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${colors.grey.three};
+    color: ${colors.brown.three};
     background: none;
   }
 `

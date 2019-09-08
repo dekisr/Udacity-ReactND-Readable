@@ -67,7 +67,7 @@ const Toast = styled.div`
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
-    text-shadow: 1px 1px 1px ${colors.grey.two};
+    text-shadow: 1px 1px 1px ${colors.brown.two};
   }
 `
 

@@ -70,11 +70,11 @@ code {
   color: hsl(50, 85%, 80%);
   color: hsla(50, 85%, 80%, 0.3);
 
-  color: hsl(0, 0%, 15%);
-  color: hsl(0, 0%, 25%);
-  color: hsl(0, 0%, 35%);
-  color: hsl(0, 0%, 45%);
-  color: hsl(0, 0%, 55%);
+  color: rgb(42, 35, 34);
+  color: rgb(84, 71, 68);
+  color: rgb(126, 107, 103);
+  color: rgb(163, 146, 142);
+  color: rgb(197, 187, 184);
 
   color: hsl(10, 50%, 50%);
   color: hsl(55, 70%, 50%);

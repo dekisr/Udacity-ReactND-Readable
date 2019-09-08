@@ -51,21 +51,21 @@ const VoteScore = styled.div`
   padding: 0 0.5rem;
   font-size: 1.375rem;
   font-weight: 700;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   button {
     display: block;
     border: none;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${({ voted }) => (voted ? colors.grey.five : colors.grey.two)};
+    color: ${({ voted }) => (voted ? colors.brown.five : colors.brown.two)};
     background: none;
   }
 `
 const Title = styled.h2`
   text-align: left;
   word-break: break-all;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
 `
 const Content = styled.div`
   position: relative;
@@ -83,7 +83,7 @@ const Body = styled.p`
   text-align: left;
   word-break: break-all;
   white-space: pre-line;
-  color: ${colors.grey.three};
+  color: ${colors.brown.three};
   @media (min-width: 601px) {
     font-size: 1.125rem;
   }
@@ -101,7 +101,7 @@ const Join = styled.button`
   text-decoration: none;
   cursor: pointer;
   transition: background 400ms ease, transform 150ms ease;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   background-color: ${({ category }) =>
     category === 'blue'
       ? colors.blue.five
@@ -151,7 +151,7 @@ const Info = styled.ul`
   }
 `
 const InfoItem = styled.li`
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   span {
     font-weight: 700;
   }
@@ -167,7 +167,7 @@ const Avatar = styled.div`
   width: 100%;
   height: 1rem;
   background-color: ${({ author }) => author};
-  border: 1px solid ${colors.grey.four};
+  border: 1px solid ${colors.brown.four};
   border-radius: 0;
 `
 const Date = styled(InfoItem)`
@@ -191,7 +191,7 @@ const Edit = styled.div`
   align-items: center;
   grid-template-columns: 1fr auto auto;
   grid-gap: 1rem;
-  color: ${colors.grey.three};
+  color: ${colors.brown.three};
   & span {
     display: block;
     text-align: right;
@@ -207,7 +207,7 @@ const Edit = styled.div`
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    color: ${colors.grey.three};
+    color: ${colors.brown.three};
     background: none;
   }
 `

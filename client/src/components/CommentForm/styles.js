@@ -25,7 +25,7 @@ const StyledCommentForm = styled.form`
     margin: 0 auto;
     font-size: 0.75rem;
     text-align: right;
-    color: ${colors.grey.two};
+    color: ${colors.brown.two};
     @media (min-width: 601px) {
       font-size: 1rem;
     }
@@ -41,7 +41,7 @@ const StyledCommentForm = styled.form`
     cursor: pointer;
     transition: background 400ms ease;
     color: snow;
-    background-color: ${colors.grey.two};
+    background-color: ${colors.brown.two};
     @media (min-width: 601px) {
       font-size: 1rem;
     }
@@ -49,7 +49,7 @@ const StyledCommentForm = styled.form`
   & button:disabled,
   button[disabled] {
     cursor: not-allowed;
-    background-color: ${colors.grey.five};
+    background-color: ${colors.brown.five};
   }
   & button:hover {
     outline: 1px solid snow;
@@ -57,7 +57,7 @@ const StyledCommentForm = styled.form`
   }
   & button:active {
     outline-offset: -4px;
-    background-color: ${colors.grey.one};
+    background-color: ${colors.brown.one};
   }
   @media (min-width: 601px) {
     width: calc(100% - 2rem);
@@ -70,16 +70,16 @@ const TextArea = styled.textarea`
   margin: 0.5rem 0.5rem 0 0.5rem;
   padding: 0.5rem;
   appearance: none;
-  border: 1px solid ${colors.grey.four};
+  border: 1px solid ${colors.brown.four};
   border-radius: 0;
   font-size: 0.875rem;
   line-height: 1.5;
-  color: ${colors.grey.three};
+  color: ${colors.brown.three};
   ::placeholder {
     text-align: center;
     text-transform: uppercase;
     line-height: 4rem;
-    color: ${colors.grey.four};
+    color: ${colors.brown.four};
   }
   @media (min-width: 601px) {
     font-size: 1.125rem;
@@ -95,7 +95,7 @@ const Options = styled.div`
   width: calc(100% - 1rem);
   margin: 0 auto;
   font-size: 0.75rem;
-  color: ${colors.grey.two};
+  color: ${colors.brown.two};
   background-color: snow;
   & dl {
     padding-left: 0.1rem;
@@ -125,7 +125,7 @@ const Options = styled.div`
   }
   & div span {
     color: ${({ invalidChars }) =>
-      invalidChars ? colors.danger.firebrick : colors.grey.two};
+      invalidChars ? colors.danger.firebrick : colors.brown.two};
   }
   @media (min-width: 601px) {
     font-size: 1rem;
