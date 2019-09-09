@@ -5,7 +5,7 @@ import Char from '../../assets/Hero.svg'
 
 class Hero extends Component {
   handleChange = (e) => {
-    this.props.history.push(`/category/${e.target.value}`)
+    this.props.history.push(`/${e.target.value}`)
   }
   render() {
     return (

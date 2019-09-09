@@ -19,15 +19,14 @@ class Dashboard extends Component {
   // }
   render() {
     const { postIds, posts, category } = this.props
+    const { sortBy } = this.state
     const filteredIds = category
       ? postIds.filter((id) => posts[id].category === this.props.category)
       : postIds
-    const { sortBy } = this.state
-    console.log('WHAAAOADJISA ', this.state.category)
     return (
       <Fragment>
         <Hero category={this.props.category} />
-        {Object.keys(posts).length === 0 ? (
+        {postIds.length === 0 ? (
           <h2>there are no posts yet...</h2>
         ) : (
           // (

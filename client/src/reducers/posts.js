@@ -5,7 +5,8 @@ import {
   RESET_POSTS,
   RELOAD_POST,
   EDIT_POST,
-  DELETE_POST
+  DELETE_POST,
+  SORT_POSTS
 } from '../actions/posts'
 
 const posts = (state = {}, action) => {
@@ -59,6 +60,15 @@ const posts = (state = {}, action) => {
       const newState = { ...state }
       delete newState[action.id]
       return newState
+    case SORT_POSTS:
+      let sortedState = {}
+      const sortedIds = Object.keys(state).sort(
+        (a, b) => state[b][action.sortBy] - state[a][action.sortBy]
+      )
+      sortedIds.map(
+        (postId) => (sortedState = { ...sortedState, ...state[postId] })
+      )
+      return sortedState
     default:
       return state
   }

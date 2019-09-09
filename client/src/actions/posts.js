@@ -14,6 +14,7 @@ export const VOTE_POST = 'VOTE_POST'
 export const RELOAD_POST = 'RELOAD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const SORT_POSTS = 'SORT_POSTS'
 
 export const receivePosts = (posts) => ({
   type: RECEIVE_POSTS,
@@ -116,3 +117,8 @@ export const handleDeletePost = (id) => (dispatch) => {
       throw new Error(err.message)
     })
 }
+
+export const sortPosts = (sortBy) => ({
+  type: SORT_POSTS,
+  sortBy
+})
