@@ -66,8 +66,10 @@ const posts = (state = {}, action) => {
         (a, b) => state[b][action.sortBy] - state[a][action.sortBy]
       )
       sortedIds.map(
-        (postId) => (sortedState = { ...sortedState, ...state[postId] })
+        (postId) =>
+          (sortedState = { ...sortedState, [postId]: { ...state[postId] } })
       )
+
       return sortedState
     default:
       return state
