@@ -108,6 +108,12 @@ class App extends Component {
             })} */}
             <Switch>
               <Route path="/" exact component={Dashboard} />
+
+              <Route path="/category/blue" exact render={() => <Dashboard category="blue" />} />
+              <Route path="/category/red" exact render={() => <Dashboard category="red" />} />
+              <Route path="/category/yellow" exact render={() => <Dashboard category="yellow" />} />
+
+
               <Route path="/post/id/:id" exact component={PostPage} />
               <Route path="/post/new" exact component={PostForm} />
               <Route path="/post/edit/id/:id" exact component={PostForm} />
