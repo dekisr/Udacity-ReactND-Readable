@@ -98,14 +98,14 @@ class App extends Component {
           <h1>LOOOADING</h1>
         ) : (
           <StyledApp>
-            <h1>{process.env.NODE_ENV}</h1>
+            {/* <h1>{process.env.NODE_ENV}</h1>
             {sessionLog.messages.map((item) => {
               return (
                 <p>
                   <b>[{item.timestamp}]</b> {item.message} <b>{item.user}</b>
                 </p>
               )
-            })}
+            })} */}
             <Switch>
               <Route path="/" exact component={Dashboard} />
               <Route path="/post/id/:id" exact component={PostPage} />

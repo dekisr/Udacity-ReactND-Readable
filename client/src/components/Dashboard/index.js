@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Hero from '../Hero'
 import Post from '../Post'
 import { sortPostsComments } from '../../utils/helpers'
 
@@ -14,6 +15,7 @@ class Dashboard extends Component {
 
     return (
       <Fragment>
+        <Hero />
         {Object.keys(posts).length === 0 ? (
           <h2>there are no posts yet...</h2>
         ) : (

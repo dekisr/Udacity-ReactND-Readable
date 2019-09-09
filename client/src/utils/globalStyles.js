@@ -3,6 +3,7 @@ export const colors = {
     one: 'hsl(200, 65%, 20%)',
     two: 'hsl(200, 65%, 35%)',
     three: 'hsl(200, 65%, 50%)',
+    threea: 'hsla(200, 65%, 50%, 0.5)',
     four: 'hsl(200, 65%, 65%)',
     five: 'hsl(200, 65%, 80%)',
     fivea: 'hsla(200, 65%, 80%, 0.3)'
@@ -11,6 +12,7 @@ export const colors = {
     one: 'hsl(5, 60%, 20%)',
     two: 'hsl(5, 60%, 35%)',
     three: 'hsl(5, 60%, 50%)',
+    threea: 'hsla(5, 60%, 50%, 0.5)',
     four: 'hsl(5, 60%, 65%)',
     five: 'hsl(5, 60%, 80%)',
     fivea: 'hsla(5, 60%, 80%, 0.3)'
@@ -19,6 +21,7 @@ export const colors = {
     one: 'hsl(50, 85%, 20%)',
     two: 'hsl(50, 85%, 35%)',
     three: 'hsl(50, 85%, 50%)',
+    threea: 'hsla(50, 85%, 50%, 0.5)',
     four: 'hsl(50, 85%, 65%)',
     five: 'hsl(50, 85%, 80%)',
     fivea: 'hsla(50, 85%, 80%, 0.3)'
