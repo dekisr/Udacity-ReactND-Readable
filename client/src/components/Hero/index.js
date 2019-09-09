@@ -1,32 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import StyledHero from './styles'
 import Char from '../../assets/Hero.svg'
-import { sortPosts } from '../../actions/posts'
 
 class Hero extends Component {
-  state = {
-    sortBy: 'timestamp'
-  }
-  handleSort = (sortBy) => {
-    const { dispatch } = this.props
-    this.setState({ sortBy })
-    return dispatch(sortPosts(sortBy))
-  }
   handleChange = (e) => {
     this.props.history.push(`/${e.target.value}`)
   }
-  componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(sortPosts('timestamp'))
-    this.setState({ sortBy: 'timestamp' })
-  }
   render() {
+    const { category, handleSort } = this.props
     return (
       <StyledHero>
         <img src={Char} alt="Hero" />
-        <StyledHero.Options aria-label="Options">
+        <StyledHero.Options category={category} aria-label="Options">
           <select onChange={this.handleChange} value={this.props.category}>
             <option value="">All</option>
             <option value="blue">Blue</option>
@@ -35,10 +22,8 @@ class Hero extends Component {
           </select>
           <div aria-label="Sort posts by">
             Sort by:
-            <button onClick={() => this.handleSort('timestamp')}>Date</button>
-            <button onClick={() => this.handleSort('voteScore')}>
-              Vote Score
-            </button>
+            <button onClick={() => handleSort('timestamp')}>Date</button>
+            <button onClick={() => handleSort('voteScore')}>Vote Score</button>
           </div>
         </StyledHero.Options>
       </StyledHero>
@@ -46,10 +31,9 @@ class Hero extends Component {
   }
 }
 
-const mapStateToProps = ({ posts }) => {
-  return {
-    posts
-  }
+Hero.propTypes = {
+  category: PropTypes.string,
+  handleSort: PropTypes.func
 }
 
-export default withRouter(connect(mapStateToProps)(Hero))
+export default withRouter(Hero)

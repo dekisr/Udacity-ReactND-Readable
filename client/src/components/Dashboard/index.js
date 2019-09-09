@@ -7,20 +7,32 @@ import Error from '../Error'
 import { sortPostsComments } from '../../utils/helpers'
 
 class Dashboard extends Component {
+  state = {
+    sortBy: 'timestamp'
+  }
+  handleSort = (sortBy) => {
+    this.setState({ sortBy })
+  }
   render() {
     const { postIds, posts, category } = this.props
+    const { sortBy } = this.state
     const filteredIds = category
-      ? postIds.filter((id) => posts[id].category === this.props.category)
+      ? postIds.filter((id) => posts[id].category === category)
       : postIds
     return (
       <Fragment>
-        <Hero category={this.props.category} />
-        {postIds.length === 0 ? (
+        <Hero category={this.props.category} handleSort={this.handleSort} />
+        {!postIds.length ? (
           <Error message="There are no posts yet..." hideButton={true} />
         ) : filteredIds.length ? (
-          filteredIds.map((id) => <Post key={id} id={id} dashboard={true} />)
+          sortPostsComments(filteredIds, posts, sortBy).map((id) => (
+            <Post key={id} id={id} dashboard={true} />
+          ))
         ) : (
-          <Error message="There are no posts in this category..." hideButton={true} />
+          <Error
+            message="There are no posts in this category..."
+            hideButton={true}
+          />
         )}
       </Fragment>
     )
