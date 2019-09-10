@@ -3,7 +3,7 @@ import { colors } from '../../utils/globalStyles'
 
 const StyledApp = styled.main`
   width: 100%;
-  max-width: 980px;
+  max-width: 1200px;
   margin: 0 auto;
 `
 const toastOpacity = css`

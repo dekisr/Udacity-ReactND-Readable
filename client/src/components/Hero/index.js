@@ -9,19 +9,23 @@ class Hero extends Component {
     this.props.history.push(`/${e.target.value}`)
   }
   render() {
-    const { category, handleSort } = this.props
+    const { category, handleSort, sortBy } = this.props
     return (
-      <StyledHero>
+      <StyledHero category={category}>
         <img src={Char} alt="Hero" />
-        <StyledHero.Options category={category} aria-label="Options">
-          <select onChange={this.handleChange} value={this.props.category}>
-            <option value="">All</option>
-            <option value="blue">Blue</option>
-            <option value="red">Red</option>
-            <option value="yellow">Yellow</option>
-          </select>
-          <div aria-label="Sort posts by">
-            Sort by:
+        <StyledHero.Options
+          category={category}
+          sortBy={sortBy}
+          aria-label="Options"
+        >
+          <div>
+            <select onChange={this.handleChange} value={category}>
+              <option value="">All</option>
+              <option value="blue">Blue</option>
+              <option value="red">Red</option>
+              <option value="yellow">Yellow</option>
+            </select>
+            <span>sort by:</span>
             <button onClick={() => handleSort('timestamp')}>Date</button>
             <button onClick={() => handleSort('voteScore')}>Vote Score</button>
           </div>

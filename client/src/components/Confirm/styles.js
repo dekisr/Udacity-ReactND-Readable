@@ -35,7 +35,7 @@ const Content = styled.div`
   display: block;
   width: 100%;
   /* height: ${({ post }) => (post ? 'auto' : '100%')}; */
-  max-width: calc(980px - 1rem);
+  max-width: calc(1200px - 1rem);
   margin-right: auto;
   margin-left: auto;
   padding: 0.5rem;

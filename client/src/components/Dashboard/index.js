@@ -21,7 +21,7 @@ class Dashboard extends Component {
       : postIds
     return (
       <Fragment>
-        <Hero category={this.props.category} handleSort={this.handleSort} />
+        <Hero category={category} sortBy={sortBy} handleSort={this.handleSort} />
         {!postIds.length ? (
           <Error message="There are no posts yet..." hideButton={true} />
         ) : filteredIds.length ? (
@@ -49,7 +49,7 @@ const mapStateToProps = ({ posts }, { match: { params } }) => {
   return {
     posts,
     postIds: Object.keys(posts),
-    category: params.category
+    category: params.category || ''
   }
 }
 
