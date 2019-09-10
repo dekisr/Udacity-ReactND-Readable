@@ -20,7 +20,7 @@ const fakeBorder = css`
       background-position: 0% 0%;
     }
     100% {
-      background-position: 640px 0%;
+      background-position: 40rem 0%;
     }
   }
   animation: glide 10s linear infinite alternate;

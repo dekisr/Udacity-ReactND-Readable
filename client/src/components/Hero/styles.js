@@ -18,36 +18,28 @@ const StyledHero = styled.section`
   & img {
     width: 8rem;
     height: auto;
-    margin-left: auto;
-    /* transform: ${({ category }) =>
-      category === 'blue'
-        ? 'rotate(360deg)'
-        : category === 'red'
-        ? 'rotate(720deg)'
-        : category === 'yellow'
-        ? 'rotate(1080deg)'
-        : 'none'}; */
+    margin-right: auto;
     transform: rotate(-20deg);
     filter: ${({ category }) =>
       category === 'blue'
-        ? `drop-shadow(0.5rem 0rem 0rem ${colors.blue.threea})
-      drop-shadow(-0.5rem 0rem 0rem ${colors.blue.threea})
-      drop-shadow(0rem 0.5rem 0.5rem ${colors.blue.threea}) hue-rotate(360deg)`
+        ? `drop-shadow(0.1rem 0rem 0rem ${colors.blue.threea})
+      drop-shadow(-0.1rem 0rem 0rem ${colors.blue.threea})
+      drop-shadow(0rem 0.1rem 0.3rem ${colors.blue.threea}) hue-rotate(360deg)`
         : category === 'red'
         ? `
-      drop-shadow(0.5rem 0rem 0rem ${colors.red.threea})
-      drop-shadow(-0.5rem 0rem 0rem ${colors.red.threea})
-      drop-shadow(0rem 0.5rem 0.5rem ${colors.red.threea}) hue-rotate(720deg)
+      drop-shadow(0.1rem 0rem 0rem ${colors.red.threea})
+      drop-shadow(-0.1rem 0rem 0rem ${colors.red.threea})
+      drop-shadow(0rem 0.1rem 0.3rem ${colors.red.threea}) hue-rotate(720deg)
       `
         : category === 'yellow'
         ? `
-      drop-shadow(0.5rem 0rem 0rem ${colors.yellow.threea})
-      drop-shadow(-0.5rem 0rem 0rem ${colors.yellow.threea})
-      drop-shadow(0rem 0.5rem 0.5rem ${colors.yellow.threea}) hue-rotate(1080deg)
+      drop-shadow(0.1rem 0rem 0rem ${colors.yellow.threea})
+      drop-shadow(-0.1rem 0rem 0rem ${colors.yellow.threea})
+      drop-shadow(0rem 0.1rem 0.3rem ${colors.yellow.threea}) hue-rotate(1080deg)
       `
-        : `drop-shadow(0.5rem 0rem 0rem ${colors.blue.threea})
-      drop-shadow(-0.5rem 0rem 0rem ${colors.red.threea})
-      drop-shadow(0rem 0.5rem 0.5rem ${colors.yellow.threea}) hue-rotate(0deg)`};
+        : `drop-shadow(0.2rem 0rem 0rem ${colors.blue.threea})
+      drop-shadow(-0.2rem 0rem 0rem ${colors.red.threea})
+      drop-shadow(0rem 0.2rem 0.3rem ${colors.yellow.threea}) hue-rotate(0deg)`};
     transition: filter 1s ease;
     @media (min-width: 601px) {
       display: block;
@@ -107,7 +99,7 @@ const Options = styled.div`
     margin: 0 0.5rem;
     padding: 0.5rem;
     appearance: none;
-    border: 1px solid ${colors.brown.four};
+    border: 0.0625rem solid ${colors.brown.four};
     border-radius: 0;
     font-size: 0.875rem;
     line-height: 1.5;

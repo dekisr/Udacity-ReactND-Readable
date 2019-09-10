@@ -62,11 +62,11 @@ const StyledError = styled.div`
     }
   }
   & div button:hover {
-    outline: 1px solid snow;
-    outline-offset: -2px;
+    outline: 0.0625rem solid snow;
+    outline-offset: -0.125rem;
   }
   & div button:active {
-    outline-offset: -4px;
+    outline-offset: -0.25rem;
     transform: scale(0.95);
     background-color: ${colors.brown.one};
   }

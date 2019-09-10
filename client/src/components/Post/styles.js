@@ -111,15 +111,15 @@ const Join = styled.button`
   &:hover,
   &:focus {
     color: snow;
-    outline: 1px solid snow;
-    outline-offset: -2px;
+    outline: 0.0625rem solid snow;
+    outline-offset: -0.125rem;
   }
   &:focus {
-    outline: 1px solid snow;
-    outline-offset: -4px;
+    outline: 0.0625rem solid snow;
+    outline-offset: -0.25rem;
   }
   &:active {
-    outline-offset: -4px;
+    outline-offset: -0.25rem;
     transform: scale(0.99);
     background-color: ${({ category }) =>
       category === 'blue'
@@ -167,7 +167,7 @@ const Avatar = styled.div`
   width: 100%;
   height: 1rem;
   background-color: ${({ author }) => author};
-  border: 1px solid ${colors.brown.four};
+  border: 0.0625rem solid ${colors.brown.four};
   border-radius: 0;
 `
 const Date = styled(InfoItem)`

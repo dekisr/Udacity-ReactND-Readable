@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0.5rem;
 `
@@ -40,13 +40,13 @@ const MenuItem = styled(NavLink)`
   font-weight: 700;
   text-decoration: none;
   color: wheat;
-  border: ${({ special }) => (special ? '2px solid snow' : 'none')};
+  border: ${({ special }) => (special ? '0.125rem solid snow' : 'none')};
   &.routerActive {
     color: indianred;
   }
   & span {
     position: relative;
-    bottom: -1px;
+    bottom: -0.0625rem;
     margin-left: 0.1rem;
   }
 `

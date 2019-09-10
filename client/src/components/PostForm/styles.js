@@ -49,7 +49,7 @@ const StyledPostForm = styled.form`
     margin: 0 0.5rem;
     padding: 0.5rem;
     appearance: none;
-    border: 1px solid ${colors.brown.four};
+    border: 0.0625rem solid ${colors.brown.four};
     border-radius: 0;
     font-size: 0.875rem;
     line-height: 1.5;
@@ -68,7 +68,7 @@ const StyledPostForm = styled.form`
     margin-top: 0.5rem;
   }
   & textarea {
-    height: 200px;
+    height: 12.5rem;
   }
   & button {
     width: 100%;
@@ -92,11 +92,11 @@ const StyledPostForm = styled.form`
     background-color: ${colors.brown.five};
   }
   & button:hover {
-    outline: 1px solid snow;
-    outline-offset: -2px;
+    outline: 0.0625rem solid snow;
+    outline-offset: -0.125rem;
   }
   & button:active {
-    outline-offset: -4px;
+    outline-offset: -0.25rem;
     background-color: ${colors.brown.one};
   }
   @media (min-width: 601px) {

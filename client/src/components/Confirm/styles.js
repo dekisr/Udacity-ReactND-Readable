@@ -35,7 +35,7 @@ const Content = styled.div`
   display: block;
   width: 100%;
   /* height: ${({ post }) => (post ? 'auto' : '100%')}; */
-  max-width: calc(1200px - 1rem);
+  max-width: calc(1120px - 1rem);
   margin-right: auto;
   margin-left: auto;
   padding: 0.5rem;
@@ -91,11 +91,11 @@ const Button = styled.button`
     font-size: 1rem;
   }
   &:hover {
-    outline: 1px solid snow;
-    outline-offset: -2px;
+    outline: 0.0625rem solid snow;
+    outline-offset: -0.125rem;
   }
   &:active {
-    outline-offset: -4px;
+    outline-offset: -0.25rem;
     transform: scale(0.95);
     background-color: ${({ cancel }) =>
     cancel ? colors.danger.crimson : colors.brown.one};

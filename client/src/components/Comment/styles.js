@@ -94,7 +94,7 @@ const Date = styled(InfoItem)`
 const Avatar = styled.div`
   width: 1rem;
   height: 1rem;
-  border: 1px solid ${colors.brown.two};
+  border: 0.0625rem solid ${colors.brown.two};
   background-color: ${({ author }) => author};
 `
 const Author = styled(InfoItem)`
