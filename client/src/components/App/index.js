@@ -35,42 +35,42 @@ class App extends Component {
   sockets = [
     {
       name: 'new post',
-      message: 'New post created by',
+      message: 'New post created by ',
       function: handleReloadPost
     },
     {
       name: 'edit post',
-      message: 'A post has been edited by',
+      message: 'A post has been edited by ',
       function: handleReloadPost
     },
     {
       name: 'vote post',
-      message: 'A post received a vote from',
+      message: 'A post received a vote from ',
       function: handleReloadPost
     },
     {
       name: 'delete post',
-      message: 'Post DELETED by',
+      message: 'Post DELETED by ',
       function: deletePost
     },
     {
       name: 'new comment',
-      message: 'New comment by',
+      message: 'New comment by ',
       function: handleReloadComment
     },
     {
       name: 'edit comment',
-      message: 'A comment has been edited by',
+      message: 'A comment has been edited by ',
       function: handleReloadComment
     },
     {
       name: 'vote comment',
-      message: 'A comment received a vote from',
+      message: 'A comment received a vote from ',
       function: handleReloadComment
     },
     {
       name: 'delete comment',
-      message: 'Comment DELETED by',
+      message: 'Comment DELETED by ',
       function: deleteComment
     }
   ]
@@ -98,14 +98,14 @@ class App extends Component {
           <h1>LOOOADING</h1>
         ) : (
           <StyledApp>
-            {/* <h1>{process.env.NODE_ENV}</h1>
+            <h1>{process.env.NODE_ENV}</h1>
             {sessionLog.messages.map((item) => {
               return (
                 <p>
                   <b>[{item.timestamp}]</b> {item.message} <b>{item.user}</b>
                 </p>
               )
-            })} */}
+            })}
             <Switch>
               <Route path="/" exact component={Dashboard} />
 

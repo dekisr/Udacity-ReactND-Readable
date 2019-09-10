@@ -6,12 +6,12 @@ const sessionLog = (state = { messages: [] }, action) => {
       return {
         ...state,
         messages: [
-          ...state.messages,
           {
             timestamp: Date.now(),
             message: action.message,
             user: action.user
-          }
+          },
+          ...state.messages
         ]
       }
     default:

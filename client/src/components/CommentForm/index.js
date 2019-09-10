@@ -90,7 +90,7 @@ class CommentForm extends Component {
                 id: commentData.id,
                 user: currentUser
               })
-              dispatch(updateSessionLog('You have created a new comment, ', currentUser))
+              dispatch(updateSessionLog('You just created a new comment, ', currentUser))
               dispatch(
                 handleToast('The comment was successfully created', 'success')
               )
