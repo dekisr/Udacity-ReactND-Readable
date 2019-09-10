@@ -109,7 +109,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Dashboard} />
 
-              <Route path="/:category" exact component={Dashboard} />
+              <Route path="/:category(red|blue|yellow)" exact component={Dashboard} />
 
 
               <Route path="/post/id/:id" exact component={PostPage} />
