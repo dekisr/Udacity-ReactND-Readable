@@ -1,3 +1,45 @@
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    font-family: 'Barlow', 'Roboto', 'Oxygen', 'Cantarell', 'Fira Sans',
+      'Helvetica', 'Arial', sans-serif;
+  }
+  html {
+    background: linear-gradient(
+      180deg,
+      hsl(10, 10%, 15%) 60%,
+      hsl(10, 10%, 30%) 100%
+    );
+    background-attachment: fixed;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1 {
+    font-size: 1.625rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.375rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+  }
+  h5 {
+    font-size: 1.125rem;
+  }
+`
+
 export const colors = {
   blue: {
     one: 'hsl(200, 65%, 20%)',
@@ -47,3 +89,5 @@ export const colors = {
     burlywood: 'hsl(35, 60%, 70%)'
   }
 }
+
+export default GlobalStyle

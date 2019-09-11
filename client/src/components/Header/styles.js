@@ -6,6 +6,27 @@ const StyledHeader = styled.header`
   margin: 0;
   border-bottom: 0.3rem solid snow;
   color: white;
+  & i {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5rem;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
 `
 const Wrapper = styled.div`
   display: grid;
@@ -35,6 +56,10 @@ const Menu = styled.nav`
   color: palegreen;
 `
 const MenuItem = styled(NavLink)`
+  display: grid;
+  grid-template-columns: auto auto;
+  align-content: center;
+  align-items: center;
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: 700;
@@ -45,9 +70,7 @@ const MenuItem = styled(NavLink)`
     color: indianred;
   }
   & span {
-    position: relative;
-    bottom: -0.0625rem;
-    margin-left: 0.1rem;
+    margin-left: 0.2rem;
   }
 `
 const MenuButton = styled.button`

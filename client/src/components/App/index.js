@@ -12,10 +12,11 @@ import Dashboard from '../Dashboard'
 import PostPage from '../PostPage'
 import PostForm from '../PostForm'
 import Error from '../Error'
+import ScrollToTop from '../ScrollToTop'
+import GlobalStyle from '../../utils/globalStyles'
 import StyledApp from './styles'
 import CommentForm from '../CommentForm'
 import { socketOn } from '../../utils/helpers'
-import ScrollToTop from '../ScrollToTop'
 
 class App extends Component {
   socketsOn = (sockets) => {
@@ -93,6 +94,7 @@ class App extends Component {
     } = this.props
     return (
       <BrowserRouter>
+        <GlobalStyle />
         <ScrollToTop>
           {loadingBar && <Loading />}
           <Header />

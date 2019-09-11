@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -72,5 +72,5 @@ code {
   color: hsl(55, 70%, 50%);
   color: hsl(150, 50%, 50%);
 
-  /* color: #DEADFACE; */
-}
+  color: #DEADFACE;
+} */

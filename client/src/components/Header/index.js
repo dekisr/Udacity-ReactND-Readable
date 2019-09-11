@@ -35,7 +35,8 @@ class Header extends Component {
           </StyledHeader.Logo>
           <StyledHeader.Menu>
             <StyledHeader.MenuItem to="/" exact activeClassName="routerActive">
-              <Oction icon={Home} size="small" verticalAlign="middle" />
+              {/* <Oction icon={Home} size="small" verticalAlign="middle" /> */}
+              <i>home</i>
               <span>Home</span>
             </StyledHeader.MenuItem>
             <StyledHeader.MenuButton onClick={this.resetData}>
