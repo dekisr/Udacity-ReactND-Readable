@@ -15,6 +15,7 @@ import Error from '../Error'
 import StyledApp from './styles'
 import CommentForm from '../CommentForm'
 import { socketOn } from '../../utils/helpers'
+import ScrollToTop from '../ScrollToTop'
 
 class App extends Component {
   socketsOn = (sockets) => {
@@ -92,55 +93,60 @@ class App extends Component {
     } = this.props
     return (
       <BrowserRouter>
-        {loadingBar && <Loading />}
-        <Header />
-        {loadingData ? (
-          <h1>LOOOADING</h1>
-        ) : (
-          <StyledApp>
-            <h1>{process.env.NODE_ENV}</h1>
-            {sessionLog.messages.map((item) => {
-              return (
-                <p>
-                  <b>[{item.timestamp}]</b> {item.message} <b>{item.user}</b>
-                </p>
-              )
-            })}
-            <Switch>
-              <Route path="/" exact component={Dashboard} />
-
-              <Route path="/:category(red|blue|yellow)" exact component={Dashboard} />
-
-
-              <Route path="/post/id/:id" exact component={PostPage} />
-              <Route path="/post/new" exact component={PostForm} />
-              <Route path="/post/edit/id/:id" exact component={PostForm} />
-              <Route
-                path="/comment/edit/id/:id"
-                exact
-                component={CommentForm}
-              />
-              <Route
-                render={() => (
-                  <Error message="404:What<?> 🙀 It looks like this page does not exist." />
-                )}
-              />
-            </Switch>
-            <StyledApp.ToastWrapper show={showToastWrapper}>
-              {toastIds.map((key) => {
+        <ScrollToTop>
+          {loadingBar && <Loading />}
+          <Header />
+          {loadingData ? (
+            <h1>LOOOADING</h1>
+          ) : (
+            <StyledApp>
+              <h1>{process.env.NODE_ENV}</h1>
+              {sessionLog.messages.map((item) => {
                 return (
-                  <StyledApp.Toast
-                    key={key}
-                    isVisible={toast[key].isVisible}
-                    alertType={toast[key].alertType}
-                  >
-                    <p>{toast[key].message}</p>
-                  </StyledApp.Toast>
+                  <p>
+                    <b>[{item.timestamp}]</b> {item.message} <b>{item.user}</b>
+                  </p>
                 )
               })}
-            </StyledApp.ToastWrapper>
-          </StyledApp>
-        )}
+              <Switch>
+                <Route path="/" exact component={Dashboard} />
+
+                <Route
+                  path="/:category(red|blue|yellow)"
+                  exact
+                  component={Dashboard}
+                />
+
+                <Route path="/post/id/:id" exact component={PostPage} />
+                <Route path="/post/new" exact component={PostForm} />
+                <Route path="/post/edit/id/:id" exact component={PostForm} />
+                <Route
+                  path="/comment/edit/id/:id"
+                  exact
+                  component={CommentForm}
+                />
+                <Route
+                  render={() => (
+                    <Error message="404:What<?> 🙀 It looks like this page does not exist." />
+                  )}
+                />
+              </Switch>
+              <StyledApp.ToastWrapper show={showToastWrapper}>
+                {toastIds.map((key) => {
+                  return (
+                    <StyledApp.Toast
+                      key={key}
+                      isVisible={toast[key].isVisible}
+                      alertType={toast[key].alertType}
+                    >
+                      <p>{toast[key].message}</p>
+                    </StyledApp.Toast>
+                  )
+                })}
+              </StyledApp.ToastWrapper>
+            </StyledApp>
+          )}
+        </ScrollToTop>
       </BrowserRouter>
     )
   }
