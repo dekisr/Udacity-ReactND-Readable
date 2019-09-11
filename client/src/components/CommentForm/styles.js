@@ -78,7 +78,6 @@ const TextArea = styled.textarea`
   ::placeholder {
     text-align: center;
     text-transform: uppercase;
-    line-height: 4rem;
     color: ${colors.brown.four};
   }
   @media (min-width: 601px) {
