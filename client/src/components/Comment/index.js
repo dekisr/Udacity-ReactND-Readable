@@ -18,12 +18,6 @@ import {
   socketEmit
 } from '../../utils/helpers'
 import StyledComment from './styles'
-import Oction, {
-  ChevronUp,
-  ChevronDown,
-  Pencil,
-  Trashcan
-} from '@primer/octicons-react'
 
 class Comment extends Component {
   state = {
@@ -42,9 +36,7 @@ class Comment extends Component {
             id,
             user: currentUser
           })
-          dispatch(
-            updateSessionLog('You voted for a comment, ', currentUser)
-          )
+          dispatch(updateSessionLog('You voted for a comment, ', currentUser))
         })
         .catch((err) => {
           dispatch(
@@ -91,12 +83,7 @@ class Comment extends Component {
               )
             }
           >
-            <Oction
-              icon={ChevronUp}
-              size="medium"
-              verticalAlign="middle"
-              ariaLabel="Vote Up"
-            />
+            <i>keyboard_arrow_up</i>
           </button>
           <div aria-label="Comment Vote Score">{comment.voteScore}</div>
           <button
@@ -110,12 +97,7 @@ class Comment extends Component {
               )
             }
           >
-            <Oction
-              icon={ChevronDown}
-              size="medium"
-              verticalAlign="middle"
-              ariaLabel="Vote Down"
-            />
+            <i>keyboard_arrow_down</i>
           </button>
         </StyledComment.VoteScore>
         <StyledComment.Body
@@ -146,24 +128,14 @@ class Comment extends Component {
           </span>
           <Link to={`/comment/edit/id/${comment.id}`}>
             <button aria-label="Edit Comment">
-              <Oction
-                icon={Pencil}
-                size="small"
-                verticalAlign="middle"
-                ariaLabel="Edit Comment"
-              />
+              <i>edit</i>
             </button>
           </Link>
           <button
             aria-label="Delete Comment"
             onClick={() => this.setState({ confirmDelete: true })}
           >
-            <Oction
-              icon={Trashcan}
-              size="small"
-              verticalAlign="middle"
-              ariaLabel="Delete Comment"
-            />
+            <i>delete_forever</i>
           </button>
         </StyledComment.Edit>
         <Confirm

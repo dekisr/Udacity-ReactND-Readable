@@ -6,7 +6,6 @@ import { handleResetData } from '../../actions/shared'
 import { handleToast } from '../../actions/toast'
 import { getRandomUser } from '../../utils/helpers'
 import StyledHeader from './styles'
-import Oction, { Home } from '@primer/octicons-react'
 
 class Header extends Component {
   handleUser = () => {
@@ -35,7 +34,6 @@ class Header extends Component {
           </StyledHeader.Logo>
           <StyledHeader.Menu>
             <StyledHeader.MenuItem to="/" exact activeClassName="routerActive">
-              {/* <Oction icon={Home} size="small" verticalAlign="middle" /> */}
               <i>home</i>
               <span>Home</span>
             </StyledHeader.MenuItem>

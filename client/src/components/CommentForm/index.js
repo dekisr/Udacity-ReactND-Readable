@@ -139,7 +139,7 @@ class CommentForm extends Component {
                   **text**:<b>text</b>
                 </dd>
                 <dd>
-                  __text__:<i>text</i>
+                  __text__:<em>text</em>
                 </dd>
                 <dd>
                   ~~text~~:<s>text</s>

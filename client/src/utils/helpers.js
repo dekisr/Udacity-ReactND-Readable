@@ -96,7 +96,7 @@ export const safeHTML = (string) => {
 export const emphasisHTML = (string) => {
   return string
     .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-    .replace(/__(.+?)__/g, '<i>$1</i>')
+    .replace(/__(.+?)__/g, '<em>$1</em>')
     .replace(/~~(.+?)~~/g, '<s>$1</s>')
 }
 
