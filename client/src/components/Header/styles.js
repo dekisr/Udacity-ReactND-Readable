@@ -3,9 +3,25 @@ import { NavLink } from 'react-router-dom'
 
 const StyledHeader = styled.header`
   width: 100%;
+  height: 5rem;
   margin: 0;
   border-bottom: 0.3rem solid snow;
   color: white;
+`
+const Log = styled.div`
+  display: none;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  background-color: hsla(5, 100%, 50%, 0.5);
+`
+const Content = styled.div`
+  z-index: 1900;
+  position: relative;
+  display: grid;
+  width: 500px;
+  height: 300px;
+  background-color: yellow;
 `
 const Wrapper = styled.div`
   display: grid;
@@ -18,7 +34,7 @@ const Wrapper = styled.div`
 const Logo = styled.div`
   justify-self: center;
   align-self: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: snow;
   /* color: ${({ color }) => color}; */
@@ -31,40 +47,73 @@ const Menu = styled.nav`
   align-content: center;
   justify-items: center;
   align-items: center;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   color: palegreen;
+  @media (min-width: 769px) {
+    grid-gap: 0.25rem;
+  }
 `
 const MenuItem = styled(NavLink)`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   align-content: center;
   align-items: center;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  color: wheat;
+  color: snow;
   border: ${({ special }) => (special ? '0.125rem solid snow' : 'none')};
   &.routerActive {
-    color: indianred;
+    pointer-events: none;
+    color: lightsalmon;
+  }
+  &:hover,
+  &:focus {
+    color: salmon;
   }
   & span {
+    display: none;
     margin-left: 0.2rem;
+    @media (min-width: 769px) {
+      display: block;
+    }
+  }
+  @media (min-width: 769px) {
+    grid-template-columns: auto auto;
   }
 `
-const MenuButton = styled.button`
+const MenuButton = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  align-content: center;
+  align-items: center;
   padding: 0.5rem;
   border: none;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  color: wheat;
+  color: snow;
   background: none;
-  &:hover {
+  &:hover,
+  &:focus {
+    color: salmon;
     cursor: pointer;
+  }
+  & span {
+    display: none;
+    margin-left: 0.2rem;
+    @media (min-width: 769px) {
+      display: block;
+    }
+  }
+  @media (min-width: 769px) {
+    grid-template-columns: auto auto;
   }
 `
 
+StyledHeader.Log = Log
+StyledHeader.Log.Content = Content
 StyledHeader.Wrapper = Wrapper
 StyledHeader.Logo = Logo
 StyledHeader.Menu = Menu
