@@ -61,6 +61,10 @@ const VoteScore = styled.div`
     color: ${({ voted }) => (voted ? colors.brown.five : colors.brown.two)};
     background: none;
   }
+  & i {
+    font-size: 2rem;
+    font-weight: 700;
+  }
 `
 const Title = styled.h2`
   text-align: left;
@@ -190,7 +194,7 @@ const Edit = styled.div`
   justify-items: end;
   align-items: center;
   grid-template-columns: 1fr auto auto;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   color: ${colors.brown.three};
   & span {
     display: block;
@@ -202,13 +206,17 @@ const Edit = styled.div`
   }
   & button {
     display: block;
-    padding: 0.2rem;
+    padding: 0.125rem 0 0 0.125rem;
     border: none;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     color: ${colors.brown.three};
     background: none;
+  }
+  & i {
+    font-size: 1.125rem;
+    font-weight: 400;
   }
 `
 

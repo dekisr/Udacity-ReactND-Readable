@@ -18,12 +18,6 @@ import {
   socketEmit
 } from '../../utils/helpers'
 import StyledPost from './styles'
-import Oction, {
-  ChevronUp,
-  ChevronDown,
-  Pencil,
-  Trashcan
-} from '@primer/octicons-react'
 
 class Post extends Component {
   state = {
@@ -94,7 +88,7 @@ class Post extends Component {
             }
             aria-label="Vote Post Up"
           >
-            <Oction icon={ChevronUp} size="medium" verticalAlign="middle" />
+            <i>keyboard_arrow_up</i>
           </button>
           {post.voteScore}
           <button
@@ -108,7 +102,7 @@ class Post extends Component {
             }
             aria-label="Vote Post Down"
           >
-            <Oction icon={ChevronDown} size="medium" verticalAlign="middle" />
+            <i>keyboard_arrow_down</i>
           </button>
         </StyledPost.VoteScore>
         <StyledPost.Title>{post.title}</StyledPost.Title>
@@ -135,24 +129,14 @@ class Post extends Component {
           </span>
           <Link to={`/post/edit/id/${post.id}`}>
             <button aria-label="Edit Post">
-              <Oction
-                icon={Pencil}
-                size="small"
-                verticalAlign="middle"
-                ariaLabel="Edit Post"
-              />
+              <i>edit</i>
             </button>
           </Link>
           <button
             aria-label="Delete Post"
             onClick={() => this.setState({ confirmDelete: true })}
           >
-            <Oction
-              icon={Trashcan}
-              size="small"
-              verticalAlign="middle"
-              ariaLabel="Delete Post"
-            />
+            <i>delete_forever</i>
           </button>
         </StyledPost.Edit>
         <StyledPost.Info category={post.category}>
