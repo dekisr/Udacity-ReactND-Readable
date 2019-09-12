@@ -34,7 +34,7 @@ const ToastWrapper = styled.section`
   z-index: 125;
   display: ${({ show }) => (show ? 'block' : 'none')};
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   height: 100%;
   padding: 0 1rem;
   pointer-events: none;

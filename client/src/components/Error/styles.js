@@ -14,7 +14,6 @@ const fakeBorder = css`
 `
 const StyledError = styled.div`
   width: 100%;
-  min-width: 320px;
   margin-right: auto;
   margin-left: auto;
   padding: 0.5rem;

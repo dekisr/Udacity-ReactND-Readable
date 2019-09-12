@@ -8,7 +8,6 @@ const StyledPost = styled.article`
   grid-template-rows: auto 1fr auto auto;
   grid-gap: 1rem;
   width: calc(100% - 1rem);
-  min-width: calc(320px - 1rem);
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 1rem;

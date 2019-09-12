@@ -60,7 +60,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.125rem;
   }
 `
-
 export const colors = {
   blue: {
     one: 'hsl(200, 65%, 20%)',

@@ -28,7 +28,6 @@ const fakeBorder = css`
 const Bar = styled.div`
   display: block;
   width: 100%;
-  max-width: 320px;
   height: 3rem;
   box-shadow: 0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5);
   background: linear-gradient(

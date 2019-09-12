@@ -8,7 +8,6 @@ const StyledComment = styled.article`
   grid-template-rows: 1fr auto auto;
   grid-gap: 1rem;
   width: calc(100% - 1rem);
-  min-width: calc(320px - 1rem);
   margin-right: auto;
   margin-bottom: 1rem;
   margin-left: auto;
@@ -74,16 +73,19 @@ const Body = styled.p`
 `
 const Info = styled.ul`
   display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 1fr;
-  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
   justify-content: center;
   align-content: center;
   justify-items: end;
   align-items: center;
+  grid-gap: 0.5rem;
   list-style: none;
   font-size: 0.75rem;
   @media (min-width: 601px) {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    grid-gap: 1rem;
     font-size: 0.875rem;
   }
 `

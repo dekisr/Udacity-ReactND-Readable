@@ -11,7 +11,6 @@ const StyledPostForm = styled.form`
   align-items: center;
   grid-gap: 0.5rem;
   width: calc(100% - 1rem);
-  min-width: calc(320px - 1rem);
   margin: 1rem auto;
   transition: box-shadow 1s ease;
   box-shadow: ${({ category }) => `

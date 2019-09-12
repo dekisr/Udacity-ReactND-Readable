@@ -46,7 +46,7 @@ const StyledHero = styled.section`
       width: 12rem;
     }
   }
-  @media (min-width: 401px) {
+  @media (min-width: 411px) {
     grid-template-columns: 1fr auto;
   }
   /* @media (min-width: 601px) {

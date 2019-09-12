@@ -10,7 +10,6 @@ const StyledCommentForm = styled.form`
   align-items: center;
   grid-gap: 0.5rem;
   width: calc(100% - 1rem);
-  min-width: calc(320px - 1rem);
   margin: 1rem auto;
   box-shadow: ${({ author }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),

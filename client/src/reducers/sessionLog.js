@@ -1,7 +1,12 @@
-import { UPDATE_SESSION_LOG } from '../actions/sessionLog'
+import { SET_STATUS_LOG, UPDATE_SESSION_LOG } from '../actions/sessionLog'
 
-const sessionLog = (state = { messages: [] }, action) => {
+const sessionLog = (state = { new: false, messages: [] }, action) => {
   switch (action.type) {
+    case SET_STATUS_LOG:
+      return {
+        ...state,
+        new: action.status
+      }
     case UPDATE_SESSION_LOG:
       return {
         ...state,
