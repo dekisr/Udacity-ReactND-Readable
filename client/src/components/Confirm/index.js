@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import StyledConfirm from './styles'
 
-const Confirm = ({ active, message, confirm, cancel, post }) => {
+const Confirm = ({ active, data, message, confirm, cancel, post }) => {
   return (
-    <StyledConfirm show={active}>
+    <StyledConfirm show={active} data={data}>
       <StyledConfirm.Content post={post}>
         <div aria-label="Gradient Border">
           <h1>{message}</h1>

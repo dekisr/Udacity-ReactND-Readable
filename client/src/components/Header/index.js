@@ -136,10 +136,22 @@ class Header extends Component {
             </StyledHeader.BurgerButton>
             <StyledHeader.Burger isOpen={isBurgerOpen}>
               <ul>
-                <li><i>home</i><span>Home</span></li>
-                <li><i>post_add</i><span>New Post</span></li>
-                <li><i>refresh</i><span>Change User</span></li>
-                <li><i>whatshot</i><span>Reset Data</span></li>
+                <li>
+                  <i>home</i>
+                  <span>Home</span>
+                </li>
+                <li>
+                  <i>post_add</i>
+                  <span>New Post</span>
+                </li>
+                <li>
+                  <i>refresh</i>
+                  <span>Change User</span>
+                </li>
+                <li onClick={() => this.setState({ confirmReset: true })}>
+                  <i>whatshot</i>
+                  <span>Reset Data</span>
+                </li>
               </ul>
             </StyledHeader.Burger>
             <StyledHeader.Log open={isLogOpen}>
@@ -152,6 +164,7 @@ class Header extends Component {
         <Confirm
           post
           active={confirmReset}
+          data={true}
           message="Are you sure to reset all to the default data?"
           confirm={this.resetData}
           cancel={() => this.setState({ confirmReset: false })}

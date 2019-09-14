@@ -90,6 +90,7 @@ export const colors = {
   },
   brown: {
     one: 'hsl(10, 10%, 15%)',
+    onea: 'hsla(10, 10%, 15%, 0.95)',
     two: 'hsl(10, 10%, 30%)',
     three: 'hsl(10, 10%, 45%)',
     four: 'hsl(10, 10%, 60%)',

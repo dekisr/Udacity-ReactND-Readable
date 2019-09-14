@@ -2,12 +2,12 @@ import styled, { css } from 'styled-components'
 import { colors } from '../../utils/globalStyles'
 
 const StyledConfirm = styled.section`
-  position: absolute;
+  position: ${({ data }) => (data ? 'fixed' : 'absolute')};
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 124;
+  z-index: ${({ data }) => (data ? '127' : '124')};
   display: ${({ show }) => (show ? 'grid' : 'none')};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -17,7 +17,8 @@ const StyledConfirm = styled.section`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: ${colors.danger.tomatoa};
+  background-color: ${({ data }) =>
+    data ? colors.brown.onea : colors.danger.tomatoa};
 `
 const fakeBorder = css`
   @keyframes glide {
@@ -34,7 +35,6 @@ const Content = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  /* height: ${({ post }) => (post ? 'auto' : '100%')}; */
   max-width: calc(1120px - 1rem);
   margin-right: auto;
   margin-left: auto;
@@ -98,7 +98,7 @@ const Button = styled.button`
     outline-offset: -0.25rem;
     transform: scale(0.95);
     background-color: ${({ cancel }) =>
-    cancel ? colors.danger.crimson : colors.brown.one};
+      cancel ? colors.danger.crimson : colors.brown.one};
   }
 `
 
