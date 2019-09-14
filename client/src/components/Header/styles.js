@@ -1,12 +1,29 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { colors } from '../../utils/globalStyles'
 
+const navOpacity = css`
+  @keyframes navFade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  animation: 0.5s navFade linear;
+`
 const StyledHeader = styled.header`
+  position: ${({ sticky }) => (sticky ? 'sticky' : 'relative')};
+  top: 0;
+  z-index: 125;
   width: 100%;
   margin: 0;
   border-bottom: 0.3rem solid snow;
+  ${({ sticky }) => (sticky ? navOpacity : 'animation: none')};
+  transition: all 2s linear;
   color: white;
+  background-color: ${colors.brown.one};
 `
 const Wrapper = styled.div`
   position: relative;
@@ -76,7 +93,7 @@ const MenuItem = styled(NavLink)`
   border: ${({ special }) => (special ? '0.125rem solid snow' : 'none')};
   &.routerActive {
     pointer-events: none;
-    color: lightsalmon;
+    color: salmon;
   }
   &:hover,
   &:focus {
@@ -123,7 +140,6 @@ const MenuButton = styled.div`
 `
 const BurgerButton = styled.button`
   justify-self: right;
-  z-index: 9999;
   display: block;
   border: none;
   font-size: 1rem;
@@ -143,26 +159,53 @@ const BurgerButton = styled.button`
 const Burger = styled.nav`
   position: absolute;
   top: 5.3rem;
+  bottom: 0;
   left: 0;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
   justify-content: center;
   align-content: center;
   justify-items: center;
   align-items: center;
-  z-index: 9000;
   width: 100%;
-  height: ${({ isOpen }) => (isOpen ? '100%' : '0')};
-  transition: all 0.4s ease;
-  background-color: ${colors.yellow.four};
+  height: ${({ isOpen }) => (isOpen ? 'calc(100vh - 5.3rem)' : '0')};
+  transition: height 0.4s ease;
+  color: ${colors.brown.two};
+  background-color: snow;
   & ul {
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+    display: ${({ isOpen }) => (isOpen ? 'grid' : 'none')};
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 0.5rem;
+    min-width: 70%;
+    list-style: none;
+  }
+  & ul li {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 0.25rem;
+    width: 100%;
+    padding: 0.5rem;
+    border: 0.0625rem solid ${colors.brown.two};
+  }
+  & ul li span {
+    position: relative;
+    top: -0.0625rem;
+  }
+  @media (min-width: 411px) {
+    display: none;
   }
 `
 const Log = styled.div`
   position: absolute;
-  top: 4rem;
+  top: 5.3rem;
   display: ${({ open }) => (open ? 'block' : 'none')};
   width: 100%;
   max-width: 1120px;
@@ -170,11 +213,10 @@ const Log = styled.div`
   background-color: hsla(5, 100%, 50%, 0.5);
 `
 const Content = styled.div`
-  z-index: 1900;
   position: relative;
   display: grid;
   width: 100%;
-  min-width: 300px;
+  max-width: 320px;
   height: 50vh;
   background-color: yellow;
 `

@@ -7,7 +7,7 @@ const StyledApp = styled.main`
   margin: 0 auto;
 `
 const toastOpacity = css`
-  @keyframes fade {
+  @keyframes toastFade {
     from {
       opacity: 0;
       right: -20rem;
@@ -25,16 +25,16 @@ const toastOpacity = css`
       right: -20rem;
     }
   }
-  animation: 3.5s fade linear;
+  animation: 3.5s toastFade linear;
 `
 const ToastWrapper = styled.section`
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 125;
+  z-index: 126;
   display: ${({ show }) => (show ? 'block' : 'none')};
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   height: 100%;
   padding: 0 1rem;
   pointer-events: none;
