@@ -10,12 +10,7 @@ const GlobalStyle = createGlobalStyle`
       'Helvetica', 'Arial', sans-serif;
   }
   html {
-    background: linear-gradient(
-      180deg,
-      hsl(10, 10%, 15%) 60%,
-      hsl(10, 10%, 30%) 100%
-    );
-    background-attachment: fixed;
+    background-color: hsl(10, 10%, 15%);
   }
   body {
     margin: 0;

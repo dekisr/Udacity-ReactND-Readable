@@ -94,10 +94,12 @@ const MenuItem = styled(NavLink)`
   &.routerActive {
     pointer-events: none;
     color: salmon;
+    border-color: ${({ special }) => (special ? 'salmon' : 'none')};
   }
   &:hover,
   &:focus {
     color: salmon;
+    border-color: ${({ special }) => (special ? 'salmon' : 'none')};
   }
   & span {
     display: none;
@@ -169,6 +171,7 @@ const Burger = styled.nav`
   align-items: center;
   width: 100%;
   height: ${({ isOpen }) => (isOpen ? 'calc(100vh - 5.3rem)' : '0')};
+  font-weight: 700;
   transition: height 0.4s ease;
   color: ${colors.brown.two};
   background-color: snow;
@@ -194,10 +197,12 @@ const Burger = styled.nav`
     width: 100%;
     padding: 0.5rem;
     border: 0.0625rem solid ${colors.brown.two};
-  }
-  & ul li span {
-    position: relative;
-    top: -0.0625rem;
+    transition: background 0.8s ease;
+    :hover, :focus {
+      color: snow;
+      background-color: ${colors.brown.two};
+      cursor: pointer;
+    }
   }
   @media (min-width: 411px) {
     display: none;

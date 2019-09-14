@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { setNewStatus } from '../../actions/sessionLog'
 import { setCurrentUser } from '../../actions/currentUser'
@@ -41,9 +42,15 @@ class Header extends Component {
       isBurgerOpen: !this.state.isBurgerOpen
     })
   }
+  burgerLink = (path) => {
+    this.props.history.push(path)
+    this.setState({
+      isBurgerOpen: false
+    })
+  }
   handleScroll = () => {
     const currentPosition = window.pageYOffset
-    const stickyBar = currentPosition > 200
+    const stickyBar = currentPosition > 50
     this.setState({
       isBurgerOpen: false,
       stickyBar
@@ -59,7 +66,7 @@ class Header extends Component {
   }
   resetData = () => {
     const { dispatch } = this.props
-    this.setState({ confirmReset: false })
+    this.setState({ confirmReset: false, isBurgerOpen: false })
     return dispatch(handleResetData()).catch((err) =>
       dispatch(handleToast(err.message, 'error'))
     )
@@ -136,19 +143,39 @@ class Header extends Component {
             </StyledHeader.BurgerButton>
             <StyledHeader.Burger isOpen={isBurgerOpen}>
               <ul>
-                <li>
+                <li
+                  role="button"
+                  aria-label="Home Button"
+                  tabIndex="0"
+                  onClick={() => this.burgerLink('/')}
+                >
                   <i>home</i>
                   <span>Home</span>
                 </li>
-                <li>
+                <li
+                  role="button"
+                  aria-label="New Post Button"
+                  tabIndex="0"
+                  onClick={() => this.burgerLink('/post/new')}
+                >
                   <i>post_add</i>
                   <span>New Post</span>
                 </li>
-                <li>
+                <li
+                  role="button"
+                  aria-label="Change User Button"
+                  tabIndex="0"
+                  onClick={this.handleUser}
+                >
                   <i>refresh</i>
                   <span>Change User</span>
                 </li>
-                <li onClick={() => this.setState({ confirmReset: true })}>
+                <li
+                  role="button"
+                  aria-label="Reset Data Button"
+                  tabIndex="0"
+                  onClick={() => this.setState({ confirmReset: true })}
+                >
                   <i>whatshot</i>
                   <span>Reset Data</span>
                 </li>
@@ -164,7 +191,7 @@ class Header extends Component {
         <Confirm
           post
           active={confirmReset}
-          data={true}
+          resetData={true}
           message="Are you sure to reset all to the default data?"
           confirm={this.resetData}
           cancel={() => this.setState({ confirmReset: false })}
@@ -185,4 +212,4 @@ const mapStateToProps = ({ currentUser, sessionLog }) => {
   }
 }
 
-export default connect(mapStateToProps)(Header)
+export default withRouter(connect(mapStateToProps)(Header))

@@ -2,12 +2,12 @@ import styled, { css } from 'styled-components'
 import { colors } from '../../utils/globalStyles'
 
 const StyledConfirm = styled.section`
-  position: ${({ data }) => (data ? 'fixed' : 'absolute')};
+  position: ${({ resetData }) => (resetData ? 'fixed' : 'absolute')};
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: ${({ data }) => (data ? '127' : '124')};
+  z-index: ${({ resetData }) => (resetData ? '127' : '124')};
   display: ${({ show }) => (show ? 'grid' : 'none')};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -17,8 +17,8 @@ const StyledConfirm = styled.section`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: ${({ data }) =>
-    data ? colors.brown.onea : colors.danger.tomatoa};
+  background-color: ${({ resetData }) =>
+    resetData ? colors.brown.onea : colors.danger.tomatoa};
 `
 const fakeBorder = css`
   @keyframes glide {
