@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddComment, handleEditComment } from '../../actions/comments'
-import { updateSessionLog } from '../../actions/sessionLog'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import Error from '../Error'
 import { trimReplace, removeSpaces, socketEmit } from './../../utils/helpers'
@@ -63,6 +63,7 @@ class CommentForm extends Component {
               dispatch(
                 updateSessionLog('You edited a comment, ', currentUser)
               )
+              dispatch(setNewStatus(true))
               dispatch(
                 handleToast('The comment was successfully edited', 'success')
               )
@@ -91,6 +92,7 @@ class CommentForm extends Component {
                 user: currentUser
               })
               dispatch(updateSessionLog('You just created a new comment, ', currentUser))
+              dispatch(setNewStatus(true))
               dispatch(
                 handleToast('The comment was successfully created', 'success')
               )

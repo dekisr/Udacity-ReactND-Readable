@@ -7,7 +7,7 @@ import {
   handleDeleteComment,
   handleReloadComment
 } from '../../actions/comments'
-import { updateSessionLog } from '../../actions/sessionLog'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import Confirm from '../Confirm'
 import {
@@ -37,6 +37,7 @@ class Comment extends Component {
             user: currentUser
           })
           dispatch(updateSessionLog('You voted for a comment, ', currentUser))
+          dispatch(setNewStatus(true))
         })
         .catch((err) => {
           dispatch(
@@ -62,7 +63,9 @@ class Comment extends Component {
           user: currentUser
         })
         dispatch(updateSessionLog('You deleted a comment, ', currentUser))
+        dispatch(setNewStatus(true))
         dispatch(handleToast('The comment was successfully deleted', 'success'))
+
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }

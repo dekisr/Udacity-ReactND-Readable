@@ -8,7 +8,7 @@ import {
   handleDeletePost
 } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
-import { updateSessionLog } from '../../actions/sessionLog'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import Confirm from '../Confirm'
 import {
   formatToDate,
@@ -38,6 +38,7 @@ class Post extends Component {
             user: currentUser
           })
           dispatch(updateSessionLog('You voted for a post, ', currentUser))
+          dispatch(setNewStatus(true))
         })
         .catch((err) => {
           dispatch(handleToast(`${err.message}. Resyinc the post...`, 'error'))
@@ -65,6 +66,7 @@ class Post extends Component {
           user: currentUser
         })
         dispatch(updateSessionLog('You DELETED a post, ', currentUser))
+        dispatch(setNewStatus(true))
         dispatch(handleToast('The post was successfully deleted', 'success'))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))

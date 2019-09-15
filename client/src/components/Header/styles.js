@@ -40,11 +40,27 @@ const Wrapper = styled.div`
   padding: 0 0.5rem;
 `
 const Alert = styled.div`
+  position: relative;
   display: block;
   & i {
     position: relative;
     top: 0.0625rem;
     font-size: 2rem;
+  }
+  & span {
+    position: absolute;
+    top: -0.1rem;
+    left: -0.1rem;
+    display: ${({ isNew }) => (isNew ? 'block' : 'none')};
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: red;
+    pointer-events: none;
+  }
+  &:hover {
+    cursor: pointer;
+    color: ${({ user }) => user};
   }
 `
 const User = styled.div`
@@ -55,6 +71,10 @@ const User = styled.div`
   color: snow;
   @media (min-width: 601px) {
     font-size: 1.5rem;
+  }
+  &:hover {
+    cursor: crosshair;
+    color: ${({ user }) => user};
   }
 `
 const Menu = styled.nav`
@@ -198,7 +218,8 @@ const Burger = styled.nav`
     padding: 0.5rem;
     border: 0.0625rem solid ${colors.brown.two};
     transition: background 0.8s ease;
-    :hover, :focus {
+    :hover,
+    :focus {
       color: snow;
       background-color: ${colors.brown.two};
       cursor: pointer;
@@ -208,22 +229,53 @@ const Burger = styled.nav`
     display: none;
   }
 `
+const Arrow = styled.div`
+  position: absolute;
+  top: 4rem;
+  left: 1rem;
+  display: ${({ open }) => (open ? 'block' : 'none')};
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(45deg);
+  background-color: snow;
+`
 const Log = styled.div`
   position: absolute;
-  top: 5.3rem;
+  top: 4.5rem;
+  left: 0.5rem;
   display: ${({ open }) => (open ? 'block' : 'none')};
-  width: 100%;
-  max-width: 1120px;
+  grid-template-columns: 1fr;
+  min-width: 250px;
+  max-width: 320px;
+  max-height: 40vh;
   margin: 0 auto;
-  background-color: hsla(5, 100%, 50%, 0.5);
+  overflow-y: auto;
+  box-shadow: 0.1rem 0.3rem 0.2rem hsla(0, 0%, 0%, 0.3);
+  background-color: snow;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: snow;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.brown.five};
+  }
+  scrollbar-color: ${colors.brown.five} snow;
 `
-const Content = styled.div`
+const Content = styled.ul`
   position: relative;
   display: grid;
-  width: 100%;
-  max-width: 320px;
-  height: 50vh;
-  background-color: yellow;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 0.8rem;
+  padding: 1rem;
+  list-style: none;
+  color: ${colors.brown.two};
+  & li {
+    font-size: 0.75rem;
+  }
+  & li span {
+    font-weight: 700;
+  }
 `
 
 StyledHeader.Wrapper = Wrapper
@@ -235,6 +287,7 @@ StyledHeader.MenuButton = MenuButton
 StyledHeader.BurgerButton = BurgerButton
 StyledHeader.Burger = Burger
 StyledHeader.Log = Log
+StyledHeader.Log.Arrow = Arrow
 StyledHeader.Log.Content = Content
 
 export default StyledHeader

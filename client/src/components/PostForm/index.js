@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import { handleAddPost, handleEditPost } from '../../actions/posts'
 import { handleToast } from '../../actions/toast'
-import { updateSessionLog } from '../../actions/sessionLog'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import Error from '../Error'
 import {
   sortCategories,
@@ -121,9 +121,8 @@ class PostForm extends Component {
                 id: postData.id,
                 user: currentUser
               })
-              dispatch(
-                updateSessionLog('You edited a post, ', currentUser)
-              )
+              dispatch(updateSessionLog('You edited a post, ', currentUser))
+              dispatch(setNewStatus(true))
               dispatch(
                 handleToast('The post was successfully edited', 'success')
               )
@@ -153,7 +152,10 @@ class PostForm extends Component {
                 id: postData.id,
                 user: currentUser
               })
-              dispatch(updateSessionLog('You just created a new post, ', currentUser))
+              dispatch(
+                updateSessionLog('You just created a new post, ', currentUser)
+              )
+              dispatch(setNewStatus(true))
               dispatch(
                 handleToast('The post was successfully created', 'success')
               )

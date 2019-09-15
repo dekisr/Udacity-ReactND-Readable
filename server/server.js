@@ -15,6 +15,9 @@ const server = app.listen(config.port, () => {
 })
 const io = socketIO(server)
 io.on('connection', (socket) => {
+  socket.on('reset data', (info) => {
+    socket.broadcast.emit('reset data', info)
+  })
   // POSTS
   socket.on('new post', (info) => {
     socket.broadcast.emit('new post', info)

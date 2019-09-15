@@ -5,7 +5,7 @@ import { handleInitialData } from '../../actions/shared'
 import { handleReloadPost, deletePost } from '../../actions/posts'
 import { handleReloadComment, deleteComment } from '../../actions/comments'
 import { handleToast } from '../../actions/toast'
-import { updateSessionLog } from '../../actions/sessionLog'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import Loading from '../Loading'
 import Header from '../Header'
 import Dashboard from '../Dashboard'
@@ -21,15 +21,26 @@ import { socketOn } from '../../utils/helpers'
 class App extends Component {
   socketsOn = (sockets) => {
     const { dispatch } = this.props
+    socketOn('reset data', ({ user }) => {
+      dispatch(
+        updateSessionLog(
+          'You should reload the app because the data has been reset by ',
+          user
+        )
+      )
+      dispatch(setNewStatus(true))
+    })
     return sockets.map((item) => {
       return item.name.includes('delete')
         ? socketOn(item.name, ({ id, user }) => {
             dispatch(item.function(id))
             dispatch(updateSessionLog(item.message, user))
+            dispatch(setNewStatus(true))
           })
         : socketOn(item.name, ({ id, user }) => {
             dispatch(item.function(id))
               .then(() => dispatch(updateSessionLog(item.message, user)))
+              .then(() => dispatch(setNewStatus(true)))
               .catch((err) => dispatch(handleToast(err.message, 'error')))
           })
     })
@@ -76,6 +87,7 @@ class App extends Component {
       function: deleteComment
     }
   ]
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(handleInitialData()).catch((err) =>
@@ -89,8 +101,7 @@ class App extends Component {
       loadingBar,
       toast,
       toastIds,
-      showToastWrapper,
-      sessionLog
+      showToastWrapper
     } = this.props
     return (
       <BrowserRouter>
@@ -102,14 +113,6 @@ class App extends Component {
             <h1>LOOOADING</h1>
           ) : (
             <StyledApp>
-              {/* <h1>{process.env.NODE_ENV}</h1>
-              {sessionLog.messages.map((item) => {
-                return (
-                  <p>
-                    <b>[{item.timestamp}]</b> {item.message} <b>{item.user}</b>
-                  </p>
-                )
-              })} */}
               <Switch>
                 <Route path="/" exact component={Dashboard} />
 
@@ -154,11 +157,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({
-  loading: { loadingData, loadingBar },
-  toast,
-  sessionLog
-}) => {
+const mapStateToProps = ({ loading: { loadingData, loadingBar }, toast }) => {
   const toastIds = Object.keys(toast)
   const showToastWrapper = Object.values(toast).filter(
     (toast) => toast.isVisible === true
@@ -168,8 +167,7 @@ const mapStateToProps = ({
     loadingBar,
     toast,
     toastIds,
-    showToastWrapper,
-    sessionLog
+    showToastWrapper
   }
 }
 

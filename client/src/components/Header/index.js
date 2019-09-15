@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { setNewStatus } from '../../actions/sessionLog'
 import { setCurrentUser } from '../../actions/currentUser'
 import { handleResetData } from '../../actions/shared'
 import { handleToast } from '../../actions/toast'
+import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import Confirm from '../Confirm'
-import { getRandomUser } from '../../utils/helpers'
+import { getRandomUser, formatToTime, socketEmit } from '../../utils/helpers'
 import StyledHeader from './styles'
 
 class Header extends Component {
@@ -65,11 +65,17 @@ class Header extends Component {
     return dispatch(setCurrentUser(userName))
   }
   resetData = () => {
-    const { dispatch } = this.props
+    const { dispatch, currentUser } = this.props
     this.setState({ confirmReset: false, isBurgerOpen: false })
-    return dispatch(handleResetData()).catch((err) =>
-      dispatch(handleToast(err.message, 'error'))
-    )
+    return dispatch(handleResetData())
+      .then(() => {
+        socketEmit('reset data', {
+          user: currentUser
+        })
+        dispatch(updateSessionLog('You have reset all data to their default values, ', currentUser))
+        dispatch(setNewStatus(true))
+      })
+      .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   componentDidMount() {
     document.addEventListener('mousedown', this.clickOutsideLog)
@@ -83,7 +89,7 @@ class Header extends Component {
     document.removeEventListener('scroll', this.handleScroll)
   }
   render() {
-    const { currentUser } = this.props
+    const { currentUser, sessionLog } = this.props
     const {
       stickyBar,
       isLogOpen,
@@ -96,12 +102,15 @@ class Header extends Component {
       <Fragment>
         <StyledHeader sticky={stickyBar}>
           <StyledHeader.Wrapper>
-            <StyledHeader.Alert>
+            <StyledHeader.Alert isNew={sessionLog.new} user={currentUser}>
               <i onClick={this.toggleLog} ref={logIconRef}>
                 bug_report
               </i>
+              <span aria-label="Alert Signal" />
             </StyledHeader.Alert>
-            <StyledHeader.User>{currentUser}</StyledHeader.User>
+            <StyledHeader.User user={currentUser}>
+              {currentUser}
+            </StyledHeader.User>
             <StyledHeader.Menu>
               <StyledHeader.MenuItem
                 to="/"
@@ -181,9 +190,20 @@ class Header extends Component {
                 </li>
               </ul>
             </StyledHeader.Burger>
+            <StyledHeader.Log.Arrow aria-label="arrow" open={isLogOpen} />
             <StyledHeader.Log open={isLogOpen}>
               <StyledHeader.Log.Content ref={logRef} open={isLogOpen}>
-                s
+                <li>
+                  <span>Welcome!</span>
+                </li>
+                {sessionLog.messages.map((item) => {
+                  return (
+                    <li>
+                      {formatToTime(item.timestamp)} - {item.message}
+                      <span>{item.user}</span>.
+                    </li>
+                  )
+                })}
               </StyledHeader.Log.Content>
             </StyledHeader.Log>
           </StyledHeader.Wrapper>
