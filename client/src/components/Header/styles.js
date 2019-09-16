@@ -22,7 +22,6 @@ const StyledHeader = styled.header`
   border-bottom: 0.3rem solid snow;
   ${({ sticky }) => (sticky ? navOpacity : 'animation: none')};
   transition: all 2s linear;
-  color: white;
   background-color: ${colors.brown.one};
 `
 const Wrapper = styled.div`
@@ -39,12 +38,17 @@ const Wrapper = styled.div`
   margin: 0 auto;
   padding: 0 0.5rem;
 `
-const Alert = styled.div`
+const Alert = styled.button`
   position: relative;
+  top: 0.125rem;
   display: block;
+  margin: 0.25rem;
+  padding: 0;
+  border: none;
+  color: snow;
+  background: none;
   & i {
     position: relative;
-    top: 0.0625rem;
     font-size: 2rem;
   }
   & span {
@@ -86,7 +90,6 @@ const Menu = styled.nav`
   justify-items: center;
   align-items: center;
   grid-gap: 0.25rem;
-  color: palegreen;
   & i {
     font-size: 1.25rem;
     @media (min-width: 601px) {

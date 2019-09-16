@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   handleVotePost,
@@ -73,7 +73,7 @@ class Post extends Component {
   }
   render() {
     const { toPost, confirmDelete } = this.state
-    const { post, commentCount, dashboard, currentUser } = this.props
+    const { post, commentCount, dashboard, currentUser, history } = this.props
     return !post ? null : toPost ? (
       <Redirect push to={`/post/id/${post.id}`} />
     ) : (
@@ -129,11 +129,12 @@ class Post extends Component {
               ${formatToDate(post.lastEdit.timestsmp)}
               `}
           </span>
-          <Link to={`/post/edit/id/${post.id}`}>
-            <button aria-label="Edit Post">
-              <i>edit</i>
-            </button>
-          </Link>
+          <button
+            aria-label="Edit Post"
+            onClick={() => history.push(`/post/edit/id/${post.id}`)}
+          >
+            <i>edit</i>
+          </button>
           <button
             aria-label="Delete Post"
             onClick={() => this.setState({ confirmDelete: true })}

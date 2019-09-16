@@ -15,9 +15,10 @@ class Header extends Component {
     stickyBar: false,
     isLogOpen: false,
     isBurgerOpen: false,
+    confirmReset: false,
     logIconRef: React.createRef(),
     logRef: React.createRef(),
-    confirmReset: false
+    confirmRef: React.createRef()
   }
   toggleLog = () => {
     const { dispatch } = this.props
@@ -29,13 +30,23 @@ class Header extends Component {
       () => dispatch(setNewStatus(false))
     )
   }
-  clickOutsideLog = (e) => {
-    const { isLogOpen, logIconRef, logRef } = this.state
+  clickOutside = (e) => {
+    const {
+      isLogOpen,
+      logIconRef,
+      logRef,
+      confirmRef,
+      confirmReset
+    } = this.state
     isLogOpen &&
       logRef.current &&
       !logRef.current.contains(e.target) &&
       !logIconRef.current.contains(e.target) &&
       this.toggleLog()
+
+    confirmReset &&
+      !confirmRef.current.contains(e.target) &&
+      this.setState({ confirmReset: false })
   }
   toggleBurger = () => {
     this.setState({
@@ -47,6 +58,23 @@ class Header extends Component {
     this.setState({
       isBurgerOpen: false
     })
+  }
+  handleKeyDown = (e, cb) => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      e.preventDefault()
+      return cb()
+    } else return
+  }
+  handleEsc = (e) => {
+    e.keyCode === 27 &&
+      this.setState({
+        isBurgerOpen: false,
+        isLogOpen: false,
+        confirmReset: false
+      })
+  }
+  handleReset = () => {
+    this.setState({ confirmReset: true })
   }
   handleScroll = () => {
     const currentPosition = window.pageYOffset
@@ -72,20 +100,27 @@ class Header extends Component {
         socketEmit('reset data', {
           user: currentUser
         })
-        dispatch(updateSessionLog('You have reset all data to their default values, ', currentUser))
+        dispatch(
+          updateSessionLog(
+            'You have reset all data to their default values, ',
+            currentUser
+          )
+        )
         dispatch(setNewStatus(true))
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   componentDidMount() {
-    document.addEventListener('mousedown', this.clickOutsideLog)
+    document.addEventListener('mousedown', this.clickOutside)
+    document.addEventListener('keydown', this.handleEsc)
     document.addEventListener('scroll', this.handleScroll, {
       capture: false,
       passive: true
     })
   }
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.clickOutsideLog)
+    document.removeEventListener('mousedown', this.clickOutside)
+    document.removeEventListener('keydown', this.handleEsc)
     document.removeEventListener('scroll', this.handleScroll)
   }
   render() {
@@ -95,6 +130,7 @@ class Header extends Component {
       isLogOpen,
       logIconRef,
       logRef,
+      confirmRef,
       isBurgerOpen,
       confirmReset
     } = this.state
@@ -102,10 +138,12 @@ class Header extends Component {
       <Fragment>
         <StyledHeader sticky={stickyBar}>
           <StyledHeader.Wrapper>
-            <StyledHeader.Alert isNew={sessionLog.new} user={currentUser}>
-              <i onClick={this.toggleLog} ref={logIconRef}>
-                bug_report
-              </i>
+            <StyledHeader.Alert
+              isNew={sessionLog.new}
+              user={currentUser}
+              onClick={this.toggleLog}
+            >
+              <i ref={logIconRef}>bug_report</i>
               <span aria-label="Alert Signal" />
             </StyledHeader.Alert>
             <StyledHeader.User user={currentUser}>
@@ -121,7 +159,8 @@ class Header extends Component {
                 <span>Home</span>
               </StyledHeader.MenuItem>
               <StyledHeader.MenuButton
-                onClick={() => this.setState({ confirmReset: true })}
+                onClick={this.handleReset}
+                onKeyDown={(e) => this.handleKeyDown(e, this.handleReset)}
                 role="button"
                 tabIndex="0"
                 aria-label="Reset Data Button"
@@ -131,6 +170,7 @@ class Header extends Component {
               </StyledHeader.MenuButton>
               <StyledHeader.MenuButton
                 onClick={this.handleUser}
+                onKeyDown={(e) => this.handleKeyDown(e, this.handleUser)}
                 role="button"
                 tabIndex="0"
                 aria-label="Change User Button"
@@ -183,7 +223,7 @@ class Header extends Component {
                   role="button"
                   aria-label="Reset Data Button"
                   tabIndex="0"
-                  onClick={() => this.setState({ confirmReset: true })}
+                  onClick={this.handleReset}
                 >
                   <i>whatshot</i>
                   <span>Reset Data</span>
@@ -209,6 +249,7 @@ class Header extends Component {
           </StyledHeader.Wrapper>
         </StyledHeader>
         <Confirm
+          confirmRef={confirmRef}
           post
           active={confirmReset}
           resetData={true}

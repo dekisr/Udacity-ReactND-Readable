@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   handleVoteComment,
@@ -65,13 +65,12 @@ class Comment extends Component {
         dispatch(updateSessionLog('You deleted a comment, ', currentUser))
         dispatch(setNewStatus(true))
         dispatch(handleToast('The comment was successfully deleted', 'success'))
-
       })
       .catch((err) => dispatch(handleToast(err.message, 'error')))
   }
   render() {
     const { confirmDelete } = this.state
-    const { comment, currentUser } = this.props
+    const { comment, currentUser, history } = this.props
     return !comment ? null : (
       <StyledComment author={comment.author}>
         <StyledComment.VoteScore voted={comment.votedBy.includes(currentUser)}>
@@ -129,11 +128,12 @@ class Comment extends Component {
               ${formatToDate(comment.lastEdit.timestsmp)}
               `}
           </span>
-          <Link to={`/comment/edit/id/${comment.id}`}>
-            <button aria-label="Edit Comment">
-              <i>edit</i>
-            </button>
-          </Link>
+          <button
+            aria-label="Edit Comment"
+            onClick={() => history.push(`/comment/edit/id/${comment.id}`)}
+          >
+            <i>edit</i>
+          </button>
           <button
             aria-label="Delete Comment"
             onClick={() => this.setState({ confirmDelete: true })}
@@ -165,4 +165,4 @@ const mapStateToProps = ({ comments, currentUser }, { id }) => {
   }
 }
 
-export default connect(mapStateToProps)(Comment)
+export default withRouter(connect(mapStateToProps)(Comment))

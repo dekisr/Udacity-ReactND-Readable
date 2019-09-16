@@ -2,10 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import StyledConfirm from './styles'
 
-const Confirm = ({ active, resetData, message, confirm, cancel, post }) => {
+const Confirm = ({
+  active,
+  resetData,
+  message,
+  confirm,
+  cancel,
+  post,
+  confirmRef
+}) => {
   return (
     <StyledConfirm show={active} resetData={resetData}>
-      <StyledConfirm.Content post={post}>
+      <StyledConfirm.Content ref={confirmRef} post={post}>
         <div aria-label="Gradient Border">
           <h1>{message}</h1>
           <StyledConfirm.Content.Button onClick={confirm}>
