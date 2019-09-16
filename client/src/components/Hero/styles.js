@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
 import mainBg from '../../assets/mainBg.svg'
+import unfold_more from '../../assets/unfold_more.svg'
 
 const StyledHero = styled.section`
   display: grid;
@@ -104,9 +105,13 @@ const Options = styled.div`
     font-size: 0.875rem;
     line-height: 1.5;
     color: ${colors.brown.three};
+    background: no-repeat right url(${unfold_more}) snow;
     @media (min-width: 601px) {
       font-size: 1.125rem;
     }
+  }
+  & select option {
+    size: 100px;
   }
   & span {
     justify-self: right;

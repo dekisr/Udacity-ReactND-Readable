@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../utils/globalStyles'
+import unfold_more from '../../assets/unfold_more.svg'
 
 const StyledPostForm = styled.form`
   display: grid;
@@ -53,6 +54,7 @@ const StyledPostForm = styled.form`
     font-size: 0.875rem;
     line-height: 1.5;
     color: ${colors.brown.three};
+    background-color: snow;
     ::placeholder {
       text-align: center;
       text-transform: uppercase;
@@ -61,6 +63,9 @@ const StyledPostForm = styled.form`
     @media (min-width: 601px) {
       font-size: 1.125rem;
     }
+  }
+  & select {
+    background: no-repeat right url(${unfold_more}) snow;
   }
   & select:first-of-type {
     margin-top: 0.5rem;
