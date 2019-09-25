@@ -41,14 +41,14 @@ class PostForm extends Component {
       titleError,
       bodyError
     } = this.state
-
     const { post } = this.props
+
     let error
     post &&
     post.category === trimReplace(category) &&
     post.title === trimReplace(title) &&
     post.body === trimReplace(body)
-      ? (error = 'It was supposed to change something in this Post')
+      ? (error = '🧟‍♀️ It was supposed to change something in this post.')
       : (error = '')
     this.setState({ error })
 
@@ -68,19 +68,19 @@ class PostForm extends Component {
     switch (name) {
       case 'category':
         value === 'none'
-          ? (error = '🧟‍♀️ You must select a category')
+          ? (error = '🧟‍♂️ You must select a category')
           : (error = '')
         return this.setState({ categoryError: error })
       case 'title':
         valueChars < 5 || valueChars > 50
           ? (error =
-              '🧟‍♂️ Your title be longer than 5 and up to 50 characters long.')
+              '🧟‍♂️ Your title must be longer than 5 and up to 50 characters long.')
           : (error = '')
         return this.setState({ titleError: error })
       case 'body':
         valueChars < 41 || valueChars > 600
           ? (error =
-              '🧟‍♀️ Your post must be longer than 40 and up to 600 characters long.')
+              '🧟‍♂️ Your post must be longer than 40 and up to 600 characters long.')
           : (error = '')
         return this.setState({ bodyError: error })
       default:
@@ -261,7 +261,7 @@ class PostForm extends Component {
                   **text**:<b>text</b>
                 </dd>
                 <dd>
-                  __text__:<i>text</i>
+                  __text__:<em>text</em>
                 </dd>
                 <dd>
                   ~~text~~:<s>text</s>

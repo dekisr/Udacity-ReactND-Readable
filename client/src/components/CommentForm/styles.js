@@ -94,7 +94,6 @@ const Options = styled.div`
   margin: 0 auto;
   font-size: 0.75rem;
   color: ${colors.brown.two};
-  background-color: snow;
   & dl {
     padding-left: 0.1rem;
   }

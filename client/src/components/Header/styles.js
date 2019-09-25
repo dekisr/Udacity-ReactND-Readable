@@ -53,11 +53,11 @@ const Alert = styled.button`
   }
   & span {
     position: absolute;
-    top: -0.1rem;
-    left: -0.1rem;
+    top: 0rem;
+    left: 0rem;
     display: ${({ isNew }) => (isNew ? 'block' : 'none')};
-    width: 1rem;
-    height: 1rem;
+    width: 0.8rem;
+    height: 0.8rem;
     border-radius: 50%;
     background-color: red;
     pointer-events: none;
@@ -183,7 +183,7 @@ const BurgerButton = styled.button`
 `
 const Burger = styled.nav`
   position: absolute;
-  top: 5.3rem;
+  top: 5rem;
   bottom: 0;
   left: 0;
   display: grid;
@@ -193,7 +193,7 @@ const Burger = styled.nav`
   justify-items: center;
   align-items: center;
   width: 100%;
-  height: ${({ isOpen }) => (isOpen ? 'calc(100vh - 5.3rem)' : '0')};
+  height: ${({ isOpen }) => (isOpen ? 'calc(100vh - 5rem)' : '0')};
   font-weight: 700;
   transition: height 0.4s ease;
   color: ${colors.brown.two};

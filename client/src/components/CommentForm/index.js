@@ -114,7 +114,7 @@ class CommentForm extends Component {
     return toPost ? (
       <Redirect push to={`/post/id/${comment.parentId}`} />
     ) : !comment && !parentId ? (
-      <Error message="👨‍🌾 We couldn't find any comments with this id. 👩‍🌾" />
+      <Error message="👨‍🌾 We couldn't find any comment with this id. 👩‍🌾" />
     ) : (
       <Fragment>
         {comment && <h1>Edit comment</h1>}
