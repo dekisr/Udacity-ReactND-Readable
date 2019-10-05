@@ -249,7 +249,7 @@ const Log = styled.div`
   display: ${({ open }) => (open ? 'block' : 'none')};
   grid-template-columns: 1fr;
   min-width: 250px;
-  max-width: 320px;
+  max-width: calc(320px - 1rem);
   max-height: 40vh;
   margin: 0 auto;
   overflow-y: auto;
