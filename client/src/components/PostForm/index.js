@@ -13,6 +13,7 @@ import {
   removeSpaces,
   socketEmit
 } from '../../utils/helpers'
+import { PageTitle } from './../../utils/globalStyles'
 import StyledPostForm from './styles'
 
 const initialState = {
@@ -211,7 +212,7 @@ class PostForm extends Component {
       <Error message="🦸🏾‍♀️ It looks like this post does not exist. 🦸🏾‍♂️" />
     ) : (
       <Fragment>
-        {post ? <h1>Edit Post</h1> : <h1>New Post</h1>}
+        {post ? <PageTitle>Edit Post</PageTitle> : <PageTitle>New Post</PageTitle>}
         <StyledPostForm
           noValidate
           category={category}

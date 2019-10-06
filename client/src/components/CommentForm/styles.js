@@ -10,7 +10,7 @@ const StyledCommentForm = styled.form`
   align-items: center;
   grid-gap: 0.5rem;
   width: calc(100% - 1rem);
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   box-shadow: ${({ author }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
     0 0 0 0.5rem ${author}`};
@@ -60,6 +60,7 @@ const StyledCommentForm = styled.form`
   }
   @media (min-width: 601px) {
     width: calc(100% - 2rem);
+    margin: 1rem auto;
   }
 `
 const TextArea = styled.textarea`

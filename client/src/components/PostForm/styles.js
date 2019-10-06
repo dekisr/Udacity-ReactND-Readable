@@ -12,7 +12,7 @@ const StyledPostForm = styled.form`
   align-items: center;
   grid-gap: 0.5rem;
   width: calc(100% - 1rem);
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   transition: box-shadow 1s ease;
   box-shadow: ${({ category }) => `
     0 0.1rem 0.3rem hsla(0, 0%, 0%, 0.5),
@@ -104,6 +104,7 @@ const StyledPostForm = styled.form`
   }
   @media (min-width: 601px) {
     width: calc(100% - 2rem);
+    margin: 1rem auto;
   }
 `
 const Options = styled.div`

@@ -8,6 +8,7 @@ import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import Error from '../Error'
 import { trimReplace, removeSpaces, socketEmit } from './../../utils/helpers'
+import { PageTitle } from './../../utils/globalStyles'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
@@ -117,7 +118,7 @@ class CommentForm extends Component {
       <Error message="👨‍🌾 We couldn't find any comment with this id. 👩‍🌾" />
     ) : (
       <Fragment>
-        {comment && <h1>Edit comment</h1>}
+        {comment && <PageTitle>Edit comment</PageTitle>}
         <StyledCommentForm
           noValidade
           onSubmit={this.handleSubmit}

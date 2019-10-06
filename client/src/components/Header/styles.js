@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   max-width: 1120px;
   height: 5rem;
   margin: 0 auto;
-  padding: 0 0.5rem;
+  padding: 0;
 `
 const Alert = styled.button`
   position: relative;
@@ -90,6 +90,7 @@ const Menu = styled.nav`
   justify-items: center;
   align-items: center;
   grid-gap: 0.25rem;
+  padding: 0 0.5rem;
   & i {
     font-size: 1.25rem;
     @media (min-width: 601px) {
@@ -166,6 +167,7 @@ const MenuButton = styled.div`
 const BurgerButton = styled.button`
   justify-self: right;
   display: block;
+  margin: 0 0.5rem;
   border: none;
   font-size: 1rem;
   text-align: center;
@@ -235,7 +237,7 @@ const Burger = styled.nav`
 const Arrow = styled.div`
   position: absolute;
   top: 4rem;
-  left: 1rem;
+  left: 1.19rem;
   display: ${({ open }) => (open ? 'block' : 'none')};
   width: 1rem;
   height: 1rem;

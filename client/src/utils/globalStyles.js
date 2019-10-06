@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -105,5 +105,18 @@ export const colors = {
     burlywood: 'hsl(35, 60%, 70%)'
   }
 }
+export const PageTitle = styled.h1`
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0 auto;
+  border-left: 0.5rem solid salmon;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: snow;
+  @media (min-width: 601px) {
+    width: calc(100% - 1rem);
+    margin: 0.5rem auto 0 auto;
+  }
+`
 
 export default GlobalStyle

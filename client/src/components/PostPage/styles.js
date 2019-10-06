@@ -10,7 +10,7 @@ const StyledPostPage = styled.section`
   }
 `
 const H2 = styled.h2`
-  margin-top: 0.5rem;
+  margin-top: 0rem;
   padding: 1rem;
   line-height: 1;
   text-align: center;
@@ -18,6 +18,10 @@ const H2 = styled.h2`
   span {
     text-decoration: underline;
     color: ${({ author }) => author};
+  }
+  @media (min-width: 601px) {
+    width: 100%;
+    margin-top: 0.5rem;
   }
 `
 const Sort = styled.div`
