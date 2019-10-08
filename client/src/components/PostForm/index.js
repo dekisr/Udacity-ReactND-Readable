@@ -13,7 +13,7 @@ import {
   removeSpaces,
   socketEmit
 } from '../../utils/helpers'
-import { PageTitle } from './../../utils/globalStyles'
+import { PageTitle } from '../../utils/globalStyles'
 import StyledPostForm from './styles'
 
 const initialState = {

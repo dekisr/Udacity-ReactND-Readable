@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { handleInitialData } from '../../actions/shared'
@@ -108,10 +108,12 @@ class App extends Component {
         <GlobalStyle />
         <ScrollToTop>
           {loadingBar && <Loading />}
-          <Header />
           {loadingData ? (
-            <h1>LOOOADING</h1>
-          ) : (
+            <Loading initialData={true} />
+            ) : (
+              <Fragment>
+
+              <Header />
             <StyledApp>
               <Switch>
                 <Route path="/" exact component={Dashboard} />
@@ -120,7 +122,7 @@ class App extends Component {
                   path="/:category(red|blue|yellow)"
                   exact
                   component={Dashboard}
-                />
+                  />
 
                 <Route path="/post/id/:id" exact component={PostPage} />
                 <Route path="/post/new" exact component={PostForm} />
@@ -129,20 +131,20 @@ class App extends Component {
                   path="/comment/edit/id/:id"
                   exact
                   component={CommentForm}
-                />
+                  />
                 <Route
                   render={() => (
                     <Error message="404:What<?> 🙀 It looks like this page does not exist." />
-                  )}
-                />
+                    )}
+                    />
               </Switch>
               <StyledApp.ToastWrapper show={showToastWrapper}>
                 {toastIds.map((key) => {
                   return (
                     <StyledApp.Toast
-                      key={key}
-                      isVisible={toast[key].isVisible}
-                      alertType={toast[key].alertType}
+                    key={key}
+                    isVisible={toast[key].isVisible}
+                    alertType={toast[key].alertType}
                     >
                       <p>{toast[key].message}</p>
                     </StyledApp.Toast>
@@ -150,6 +152,7 @@ class App extends Component {
                 })}
               </StyledApp.ToastWrapper>
             </StyledApp>
+          </Fragment>
           )}
         </ScrollToTop>
       </BrowserRouter>

@@ -7,8 +7,8 @@ import { handleAddComment, handleEditComment } from '../../actions/comments'
 import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import { handleToast } from '../../actions/toast'
 import Error from '../Error'
-import { trimReplace, removeSpaces, socketEmit } from './../../utils/helpers'
-import { PageTitle } from './../../utils/globalStyles'
+import { trimReplace, removeSpaces, socketEmit } from '../../utils/helpers'
+import { PageTitle } from '../../utils/globalStyles'
 import StyledCommentForm from './styles'
 
 class CommentForm extends Component {
