@@ -8,6 +8,7 @@ import { handleToast } from '../../actions/toast'
 import { updateSessionLog, setNewStatus } from '../../actions/sessionLog'
 import Loading from '../Loading'
 import Header from '../Header'
+import Footer from '../Footer'
 import Dashboard from '../Dashboard'
 import PostPage from '../PostPage'
 import PostForm from '../PostForm'
@@ -110,49 +111,49 @@ class App extends Component {
           {loadingBar && <Loading />}
           {loadingData ? (
             <Loading initialData={true} />
-            ) : (
-              <Fragment>
-
+          ) : (
+            <Fragment>
               <Header />
-            <StyledApp>
-              <Switch>
-                <Route path="/" exact component={Dashboard} />
+              <StyledApp>
+                <Switch>
+                  <Route path="/" exact component={Dashboard} />
 
-                <Route
-                  path="/:category(red|blue|yellow)"
-                  exact
-                  component={Dashboard}
+                  <Route
+                    path="/:category(red|blue|yellow)"
+                    exact
+                    component={Dashboard}
                   />
 
-                <Route path="/post/id/:id" exact component={PostPage} />
-                <Route path="/post/new" exact component={PostForm} />
-                <Route path="/post/edit/id/:id" exact component={PostForm} />
-                <Route
-                  path="/comment/edit/id/:id"
-                  exact
-                  component={CommentForm}
+                  <Route path="/post/id/:id" exact component={PostPage} />
+                  <Route path="/post/new" exact component={PostForm} />
+                  <Route path="/post/edit/id/:id" exact component={PostForm} />
+                  <Route
+                    path="/comment/edit/id/:id"
+                    exact
+                    component={CommentForm}
                   />
-                <Route
-                  render={() => (
-                    <Error message="404:What<?> 🙀 It looks like this page does not exist." />
+                  <Route
+                    render={() => (
+                      <Error message="404:What<?> 🙀 It looks like this page does not exist." />
                     )}
-                    />
-              </Switch>
-              <StyledApp.ToastWrapper show={showToastWrapper}>
-                {toastIds.map((key) => {
-                  return (
-                    <StyledApp.Toast
-                    key={key}
-                    isVisible={toast[key].isVisible}
-                    alertType={toast[key].alertType}
-                    >
-                      <p>{toast[key].message}</p>
-                    </StyledApp.Toast>
-                  )
-                })}
-              </StyledApp.ToastWrapper>
-            </StyledApp>
-          </Fragment>
+                  />
+                </Switch>
+                <StyledApp.ToastWrapper show={showToastWrapper}>
+                  {toastIds.map((key) => {
+                    return (
+                      <StyledApp.Toast
+                        key={key}
+                        isVisible={toast[key].isVisible}
+                        alertType={toast[key].alertType}
+                      >
+                        <p>{toast[key].message}</p>
+                      </StyledApp.Toast>
+                    )
+                  })}
+                </StyledApp.ToastWrapper>
+              </StyledApp>
+              <Footer />
+            </Fragment>
           )}
         </ScrollToTop>
       </BrowserRouter>
