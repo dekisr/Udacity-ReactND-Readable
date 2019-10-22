@@ -237,7 +237,8 @@ const Burger = styled.nav`
 const Arrow = styled.div`
   position: absolute;
   top: 4rem;
-  left: 1.19rem;
+  left: 0.8rem;
+  z-index: 127;
   display: ${({ open }) => (open ? 'block' : 'none')};
   width: 1rem;
   height: 1rem;
@@ -247,7 +248,8 @@ const Arrow = styled.div`
 const Log = styled.div`
   position: absolute;
   top: 4.5rem;
-  left: 0.5rem;
+  left: 0.3rem;
+  z-index: 126;
   display: ${({ open }) => (open ? 'block' : 'none')};
   grid-template-columns: 1fr;
   min-width: 250px;
@@ -255,7 +257,7 @@ const Log = styled.div`
   max-height: 40vh;
   margin: 0 auto;
   overflow-y: auto;
-  box-shadow: 0.1rem 0.3rem 0.2rem hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 0%, 0.3);
   background-color: snow;
   &::-webkit-scrollbar {
     width: 0.5rem;

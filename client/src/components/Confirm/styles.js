@@ -7,7 +7,7 @@ const StyledConfirm = styled.section`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: ${({ resetData }) => (resetData ? '127' : '124')};
+  z-index: ${({ resetData }) => (resetData ? '129' : '124')};
   display: ${({ show }) => (show ? 'grid' : 'none')};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
