@@ -4,10 +4,10 @@ import { receiveComments, resetComments } from './comments'
 import { setCurrentUser } from './currentUser'
 import { isLoadingData } from './loading'
 import { getInitialData, resetInitialData } from '../utils/DataAPI'
-import { getRandomUser } from '../utils/helpers'
+import { getRandomUser, getUser } from '../utils/helpers'
 
 
-const userName = localStorage.getItem('userName') || getRandomUser()
+const userName = getUser() || getRandomUser()
 export const handleInitialData = () => (dispatch) => {
   dispatch(isLoadingData(true))
   return getInitialData()

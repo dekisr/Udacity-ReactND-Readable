@@ -103,7 +103,24 @@ export const emphasisHTML = (string) => {
 // USERS
 export const getRandomUser = () => {
   const userName = users[Math.floor(Math.random() * users.length)]
-  localStorage.setItem('userName', userName)
+  try {
+    localStorage.setItem('userName', userName)
+  } catch (error) {
+    console.group('Error')
+      const { msg, style } = errorMessage(error)
+      console.error(msg, style)
+      console.warn(`Check your browser settings. It's not allowing to access the localStorage.`)
+    console.groupEnd()
+  }
+  return userName
+}
+export const getUser = () => {
+  let userName
+  try {
+    userName = localStorage.getItem('userName')
+  } catch (error) {
+    userName = null
+  }
   return userName
 }
 
