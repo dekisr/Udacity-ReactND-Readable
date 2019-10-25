@@ -61,12 +61,22 @@ const VoteScore = styled.div`
   }
 `
 const Body = styled.p`
+  height: auto;
+  max-height: 20rem;
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: left;
   word-break: break-all;
   white-space: pre-line;
   color: ${colors.brown.three};
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: snow;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.brown.five};
+  }
+  scrollbar-color: ${colors.brown.five} snow;
   @media (min-width: 601px) {
     font-size: 1.125rem;
   }

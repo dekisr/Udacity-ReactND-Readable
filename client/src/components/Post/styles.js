@@ -75,18 +75,25 @@ const Content = styled.div`
 `
 const Body = styled.p`
   position: relative;
-  /* ${({ dashboard }) =>
+  ${({ dashboard }) =>
     dashboard
       ? 'height: 8rem; overflow-y: hidden;'
-      : 'height: auto; overflow-y:visible;'} */
-
-  min-height: 8rem;
+      : 'height: auto; overflow-y: scroll;'}
+  max-height: 35rem;
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: left;
   word-break: break-all;
   white-space: pre-line;
   color: ${colors.brown.three};
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: snow;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.brown.five};
+  }
+  scrollbar-color: ${colors.brown.five} snow;
   @media (min-width: 601px) {
     font-size: 1.125rem;
   }
