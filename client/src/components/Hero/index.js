@@ -18,7 +18,7 @@ class Hero extends Component {
           sortBy={sortBy}
           aria-label="Options"
         >
-          <div>
+          <div aria-label="Category Selection">
             <select onChange={this.handleChange} value={category}>
               <option value="">All</option>
               <option value="blue">Blue</option>

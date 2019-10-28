@@ -11,7 +11,10 @@ const StyledHero = styled.section`
   justify-items: left;
   align-items: center;
   width: 100%;
-  padding: 1rem 0.5rem;
+  padding-top: 1rem;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
   background-image: url(${mainBg});
   background-repeat: no-repeat;
   background-size: contain;
@@ -20,7 +23,9 @@ const StyledHero = styled.section`
     width: 8rem;
     height: auto;
     margin-right: auto;
-    transform: rotate(-20deg);
+    margin-bottom: 1rem;
+    margin-left: auto;
+    /* transform: rotate(-20deg); */
     filter: ${({ category }) =>
       category === 'blue'
         ? `drop-shadow(0.1rem 0rem 0rem ${colors.blue.threea})
@@ -42,13 +47,22 @@ const StyledHero = styled.section`
       drop-shadow(-0.2rem 0rem 0rem ${colors.red.threea})
       drop-shadow(0rem 0.2rem 0.3rem ${colors.yellow.threea}) hue-rotate(0deg)`};
     transition: filter 1s ease;
+    @media (min-width: 411px) {
+      margin-bottom: 0;
+      margin-left: 0;
+    }
     @media (min-width: 601px) {
-      display: block;
       width: 12rem;
     }
   }
   @media (min-width: 411px) {
     grid-template-columns: 1fr auto;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+  }
+  @media (min-width: 601px) {
+    padding-right: 0.5rem;
   }
   /* @media (min-width: 601px) {
     width: calc(100% - 1rem);
@@ -109,9 +123,6 @@ const Options = styled.div`
     @media (min-width: 601px) {
       font-size: 1.125rem;
     }
-  }
-  & select option {
-    size: 100px;
   }
   & span {
     justify-self: right;
