@@ -154,6 +154,9 @@ class Header extends Component {
                 to="/"
                 exact
                 activeClassName="routerActive"
+                role="button"
+                tabIndex="0"
+                aria-label="Home"
               >
                 <i>home</i>
                 <span>Home</span>
@@ -182,6 +185,9 @@ class Header extends Component {
                 to="/post/new"
                 special="true"
                 activeClassName="routerActive"
+                role="button"
+                tabIndex="0"
+                aria-label="New Post"
               >
                 <i>post_add</i>
                 <span>New post</span>
