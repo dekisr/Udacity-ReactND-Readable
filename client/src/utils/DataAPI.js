@@ -1,5 +1,10 @@
 import { logError, toObject } from './helpers'
 
+// const api =
+//   process.env.NODE_ENV === 'production'
+//     ? 'http://us-central1-udacity-reactnd.cloudfunctions.net/app'
+//     : 'http://localhost:3001'
+
 const api = 'http://localhost:3001'
 
 const headers = {
