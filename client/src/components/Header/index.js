@@ -244,7 +244,7 @@ class Header extends Component {
                 </li>
                 {sessionLog.messages.map((item) => {
                   return (
-                    <li>
+                    <li key={item.timestamp}>
                       {formatToTime(item.timestamp)} - {item.message}
                       <span>{item.user}</span>.
                     </li>

@@ -33,8 +33,8 @@ class PostPage extends Component {
               <StyledPostPage.H2>
                 Comments ({commentsIds.length})
               </StyledPostPage.H2>
-              <StyledPostPage.Sort>
-                <span>sort: </span>
+              <StyledPostPage.Sort sortBy={sortBy}>
+                <span>sort by: </span>
                 <button onClick={() => this.sortComments('timestamp')}>
                   date
                 </button>
