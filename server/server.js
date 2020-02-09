@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
 app.use((req, res, next) => {
   const token = req.get('Authorization')
 
-  if (token) {
+  if (token === 'Charizard') {
     req.token = token
     next()
   } else {

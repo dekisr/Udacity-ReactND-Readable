@@ -72,7 +72,7 @@ const TextArea = styled.textarea`
   appearance: none;
   border: 0.0625rem solid ${colors.brown.four};
   border-radius: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.5;
   color: ${colors.brown.three};
   ::placeholder {

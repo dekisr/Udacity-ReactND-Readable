@@ -125,6 +125,7 @@ export const getUser = () => {
 }
 
 // WEBSOCKETS
+// const socket = io('https://reada-test.herokuapp.com/')
 const socket = io('http://localhost:3001')
 export const socketEmit = (message, info) => {
   return socket.emit(message, info)
