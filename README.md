@@ -1,4 +1,4 @@
-![Readable](https://raw.githubusercontent.com/dekisr/readable-test/master/Readable.jpg)
+![Readable](https://raw.githubusercontent.com/dekisr/test-readable/master/Readable.jpg)
 
 # Readable
 
