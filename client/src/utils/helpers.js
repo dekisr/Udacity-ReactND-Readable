@@ -133,7 +133,6 @@ const server =
     : 'http://localhost:3001'
 const socket = io(server)
 
-// const socket = io('http://localhost:3001')
 export const socketEmit = (message, info) => {
   return socket.emit(message, info)
 }
