@@ -107,9 +107,11 @@ export const getRandomUser = () => {
     localStorage.setItem('userName', userName)
   } catch (error) {
     console.group('Error')
-      const { msg, style } = errorMessage(error)
-      console.error(msg, style)
-      console.warn(`Check your browser settings. It's not allowing to access the localStorage.`)
+    const { msg, style } = errorMessage(error)
+    console.error(msg, style)
+    console.warn(
+      `Check your browser settings. It's not allowing to access the localStorage.`
+    )
     console.groupEnd()
   }
   return userName
@@ -125,8 +127,13 @@ export const getUser = () => {
 }
 
 // WEBSOCKETS
-// const socket = io('https://reada-test.herokuapp.com/')
-const socket = io('http://localhost:3001')
+const server =
+  process.env.NODE_ENV === 'production'
+    ? 'https://dekisr-readable.herokuapp.com'
+    : 'http://localhost:3001'
+const socket = io(server)
+
+// const socket = io('http://localhost:3001')
 export const socketEmit = (message, info) => {
   return socket.emit(message, info)
 }

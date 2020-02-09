@@ -2,7 +2,7 @@ import { logError, toObject } from './helpers'
 
 const api =
   process.env.NODE_ENV === 'production'
-    ? 'https://reada-test.herokuapp.com'
+    ? 'https://dekisr-readable.herokuapp.com'
     : 'http://localhost:3001'
 
 const headers = {

@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 })
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   credentials: true
 }
 app.use(express.static('public'))
@@ -59,22 +59,19 @@ app.get('/', (req, res) => {
     Readable Project Server API.
     This is a project for study purposes.
     Find more information at github.com/dekisr
- </pre>
+  </pre>
   `
-
   res.send(help)
 })
 
 app.use((req, res, next) => {
   const token = req.get('Authorization')
-
   if (token === 'Charizard') {
     req.token = token
     next()
   } else {
     res.status(403).send({
-      error:
-        'Please provide an Authorization header to identify yourself.'
+      error: 'Please provide an Authorization header to identify yourself.'
     })
   }
 })
