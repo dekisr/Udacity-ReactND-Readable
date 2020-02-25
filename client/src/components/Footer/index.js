@@ -13,14 +13,8 @@ const Footer = () => {
         {`This project was made just for study purposes. I tried to put all my
         passion to build a bunch of functionalities from scratch. You can find
         more about and all the code at `}
-        <a
-          href="https://github.com/dekisr"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          github.com/dekisr
-        </a>
-        . I'll appreciate any feedback.
+        <a href="https://github.com/dekisr">github.com/dekisr</a>
+        {` I'll appreciate any feedback.`}
       </p>
     </StyledFooter>
   )
