@@ -2,7 +2,7 @@
 
 # 🤖 Readable
 
-## [**_[ Check the live project ]_**](https://dekisr-readable.netlify.com)
+## [**_[ Check the live project ]_**](https://dekisr-readable.netlify.app)
 
 ## About
 **Project Overview:**  
