@@ -129,7 +129,7 @@ export const getUser = () => {
 // WEBSOCKETS
 const server =
   process.env.NODE_ENV === 'production'
-    ? 'https://dekisr-readable.herokuapp.com'
+    ? 'https://dekisr-readable.onrender.com'
     : 'http://localhost:3001'
 const socket = io(server)
 
