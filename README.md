@@ -11,7 +11,7 @@ Besides that, I took the opportunity to create and practice a lot of things. Lik
 
 A bunch of functionalities and other stuffs were made from scratch. Such the _**Toasts**_, _**Text Formatter**_, _**Notifications**_, _**Animations**_, _**Loadings**_, _**Error Handlings**_, _**Custom Users**_, _**All the design / Illustrations**_, _**Helper Functions**_, _**Custom Instant Validations**_  and much more. Trying to keep all of that through correct Redux state, handling all possible errors, using optimistic updates and everything I learned from [Tyler McGinnis](https://tylermcginnis.com) classes. Also updating all the content with the web sockets from socket.io. There is a logger that you can check every action on the browser console. 💪
 
-🚀 The server is hosted on [Heroku](https://www.heroku.com) and the static files on [Netlify](https://www.netlify.com).
+🚀 The server is hosted on [Render](https://www.render.com) and the static files on [Netlify](https://www.netlify.com).
 
 I put all my **passion** to build this project. So I'll appreciate any feedback! 🙏
 

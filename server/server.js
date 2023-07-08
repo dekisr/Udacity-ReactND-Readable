@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 })
 
 const corsOptions = {
-  origin: '*',
+  origin: 'http://test',
   credentials: true
 }
 app.use(express.static('public'))
