@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 })
 
 const corsOptions = {
-  origin: 'http://test',
+  origin: 'https://dekisr-readable.netlify.app',
   credentials: true
 }
 app.use(express.static('public'))
